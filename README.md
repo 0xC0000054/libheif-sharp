@@ -1,5 +1,7 @@
 # libheif-sharp
 
+[![NuGet version](https://img.shields.io/nuget/v/LibHeifSharp.svg?style=flat)](https://www.nuget.org/packages/LibHeifSharp/) [![GitHub license](https://img.shields.io/github/license/0xC0000054/libheif-sharp)](https://github.com/0xC0000054/libheif-sharp/blob/main/LICENSE.md)
+
 libheif-sharp provides .NET bindings for [libheif](https://github.com/strukturag/libheif).   
 It is built against [.NET Standard 1.3](https://docs.microsoft.com/en-us/dotnet/standard/net-standard), and should work on any supported .NET platform that has a libheif shared library.
 
