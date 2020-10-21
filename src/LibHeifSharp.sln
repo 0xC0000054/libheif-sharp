@@ -1,0 +1,36 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30503.244
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LibHeifSharp", "LibHeifSharp.csproj", "{CD3B092C-8EA5-4088-A4E3-9F035BE12FFB}"
+EndProject
+Project("{7CF6DF6D-3B04-46F8-A40B-537D21BCA0B4}") = "LibHeifSharpDocs", "LibHeifSharpDocs\LibHeifSharpDocs.shfbproj", "{AEE3C028-F469-4D8E-9E41-6F35DAFEF624}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{69E08FF7-B8FB-4FE7-BB05-C431FCB5B602}"
+	ProjectSection(SolutionItems) = preProject
+		LibHeifSharp.sln.licenseheader = LibHeifSharp.sln.licenseheader
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{CD3B092C-8EA5-4088-A4E3-9F035BE12FFB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CD3B092C-8EA5-4088-A4E3-9F035BE12FFB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CD3B092C-8EA5-4088-A4E3-9F035BE12FFB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CD3B092C-8EA5-4088-A4E3-9F035BE12FFB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AEE3C028-F469-4D8E-9E41-6F35DAFEF624}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AEE3C028-F469-4D8E-9E41-6F35DAFEF624}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AEE3C028-F469-4D8E-9E41-6F35DAFEF624}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AEE3C028-F469-4D8E-9E41-6F35DAFEF624}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {1BC860A0-B7DD-4790-8F39-721CADAE9231}
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,77 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>netstandard1.3;netstandard2.0;net46</TargetFrameworks>
+    <RootNamespace>LibHeifSharp</RootNamespace>
+    <AssemblyName>LibHeifSharp</AssemblyName>
+    <AssemblyVersion>1.0.0.0</AssemblyVersion>
+    <FileVersion>1.0.0.0</FileVersion>
+    <Version>1.0.0</Version>
+    <PackageLicenseExpression>LGPL-3.0-or-later</PackageLicenseExpression>
+    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+    <Authors>Nicholas Hayes</Authors>
+    <Company>LibHeifSharp contributors</Company>
+    <Copyright>Copyright © 2020 Nicholas Hayes and contributors</Copyright>
+    <PackageTags>libheif heif heic avif</PackageTags>
+    <PackageReleaseNotes></PackageReleaseNotes>
+    <Description>Provides .NET bindings for libheif.
+
+Features:
+
+* Supports decoding
+    * Top-level images
+    * Thumbnails
+    * Depth images
+* Supports encoding
+    *  Top-level images
+    *  Thumbnails
+* Supports reading and writing meta-data
+
+Requirements:
+
+The libheif shared library must be named `libheif` in order for it to be found by P/Invoke.
+If your program or OS uses a different library name, you will need to use SetDllImportResolver to redirect searches for `libheif` to the appropriate library.
+
+The minimum supported libheif version is 1.9.0.</Description>
+    <PackageProjectUrl>https://github.com/0xC0000054/libheif-sharp</PackageProjectUrl>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <DocumentationFile>LibHeifSharp.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DocumentationFile>LibHeifSharp.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="LibHeifSharpDocs\**" />
+    <EmbeddedResource Remove="LibHeifSharpDocs\**" />
+    <None Remove="LibHeifSharpDocs\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="LibHeifSharp.sln.licenseheader" />
+    <None Remove="LibHeifSharp.xml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Properties\Resources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+
+</Project>
