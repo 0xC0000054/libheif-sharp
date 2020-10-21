@@ -391,6 +391,7 @@ namespace LibHeifSharp
 
             // The EXIF data block length should always be > 4 because the first 4 bytes
             // specify the offset to the start of the TIFF header as a big-endian Int32 value.
+            // See ISO/IEC 23008-12:2017 section A.2.1.
             if (exifBlob is null || exifBlob.Length <= 4)
             {
                 return null;
