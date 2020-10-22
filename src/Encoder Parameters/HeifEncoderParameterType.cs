@@ -38,7 +38,7 @@ namespace LibHeifSharp
         Integer,
 
         /// <summary>
-        /// The parameter is a <see cref="HeifIntegerEncoderParameter"/>
+        /// The parameter is a <see cref="HeifStringEncoderParameter"/>
         /// </summary>
         String
     }
