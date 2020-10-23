@@ -163,7 +163,13 @@ namespace LibHeifSharp
         /// </summary>
         /// <param name="parameter">The parameter.</param>
         /// <param name="value">The parameter value.</param>
-        /// <exception cref="ArgumentNullException"><paramref name="parameter"/> is null.</exception>
+        /// <exception cref="ArgumentNullException">
+        /// <paramref name="parameter"/> is null.
+        ///
+        /// -or-
+        ///
+        /// <paramref name="value"/> is null.
+        /// </exception>
         /// <exception cref="HeifException">A LibHeif error occurred.</exception>
         /// <exception cref="ObjectDisposedException">The object has been disposed.</exception>
         public void SetParameter(HeifStringEncoderParameter parameter, string value)
@@ -223,7 +229,13 @@ namespace LibHeifSharp
         /// </summary>
         /// <param name="name">The parameter name.</param>
         /// <param name="value">The parameter value.</param>
-        /// <exception cref="ArgumentNullException"><paramref name="name"/> is null.</exception>
+        /// <exception cref="ArgumentNullException">
+        /// <paramref name="name"/> is null.
+        ///
+        /// -or-
+        ///
+        /// <paramref name="value"/> is null.
+        /// </exception>
         /// <exception cref="HeifException">A LibHeif error occurred.</exception>
         /// <exception cref="ObjectDisposedException">The object has been disposed.</exception>
         public void SetParameter(string name, string value)
