@@ -20,6 +20,7 @@
  * along with libheif-sharp.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+using System.Diagnostics;
 using LibHeifSharp.Interop;
 
 namespace LibHeifSharp
@@ -28,6 +29,7 @@ namespace LibHeifSharp
     /// Represents a LibHeif encoder descriptor.
     /// </summary>
     /// <seealso cref="HeifContext.GetEncoder(HeifEncoderDescriptor)"/>
+    [DebuggerDisplay("{" + nameof(Name) + ",nq}")]
     public sealed class HeifEncoderDescriptor
     {
         /// <summary>
