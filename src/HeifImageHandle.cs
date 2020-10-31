@@ -305,7 +305,7 @@ namespace LibHeifSharp
                 return Array.Empty<HeifItemId>();
             }
 
-            HeifItemId[] ids = new HeifItemId[count];
+            var ids = new HeifItemId[count];
 
             unsafe
             {
@@ -471,7 +471,7 @@ namespace LibHeifSharp
             }
 
 
-            HeifItemId[] ids = new HeifItemId[count];
+            var ids = new HeifItemId[count];
 
             unsafe
             {
@@ -495,7 +495,7 @@ namespace LibHeifSharp
 
                 for (int i = 0; i < ids.Length; i++)
                 {
-                    HeifItemId id = ids[i];
+                    var id = ids[i];
                     var metadataContentType = LibHeifNative.heif_image_handle_get_metadata_content_type(this.imageHandle, id);
 
                     if (contentType.Equals(metadataContentType.GetStringValue(), StringComparison.Ordinal))
@@ -560,7 +560,7 @@ namespace LibHeifSharp
             }
 
 
-            HeifItemId[] ids = new HeifItemId[count];
+            var ids = new HeifItemId[count];
 
             unsafe
             {

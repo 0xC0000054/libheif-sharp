@@ -497,7 +497,7 @@ namespace LibHeifSharp
 
             // LibHeif only has 5 built-in encoders as of version 1.9.0, we use 10 in case more
             // built-in encoders are added in future versions.
-            heif_encoder_descriptor[] nativeEncoderDescriptors = new heif_encoder_descriptor[10];
+            var nativeEncoderDescriptors = new heif_encoder_descriptor[10];
             int returnedEncoderCount;
 
             unsafe
@@ -518,7 +518,7 @@ namespace LibHeifSharp
             }
             else
             {
-                HeifEncoderDescriptor[] encoderDescriptors = new HeifEncoderDescriptor[returnedEncoderCount];
+                var encoderDescriptors = new HeifEncoderDescriptor[returnedEncoderCount];
 
                 for (int i = 0; i < returnedEncoderCount; i++)
                 {
@@ -697,7 +697,7 @@ namespace LibHeifSharp
             }
 
 
-            HeifItemId[] ids = new HeifItemId[count];
+            var ids = new HeifItemId[count];
 
             unsafe
             {
