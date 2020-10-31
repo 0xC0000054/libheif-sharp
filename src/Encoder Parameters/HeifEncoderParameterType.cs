@@ -28,17 +28,17 @@ namespace LibHeifSharp
     public enum HeifEncoderParameterType
     {
         /// <summary>
-        /// The parameter is a <see cref="HeifBooleanEncoderParameter"/>
+        /// The parameter is a <see cref="HeifBooleanEncoderParameter"/>.
         /// </summary>
         Boolean = 0,
 
         /// <summary>
-        /// The parameter is a <see cref="HeifIntegerEncoderParameter"/>
+        /// The parameter is a <see cref="HeifIntegerEncoderParameter"/>.
         /// </summary>
         Integer,
 
         /// <summary>
-        /// The parameter is a <see cref="HeifStringEncoderParameter"/>
+        /// The parameter is a <see cref="HeifStringEncoderParameter"/>.
         /// </summary>
         String
     }
