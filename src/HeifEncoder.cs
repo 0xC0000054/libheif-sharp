@@ -23,7 +23,9 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Globalization;
 using LibHeifSharp.Interop;
+using LibHeifSharp.Properties;
 using LibHeifSharp.ResourceManagement;
 
 namespace LibHeifSharp
@@ -37,6 +39,7 @@ namespace LibHeifSharp
     {
         private SafeHeifEncoder encoder;
         private readonly Lazy<ReadOnlyCollection<IHeifEncoderParameter>> encoderParameterList;
+        private readonly Lazy<IReadOnlyDictionary<string, HeifEncoderParameterType>> encoderParameterTypes;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="HeifEncoder"/> class.
@@ -51,6 +54,7 @@ namespace LibHeifSharp
 
             this.encoder = encoder;
             this.encoderParameterList = new Lazy<ReadOnlyCollection<IHeifEncoderParameter>>(GetEncoderParameterList);
+            this.encoderParameterTypes = new Lazy<IReadOnlyDictionary<string, HeifEncoderParameterType>>(GetEncoderParameterTypes);
         }
 
         /// <summary>
@@ -179,7 +183,7 @@ namespace LibHeifSharp
                 ExceptionUtil.ThrowArgumentNullException(nameof(parameter));
             }
 
-            SetParameter(parameter.Name, value);
+            SetStringParameter(parameter.Name, value, coerceParameterType: false);
         }
 
         /// <summary>
@@ -199,8 +203,7 @@ namespace LibHeifSharp
 
             VerifyNotDisposed();
 
-            var error = LibHeifNative.heif_encoder_set_parameter_boolean(this.encoder, name, value);
-            error.ThrowIfError();
+            SetBooleanParameter(name, value);
         }
 
         /// <summary>
@@ -220,8 +223,7 @@ namespace LibHeifSharp
 
             VerifyNotDisposed();
 
-            var error = LibHeifNative.heif_encoder_set_parameter_integer(this.encoder, name, value);
-            error.ThrowIfError();
+            SetIntegerParameter(name, value);
         }
 
         /// <summary>
@@ -236,24 +238,17 @@ namespace LibHeifSharp
         ///
         /// <paramref name="value"/> is null.
         /// </exception>
-        /// <exception cref="HeifException">A LibHeif error occurred.</exception>
+        /// <exception cref="HeifException">
+        /// A LibHeif error occurred.
+        ///
+        /// -or-
+        ///
+        /// Unable to convert the parameter to the correct type.
+        /// </exception>
         /// <exception cref="ObjectDisposedException">The object has been disposed.</exception>
         public void SetParameter(string name, string value)
         {
-            if (name is null)
-            {
-                ExceptionUtil.ThrowArgumentNullException(nameof(name));
-            }
-
-            if (value is null)
-            {
-                ExceptionUtil.ThrowArgumentNullException(nameof(value));
-            }
-
-            VerifyNotDisposed();
-
-            var error = LibHeifNative.heif_encoder_set_parameter_string(this.encoder, name, value);
-            error.ThrowIfError();
+            SetStringParameter(name, value, coerceParameterType: true);
         }
 
         /// <summary>
@@ -294,6 +289,128 @@ namespace LibHeifSharp
             }
 
             return encoderParameters.AsReadOnly();
+        }
+
+        /// <summary>
+        /// Gets the encoder parameter type dictionary.
+        /// </summary>
+        /// <returns>The encoder parameter type dictionary.</returns>
+        /// <exception cref="HeifException">An error occurred when creating the encoder parameter.</exception>
+        private IReadOnlyDictionary<string, HeifEncoderParameterType> GetEncoderParameterTypes()
+        {
+            var encoderParameterList = this.encoderParameterList.Value;
+
+            var parameterTypes = new Dictionary<string, HeifEncoderParameterType>(encoderParameterList.Count,
+                                                                                  StringComparer.OrdinalIgnoreCase);
+
+            for (int i = 0; i < encoderParameterList.Count; i++)
+            {
+                var parameter = encoderParameterList[i];
+
+                parameterTypes.Add(parameter.Name, parameter.ParameterType);
+            }
+
+            return parameterTypes;
+        }
+
+        /// <summary>
+        /// Sets a Boolean encoder parameter.
+        /// </summary>
+        /// <param name="name">The parameter name.</param>
+        /// <param name="value">The parameter value.</param>
+        /// <exception cref="HeifException">A LibHeif error occurred.</exception>
+        private void SetBooleanParameter(string name, bool value)
+        {
+            var error = LibHeifNative.heif_encoder_set_parameter_boolean(this.encoder, name, value);
+            error.ThrowIfError();
+        }
+
+        /// <summary>
+        /// Sets an integer encoder parameter.
+        /// </summary>
+        /// <param name="name">The parameter name.</param>
+        /// <param name="value">The parameter value.</param>
+        /// <exception cref="HeifException">A LibHeif error occurred.</exception>
+        private void SetIntegerParameter(string name, int value)
+        {
+            var error = LibHeifNative.heif_encoder_set_parameter_integer(this.encoder, name, value);
+            error.ThrowIfError();
+        }
+
+        /// <summary>
+        /// Sets a string encoder parameter.
+        /// </summary>
+        /// <param name="name">The parameter name.</param>
+        /// <param name="value">The parameter value.</param>
+        /// <param name="coerceParameterType">
+        /// <see langword="true"/> if the parameter should be coerced to the correct type; otherwise, <see langword="false"/>.
+        /// </param>
+        /// <exception cref="ArgumentNullException">
+        /// <paramref name="name"/> is null.
+        ///
+        /// -or-
+        ///
+        /// <paramref name="value"/> is null.
+        /// </exception>
+        /// <exception cref="HeifException">
+        /// A LibHeif error occurred.
+        ///
+        /// -or-
+        ///
+        /// Unable to convert the parameter to the correct type.
+        /// </exception>
+        /// <exception cref="ObjectDisposedException">The object has been disposed.</exception>
+        private void SetStringParameter(string name, string value, bool coerceParameterType)
+        {
+            if (name is null)
+            {
+                ExceptionUtil.ThrowArgumentNullException(nameof(name));
+            }
+
+            if (value is null)
+            {
+                ExceptionUtil.ThrowArgumentNullException(nameof(value));
+            }
+
+            VerifyNotDisposed();
+
+            if (coerceParameterType)
+            {
+                if (this.encoderParameterTypes.Value.TryGetValue(name, out var type))
+                {
+                    switch (type)
+                    {
+                        case HeifEncoderParameterType.Boolean:
+                            if (bool.TryParse(value, out bool boolValue))
+                            {
+                                SetBooleanParameter(name, boolValue);
+                            }
+                            else
+                            {
+                                throw new HeifException(Resources.CoerceStringToBooleanFailed);
+                            }
+                            return;
+                        case HeifEncoderParameterType.Integer:
+                            if (int.TryParse(value, NumberStyles.Integer, CultureInfo.InvariantCulture, out int intValue))
+                            {
+                                SetIntegerParameter(name, intValue);
+                            }
+                            else
+                            {
+                                throw new HeifException(Resources.CoerceStringToIntegerFailed);
+                            }
+                            return;
+                        case HeifEncoderParameterType.String:
+                            // The parameter is the correct type.
+                            break;
+                        default:
+                            throw new HeifException($"Unknown { nameof(HeifEncoderParameterType) }: { type }.");
+                    }
+                }
+            }
+
+            var error = LibHeifNative.heif_encoder_set_parameter_string(this.encoder, name, value);
+            error.ThrowIfError();
         }
     }
 }

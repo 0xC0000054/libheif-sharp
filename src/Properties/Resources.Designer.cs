@@ -89,6 +89,24 @@ namespace LibHeifSharp.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Unable to convert the string parameter to a Boolean..
+        /// </summary>
+        internal static string CoerceStringToBooleanFailed {
+            get {
+                return ResourceManager.GetString("CoerceStringToBooleanFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unable to convert the string parameter to an integer..
+        /// </summary>
+        internal static string CoerceStringToIntegerFailed {
+            get {
+                return ResourceManager.GetString("CoerceStringToIntegerFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The color profile type is not supported..
         /// </summary>
         internal static string ColorProfileTypeNotSupported {
