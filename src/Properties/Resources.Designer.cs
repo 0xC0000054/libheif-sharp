@@ -89,20 +89,20 @@ namespace LibHeifSharp.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Unable to convert the string parameter to a Boolean..
+        ///   Looks up a localized string similar to Unable to convert the {0} parameter to a Boolean..
         /// </summary>
-        internal static string CoerceStringToBooleanFailed {
+        internal static string CoerceStringValueToBooleanFailedFormat {
             get {
-                return ResourceManager.GetString("CoerceStringToBooleanFailed", resourceCulture);
+                return ResourceManager.GetString("CoerceStringValueToBooleanFailedFormat", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Unable to convert the string parameter to an integer..
+        ///   Looks up a localized string similar to Unable to convert the {0} parameter to an integer..
         /// </summary>
-        internal static string CoerceStringToIntegerFailed {
+        internal static string CoerceStringValueToIntegerFailedFormat {
             get {
-                return ResourceManager.GetString("CoerceStringToIntegerFailed", resourceCulture);
+                return ResourceManager.GetString("CoerceStringValueToIntegerFailedFormat", resourceCulture);
             }
         }
         

@@ -389,7 +389,9 @@ namespace LibHeifSharp
                             }
                             else
                             {
-                                throw new HeifException(Resources.CoerceStringToBooleanFailed);
+                                throw new HeifException(string.Format(CultureInfo.CurrentCulture,
+                                                                      Resources.CoerceStringValueToBooleanFailedFormat,
+                                                                      nameof(value)));
                             }
                             return;
                         case HeifEncoderParameterType.Integer:
@@ -399,7 +401,9 @@ namespace LibHeifSharp
                             }
                             else
                             {
-                                throw new HeifException(Resources.CoerceStringToIntegerFailed);
+                                throw new HeifException(string.Format(CultureInfo.CurrentCulture,
+                                                                      Resources.CoerceStringValueToIntegerFailedFormat,
+                                                                      nameof(value)));
                             }
                             return;
                         case HeifEncoderParameterType.String:
