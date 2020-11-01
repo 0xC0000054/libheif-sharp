@@ -26,7 +26,7 @@ using System.Runtime.InteropServices;
 
 namespace LibHeifSharp.Interop
 {
-    [DebuggerDisplay("{ErrorCode}")]
+    [DebuggerDisplay("{" + nameof(ErrorCode) + "}")]
     [StructLayout(LayoutKind.Sequential)]
     internal readonly struct heif_error
     {

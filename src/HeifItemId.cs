@@ -28,7 +28,7 @@ namespace LibHeifSharp
     /// <summary>
     /// Represents a LibHeif item id.
     /// </summary>
-    [DebuggerDisplay("{ToString(),nq}")]
+    [DebuggerDisplay("{" + nameof(ToString) + "(),nq}")]
     public struct HeifItemId : IEquatable<HeifItemId>
     {
 #pragma warning disable IDE0044 // Add readonly modifier
