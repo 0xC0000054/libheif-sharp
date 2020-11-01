@@ -7,6 +7,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+* The `SetParameter(string, string)` overload will now try to convert Boolean and integer values to the correct type, an exception will be thrown if the conversion fails.
+* `GetExifMetadata()` will now return `null` if the TIFF header offset is not valid.
+
+### Fixed
+
+* A number of issues with the documentation. 
+
 ## v1.0.0
 
 ### Added
