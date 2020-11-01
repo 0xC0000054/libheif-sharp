@@ -28,14 +28,12 @@ namespace LibHeifSharp.Interop
 {
     [DebuggerDisplay("{ErrorCode}")]
     [StructLayout(LayoutKind.Sequential)]
-    internal struct heif_error
+    internal readonly struct heif_error
     {
-#pragma warning disable IDE0044 // Add readonly modifier
 #pragma warning disable IDE0032 // Use auto property
-        private heif_error_code errorCode;
-        private heif_suberror_code suberrorCode;
-        private IntPtr message;
-#pragma warning restore IDE0044 // Add readonly modifier
+        private readonly heif_error_code errorCode;
+        private readonly heif_suberror_code suberrorCode;
+        private readonly IntPtr message;
 #pragma warning restore IDE0032 // Use auto property
 
         public heif_error(heif_error_code errorCode, heif_suberror_code suberrorCode, IntPtr message)

@@ -28,11 +28,9 @@ using System.Runtime.InteropServices;
 namespace LibHeifSharp.Interop
 {
     [StructLayout(LayoutKind.Sequential)]
-    internal struct OutputStringArray
+    internal readonly struct OutputStringArray
     {
-#pragma warning disable IDE0044 // Add readonly modifier
-        private IntPtr arrayPointer;
-#pragma warning restore IDE0044 // Add readonly modifier
+        private readonly IntPtr arrayPointer;
 
         /// <summary>
         /// Converts the string array to a read-only collection of strings.

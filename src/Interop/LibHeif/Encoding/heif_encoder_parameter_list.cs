@@ -26,7 +26,7 @@ using System.Runtime.InteropServices;
 namespace LibHeifSharp.Interop
 {
     [StructLayout(LayoutKind.Sequential)]
-    internal struct heif_encoder_parameter_list
+    internal readonly struct heif_encoder_parameter_list
     {
         // This structure is a type-safe wrapper for
         // an opaque native structure.

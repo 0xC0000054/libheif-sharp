@@ -26,14 +26,12 @@ using System.Runtime.InteropServices;
 namespace LibHeifSharp.Interop
 {
     [StructLayout(LayoutKind.Sequential)]
-    internal struct heif_encoder_descriptor
+    internal readonly struct heif_encoder_descriptor
     {
         // This structure is a type-safe wrapper for
         // an opaque native structure.
-#pragma warning disable IDE0044 // Add readonly modifier
 #pragma warning disable IDE0051 // Remove unused private members
-        private IntPtr value;
+        private readonly IntPtr value;
 #pragma warning restore IDE0051 // Remove unused private members
-#pragma warning restore IDE0044 // Add readonly modifier
     }
 }

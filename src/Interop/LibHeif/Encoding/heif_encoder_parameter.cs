@@ -26,15 +26,13 @@ using System.Runtime.InteropServices;
 namespace LibHeifSharp.Interop
 {
     [StructLayout(LayoutKind.Sequential)]
-    internal struct heif_encoder_parameter : IEquatable<heif_encoder_parameter>
+    internal readonly struct heif_encoder_parameter : IEquatable<heif_encoder_parameter>
     {
         public static readonly heif_encoder_parameter Null = new heif_encoder_parameter(IntPtr.Zero);
 
         // This structure is a type-safe wrapper for
         // an opaque native structure.
-#pragma warning disable IDE0044 // Add readonly modifier
-        private IntPtr value;
-#pragma warning restore IDE0044 // Add readonly modifier
+        private readonly IntPtr value;
 
         private heif_encoder_parameter(IntPtr value)
         {

@@ -26,13 +26,10 @@ using System.Runtime.InteropServices;
 namespace LibHeifSharp.Interop
 {
     [StructLayout(LayoutKind.Sequential)]
-    internal struct LibHeifOwnedString
+    internal readonly struct LibHeifOwnedString
     {
-#pragma warning disable IDE0044 // Add readonly modifier
         // A pointer to a const char* string that is owned by LibHeif.
-
-        private IntPtr value;
-#pragma warning restore IDE0044 // Add readonly modifier
+        private readonly IntPtr value;
 
         public string GetStringValue()
         {
