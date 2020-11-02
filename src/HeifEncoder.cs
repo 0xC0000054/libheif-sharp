@@ -383,7 +383,7 @@ namespace LibHeifSharp
                     switch (type)
                     {
                         case HeifEncoderParameterType.Boolean:
-                            if (bool.TryParse(value, out bool boolValue))
+                            if (TryConvertStringToBoolean(value, out bool boolValue))
                             {
                                 SetBooleanParameter(name, boolValue);
                             }
@@ -417,6 +417,30 @@ namespace LibHeifSharp
 
             var error = LibHeifNative.heif_encoder_set_parameter_string(this.encoder, name, value);
             error.ThrowIfError();
+        }
+
+        private static bool TryConvertStringToBoolean(string value, out bool result)
+        {
+            if (!string.IsNullOrWhiteSpace(value))
+            {
+                if (bool.TryParse(value, out result))
+                {
+                    return true;
+                }
+                else if (value.Equals("1", StringComparison.Ordinal))
+                {
+                    result = true;
+                    return true;
+                }
+                else if (value.Equals("0", StringComparison.Ordinal))
+                {
+                    result = false;
+                    return true;
+                }
+            }
+
+            result = false;
+            return false;
         }
     }
 }
