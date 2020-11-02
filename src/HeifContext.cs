@@ -286,11 +286,11 @@ namespace LibHeifSharp
         /// <summary>
         /// Encodes the image.
         /// </summary>
-        /// <param name="thumbnail">The image.</param>
+        /// <param name="image">The image.</param>
         /// <param name="encoder">The encoder.</param>
         /// <param name="options">The encoder options.</param>
         /// <exception cref="ArgumentNullException">
-        /// <paramref name="thumbnail"/> is null.
+        /// <paramref name="image"/> is null.
         ///
         /// -or-
         ///
@@ -298,11 +298,11 @@ namespace LibHeifSharp
         /// </exception>
         /// <exception cref="HeifException">A LibHeif error occurred.</exception>
         /// <exception cref="ObjectDisposedException">The object has been disposed.</exception>
-        public void EncodeImage(HeifImage thumbnail, HeifEncoder encoder, HeifEncodingOptions options = null)
+        public void EncodeImage(HeifImage image, HeifEncoder encoder, HeifEncodingOptions options = null)
         {
-            if (thumbnail is null)
+            if (image is null)
             {
-                ExceptionUtil.ThrowArgumentNullException(nameof(thumbnail));
+                ExceptionUtil.ThrowArgumentNullException(nameof(image));
             }
 
             if (encoder is null)
@@ -319,7 +319,7 @@ namespace LibHeifSharp
                 using (var heifEncodingOptions = options.CreateEncodingOptions())
                 {
                     error = LibHeifNative.heif_context_encode_image(this.context,
-                                                                    thumbnail.SafeHeifImage,
+                                                                    image.SafeHeifImage,
                                                                     encoder.SafeHeifEncoder,
                                                                     heifEncodingOptions,
                                                                     IntPtr.Zero);
@@ -328,7 +328,7 @@ namespace LibHeifSharp
             else
             {
                 error = LibHeifNative.heif_context_encode_image(this.context,
-                                                                thumbnail.SafeHeifImage,
+                                                                image.SafeHeifImage,
                                                                 encoder.SafeHeifEncoder,
                                                                 IntPtr.Zero,
                                                                 IntPtr.Zero);
