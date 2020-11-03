@@ -29,7 +29,7 @@ namespace LibHeifSharp
     /// </summary>
     /// <typeparam name="T">The encoder parameter type.</typeparam>
     /// <seealso cref="IHeifEncoderParameter" />
-    [DebuggerDisplay("{" + nameof(Name) +",nq}")]
+    [DebuggerDisplay("{" + nameof(Name) + ",nq}")]
     public abstract class HeifEncoderParameter<T> : IHeifEncoderParameter
     {
         private protected HeifEncoderParameter(string name, bool hasDefault, T defaultValue)

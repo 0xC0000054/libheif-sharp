@@ -65,8 +65,8 @@ namespace LibHeifSharp
         internal unsafe HeifDepthRepresentationInfo(Interop.heif_depth_representation_info* info)
         {
             this.ZNear = info->has_z_near != 0 ? info->z_near : (double?)null;
-            this.ZFar = info->has_z_far != 0 ? info->z_far :  (double?)null;
-            this.DMin = info->has_d_min != 0 ? info->d_min :  (double?)null;
+            this.ZFar = info->has_z_far != 0 ? info->z_far : (double?)null;
+            this.DMin = info->has_d_min != 0 ? info->d_min : (double?)null;
             this.DMax = info->has_d_max != 0 ? info->d_max : (double?)null;
             this.DepthRepresentationType = info->depth_representation_type;
             this.DisparityReferenceView = info->disparity_reference_view;
