@@ -37,8 +37,8 @@ namespace LibHeifSharp
         private const int Failure = 1;
 
         private Stream stream;
-        private Lazy<SafeCoTaskMemHandle> heifReaderHandle;
-        private Lazy<SafeCoTaskMemHandle> heifWriterHandle;
+        private DisposableLazy<SafeCoTaskMemHandle> heifReaderHandle;
+        private DisposableLazy<SafeCoTaskMemHandle> heifWriterHandle;
         private WriterErrors writerErrors;
 
         private readonly bool ownsStream;
@@ -58,8 +58,8 @@ namespace LibHeifSharp
 
             this.stream = stream;
             this.ownsStream = ownsStream;
-            this.heifReaderHandle = new Lazy<SafeCoTaskMemHandle>(CreateHeifReader);
-            this.heifWriterHandle = new Lazy<SafeCoTaskMemHandle>(CreateHeifWriter);
+            this.heifReaderHandle = new DisposableLazy<SafeCoTaskMemHandle>(CreateHeifReader);
+            this.heifWriterHandle = new DisposableLazy<SafeCoTaskMemHandle>(CreateHeifWriter);
             this.streamBuffer = new byte[MaxBufferSize];
             this.getPositionDelegate = GetPosition;
             this.readDelegate = Read;
@@ -107,23 +107,9 @@ namespace LibHeifSharp
                     this.stream = null;
                 }
 
-                if (this.heifReaderHandle.IsValueCreated)
-                {
-                    this.heifReaderHandle.Value.Dispose();
-                    this.heifReaderHandle = null;
-                }
-
-                if (this.heifWriterHandle.IsValueCreated)
-                {
-                    this.heifWriterHandle.Value.Dispose();
-                    this.heifWriterHandle = null;
-                }
-
-                if (this.writerErrors != null)
-                {
-                    this.writerErrors.Dispose();
-                    this.writerErrors = null;
-                }
+                DisposableUtil.Free(ref this.heifReaderHandle);
+                DisposableUtil.Free(ref this.heifWriterHandle);
+                DisposableUtil.Free(ref this.writerErrors);
             }
 
             base.Dispose(disposing);
