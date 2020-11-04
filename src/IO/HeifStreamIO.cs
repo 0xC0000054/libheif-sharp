@@ -279,33 +279,24 @@ namespace LibHeifSharp
 
         private sealed class WriterErrors : Disposable
         {
-            private IntPtr successMessagePtr;
-            private IntPtr writeErrorMessagePtr;
+            private SafeCoTaskMemHandle successMessage;
+            private SafeCoTaskMemHandle writeErrorMessage;
 
             public WriterErrors()
             {
-                this.successMessagePtr = IntPtr.Zero;
-                this.writeErrorMessagePtr = IntPtr.Zero;
+                this.successMessage = null;
+                this.writeErrorMessage = null;
 
                 try
                 {
-                    this.successMessagePtr = Marshal.StringToCoTaskMemAnsi("Success");
-                    this.writeErrorMessagePtr = Marshal.StringToCoTaskMemAnsi("Write error");
+                    this.successMessage = SafeCoTaskMemHandle.FromStringAnsi("Success");
+                    this.writeErrorMessage = SafeCoTaskMemHandle.FromStringAnsi("Write error");
                 }
                 catch (Exception)
                 {
-                    if (this.successMessagePtr != IntPtr.Zero)
-                    {
-                        Marshal.FreeCoTaskMem(this.successMessagePtr);
-                        this.successMessagePtr = IntPtr.Zero;
-                    }
+                    DisposableUtil.Free(ref this.successMessage);
                     throw;
                 }
-            }
-
-            ~WriterErrors()
-            {
-                Dispose(false);
             }
 
             public heif_error Success
@@ -316,7 +307,7 @@ namespace LibHeifSharp
 
                     return new heif_error(heif_error_code.Ok,
                                           heif_suberror_code.Unspecified,
-                                          this.successMessagePtr);
+                                          this.successMessage.DangerousGetHandle());
                 }
             }
 
@@ -328,22 +319,16 @@ namespace LibHeifSharp
 
                     return new heif_error(heif_error_code.Encoding_error,
                                           heif_suberror_code.Cannot_write_output_data,
-                                          this.writeErrorMessagePtr);
+                                          this.writeErrorMessage.DangerousGetHandle());
                 }
             }
 
             protected override void Dispose(bool disposing)
             {
-                if (this.successMessagePtr != IntPtr.Zero)
+                if (disposing)
                 {
-                    Marshal.FreeCoTaskMem(this.successMessagePtr);
-                    this.successMessagePtr = IntPtr.Zero;
-                }
-
-                if (this.writeErrorMessagePtr != IntPtr.Zero)
-                {
-                    Marshal.FreeCoTaskMem(this.writeErrorMessagePtr);
-                    this.writeErrorMessagePtr = IntPtr.Zero;
+                    DisposableUtil.Free(ref this.successMessage);
+                    DisposableUtil.Free(ref this.writeErrorMessage);
                 }
 
                 base.Dispose(disposing);

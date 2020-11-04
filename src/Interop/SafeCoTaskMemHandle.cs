@@ -56,6 +56,30 @@ namespace LibHeifSharp.Interop
             return handle;
         }
 
+        public static SafeCoTaskMemHandle FromStringAnsi(string s)
+        {
+            SafeCoTaskMemHandle handle;
+
+            var memory = IntPtr.Zero;
+            try
+            {
+                memory = Marshal.StringToCoTaskMemAnsi(s);
+
+                handle = new SafeCoTaskMemHandle(memory, true);
+
+                memory = IntPtr.Zero;
+            }
+            finally
+            {
+                if (memory != IntPtr.Zero)
+                {
+                    Marshal.FreeCoTaskMem(memory);
+                }
+            }
+
+            return handle;
+        }
+
         protected override bool ReleaseHandle()
         {
             Marshal.FreeCoTaskMem(this.handle);
