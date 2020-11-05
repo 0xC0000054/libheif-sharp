@@ -65,7 +65,7 @@ namespace LibHeifSharp
         /// </returns>
         public override int GetHashCode()
         {
-            return this.value.GetHashCode();
+            return unchecked(-1584136870 + this.value.GetHashCode());
         }
 
 
