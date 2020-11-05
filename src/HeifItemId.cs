@@ -29,11 +29,9 @@ namespace LibHeifSharp
     /// Represents a LibHeif item id.
     /// </summary>
     [DebuggerDisplay("{" + nameof(ToString) + "(),nq}")]
-    public struct HeifItemId : IEquatable<HeifItemId>
+    public readonly struct HeifItemId : IEquatable<HeifItemId>
     {
-#pragma warning disable IDE0044 // Add readonly modifier
-        private uint value;
-#pragma warning restore IDE0044 // Add readonly modifier
+        private readonly uint value;
 
         /// <summary>
         /// Determines whether the specified <see cref="System.Object" />, is equal to this instance.
