@@ -37,7 +37,6 @@ namespace LibHeifSharp
         /// </summary>
         YCbCr = 0,
 
-
         /// <summary>
         /// The color space is Rgb.
         /// </summary>

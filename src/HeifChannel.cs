@@ -37,18 +37,15 @@ namespace LibHeifSharp
         /// </summary>
         Cb = 1,
 
-
         /// <summary>
         /// The Cr channel in YCbCr.
         /// </summary>
         Cr = 2,
 
-
         /// <summary>
         /// The red channel in RGB and RGBA.
         /// </summary>
         R = 3,
-
 
         /// <summary>
         /// The green channel in RGB and RGBA.

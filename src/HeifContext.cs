@@ -696,7 +696,6 @@ namespace LibHeifSharp
                 ExceptionUtil.ThrowHeifException(Resources.NoTopLevelImages);
             }
 
-
             var ids = new HeifItemId[count];
 
             unsafe

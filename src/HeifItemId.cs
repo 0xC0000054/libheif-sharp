@@ -68,7 +68,6 @@ namespace LibHeifSharp
             return unchecked(-1584136870 + this.value.GetHashCode());
         }
 
-
         /// <summary>
         /// Converts the numeric value of this instance to its equivalent string representation.
         /// </summary>

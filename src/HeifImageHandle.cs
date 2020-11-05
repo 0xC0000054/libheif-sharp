@@ -72,7 +72,6 @@ namespace LibHeifSharp
             }
         }
 
-
         /// <summary>
         /// Gets the image height.
         /// </summary>
@@ -477,7 +476,6 @@ namespace LibHeifSharp
                 return Array.Empty<HeifItemId>();
             }
 
-
             var ids = new HeifItemId[count];
 
             unsafe
@@ -565,7 +563,6 @@ namespace LibHeifSharp
             {
                 return Array.Empty<HeifItemId>();
             }
-
 
             var ids = new HeifItemId[count];
 

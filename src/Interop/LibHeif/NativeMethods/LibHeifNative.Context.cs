@@ -45,11 +45,9 @@ namespace LibHeifSharp.Interop
         [DllImport(DllName, CallingConvention = DllCallingConvention)]
         internal static extern unsafe int heif_context_get_list_of_top_level_image_IDs(SafeHeifContext context, HeifItemId* idArray, int count);
 
-
         [DllImport(DllName, CallingConvention = DllCallingConvention)]
         internal static extern heif_error heif_context_get_primary_image_handle(SafeHeifContext context,
                                                                                 out SafeHeifImageHandle primaryImageHandle);
-
 
         [DllImport(DllName, CallingConvention = DllCallingConvention)]
         internal static extern heif_error heif_context_get_image_handle(SafeHeifContext context,
@@ -116,7 +114,6 @@ namespace LibHeifSharp.Interop
                                                                                    int dataSize,
                                                                                    [MarshalAs(UnmanagedType.LPStr)] string type,
                                                                                    [MarshalAs(UnmanagedType.LPStr)] string contentType);
-
 
         [DllImport(DllName, CallingConvention = DllCallingConvention)]
         internal static extern heif_error heif_context_encode_thumbnail(SafeHeifContext context,

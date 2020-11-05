@@ -59,7 +59,6 @@ namespace LibHeifSharp
             iccProfile.CopyTo(this.iccProfileBytes, 0);
         }
 
-
         /// <summary>
         /// Initializes a new instance of the <see cref="HeifIccColorProfile"/> class.
         /// </summary>

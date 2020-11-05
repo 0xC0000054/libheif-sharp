@@ -130,7 +130,6 @@ namespace LibHeifSharp
         /// </value>
         public int Height { get; }
 
-
         /// <summary>
         /// Gets the image color space.
         /// </summary>

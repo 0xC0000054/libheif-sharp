@@ -50,7 +50,6 @@ namespace LibHeifSharp
         /// </summary>
         Jpeg = 3,
 
-
         /// <summary>
         /// The compression format is AV1.
         /// </summary>

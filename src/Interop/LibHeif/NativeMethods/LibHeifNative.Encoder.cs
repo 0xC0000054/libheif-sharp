@@ -87,7 +87,6 @@ namespace LibHeifSharp.Interop
                                                                                    byte* ptr,
                                                                                    int length);
 
-
         [DllImport(DllName, CallingConvention = DllCallingConvention)]
         [return: MarshalAs(UnmanagedType.Bool)]
         internal static extern bool heif_encoder_has_default(SafeHeifEncoder encoder,

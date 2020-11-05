@@ -44,20 +44,17 @@ namespace LibHeifSharp.Interop
         [DllImport(DllName, CallingConvention = DllCallingConvention)]
         internal static extern void heif_image_release(IntPtr handle);
 
-
         [DllImport(DllName, CallingConvention = DllCallingConvention)]
         internal static extern HeifColorspace heif_image_get_colorspace(SafeHeifImage handle);
 
         [DllImport(DllName, CallingConvention = DllCallingConvention)]
         internal static extern HeifChroma heif_image_get_chroma_format(SafeHeifImage handle);
 
-
         [DllImport(DllName, CallingConvention = DllCallingConvention)]
         internal static extern int heif_image_get_width(SafeHeifImage handle, HeifChannel channel);
 
         [DllImport(DllName, CallingConvention = DllCallingConvention)]
         internal static extern int heif_image_get_height(SafeHeifImage handle, HeifChannel channel);
-
 
         [DllImport(DllName, CallingConvention = DllCallingConvention)]
         internal static extern IntPtr heif_image_get_plane(SafeHeifImage handle, HeifChannel channel, out int planeStride);
@@ -67,7 +64,6 @@ namespace LibHeifSharp.Interop
 
         [DllImport(DllName, CallingConvention = DllCallingConvention)]
         internal static extern int heif_image_get_primary_height(SafeHeifImage handle);
-
 
         [DllImport(DllName, CallingConvention = DllCallingConvention)]
         [return: MarshalAs(UnmanagedType.Bool)]

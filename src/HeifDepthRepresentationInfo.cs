@@ -42,12 +42,10 @@ namespace LibHeifSharp
         /// </summary>
         UniformDisparity = 1,
 
-
         /// <summary>
         /// Uniform Z
         /// </summary>
         UniformZ = 2,
-
 
         /// <summary>
         /// Non-uniform disparity.

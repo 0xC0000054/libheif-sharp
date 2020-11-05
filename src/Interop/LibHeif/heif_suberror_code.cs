@@ -103,15 +103,12 @@ namespace LibHeifSharp.Interop
 
         No_av1C_box = 131,
 
-
-
         // --- Memory_allocation_error ---
 
         // A security limit preventing unreasonable memory allocations was exceeded by the input file.
         // Please check whether the file is valid. If it is, contact us so that we could increase the
         // security limits further.
         Security_limit_exceeded = 1000,
-
 
         // --- Usage_error ---
 
@@ -136,7 +133,6 @@ namespace LibHeifSharp.Interop
         // The value for the given parameter is not in the valid range.
         Invalid_parameter_value = 2006,
 
-
         // --- Unsupported_feature ---
 
         // Image was coded with an unsupported compression method.
@@ -152,11 +148,9 @@ namespace LibHeifSharp.Interop
 
         Unsupported_item_construction_method = 3004,
 
-
         // --- Encoder_plugin_error ---
 
         Unsupported_bit_depth = 4000,
-
 
         // --- Encoding_error ---
 
