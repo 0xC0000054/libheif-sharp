@@ -145,5 +145,7 @@ namespace LibHeifSharp.Interop
                                                                    heif_encoder_descriptor descriptor,
                                                                    out SafeHeifEncoder encoder);
 
+        [DllImport(DllName, CallingConvention = DllCallingConvention)]
+        internal static extern void set_maximum_image_size_limit(SafeHeifContext context, int maxImageSizeLimit);
     }
 }

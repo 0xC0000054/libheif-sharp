@@ -787,6 +787,28 @@ namespace LibHeifSharp
         }
 
         /// <summary>
+        /// Sets the maximum image size limit.
+        /// </summary>
+        /// <param name="maxImageSizeLimit">The maximum image size limit.</param>
+        /// <exception cref="ArgumentOutOfRangeException"><paramref name="maxImageSizeLimit"/> is less than or equal to zero.</exception>
+        /// <exception cref="ObjectDisposedException">The object has been disposed.</exception>
+        /// <remarks>
+        /// This method allows callers to limit the maximum image width/height that LibHeif can load.
+        /// The value will replace the default limit that LibHeif uses when loading images in this instance.
+        /// </remarks>
+        public void SetMaximumImageSizeLimit(int maxImageSizeLimit)
+        {
+            if (maxImageSizeLimit <= 0)
+            {
+                ExceptionUtil.ThrowArgumentOutOfRangeException(nameof(maxImageSizeLimit), Resources.ParameterMustBePositive);
+            }
+
+            VerifyNotDisposed();
+
+            LibHeifNative.set_maximum_image_size_limit(this.context, maxImageSizeLimit);
+        }
+
+        /// <summary>
         /// Sets the primary image.
         /// </summary>
         /// <param name="primaryImage">The primary image.</param>
