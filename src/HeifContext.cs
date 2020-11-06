@@ -836,7 +836,6 @@ namespace LibHeifSharp
         /// <exception cref="ArgumentException">
         /// <paramref name="path"/> is empty, contains only whitespace or contains invalid characters.
         /// </exception>
-        /// <exception cref="FileNotFoundException">The file specified by <paramref name="path"/> does not exist.</exception>
         /// <exception cref="HeifException">A LibHeif error occurred.</exception>
         /// <exception cref="IOException">An I/O error occurred.</exception>
         /// <exception cref="InvalidOperationException">This HeifContext already has an associated reader.</exception>
