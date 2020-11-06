@@ -47,11 +47,11 @@ namespace LibHeifSharp
         /// <param name="colorspace">The color space.</param>
         /// <param name="chroma">The chroma.</param>
         /// <exception cref="ArgumentOutOfRangeException">
-        /// <paramref name="width"/> is negative.
+        /// <paramref name="width"/> is less than or equal to zero.
         ///
         /// -or-
         ///
-        /// <paramref name="height"/> is negative.
+        /// <paramref name="height"/> is less than or equal to zero.
         /// </exception>
         /// <exception cref="HeifException">
         /// A LibHeif error occurred.
@@ -62,12 +62,12 @@ namespace LibHeifSharp
         /// </exception>
         public HeifImage(int width, int height, HeifColorspace colorspace, HeifChroma chroma)
         {
-            if (width < 0)
+            if (width <= 0)
             {
                 ExceptionUtil.ThrowArgumentOutOfRangeException(nameof(width), Resources.ParameterMustBePositive);
             }
 
-            if (height < 0)
+            if (height <= 0)
             {
                 ExceptionUtil.ThrowArgumentOutOfRangeException(nameof(height), Resources.ParameterMustBePositive);
             }

@@ -424,7 +424,7 @@ namespace LibHeifSharp
         ///
         /// <paramref name="encoder" /> is null.
         /// </exception>
-        /// <exception cref="ArgumentOutOfRangeException"><paramref name="boundingBoxSize"/> is negative.</exception>
+        /// <exception cref="ArgumentOutOfRangeException"><paramref name="boundingBoxSize"/> is less than or equal to zero.</exception>
         /// <exception cref="HeifException">A LibHeif error occurred.</exception>
         /// <exception cref="ObjectDisposedException">The object has been disposed.</exception>
         public void EncodeThumbnail(int boundingBoxSize,
@@ -433,7 +433,7 @@ namespace LibHeifSharp
                                     HeifEncoder encoder,
                                     HeifEncodingOptions options = null)
         {
-            if (boundingBoxSize < 0)
+            if (boundingBoxSize <= 0)
             {
                 ExceptionUtil.ThrowArgumentOutOfRangeException(nameof(boundingBoxSize), Resources.ParameterMustBePositive);
             }
