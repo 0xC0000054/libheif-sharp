@@ -237,7 +237,15 @@ namespace LibHeifSharp
 
         private heif_reader_grow_status WaitForFileSize(long targetSize, IntPtr userData)
         {
-            return targetSize > this.stream.Length ? heif_reader_grow_status.size_beyond_eof : heif_reader_grow_status.size_reached;
+            try
+            {
+                return targetSize > this.stream.Length ? heif_reader_grow_status.size_beyond_eof : heif_reader_grow_status.size_reached;
+            }
+            catch (Exception ex)
+            {
+                this.CallbackExceptionInfo = ExceptionDispatchInfo.Capture(ex);
+                return heif_reader_grow_status.size_beyond_eof;
+            }
         }
 
         private heif_error Write(IntPtr ctx, IntPtr data, UIntPtr size, IntPtr userData)
