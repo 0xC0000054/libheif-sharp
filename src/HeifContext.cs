@@ -22,7 +22,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.IO;
 using LibHeifSharp.Interop;
 using LibHeifSharp.Properties;
@@ -86,23 +85,8 @@ namespace LibHeifSharp
         /// <exception cref="ObjectDisposedException">The object has been disposed.</exception>
         public void AddExifMetadata(HeifImageHandle imageHandle, byte[] exif)
         {
-            if (imageHandle is null)
-            {
-                ExceptionUtil.ThrowArgumentNullException(nameof(imageHandle));
-            }
-
-            if (exif is null)
-            {
-                ExceptionUtil.ThrowArgumentNullException(nameof(exif));
-            }
-
-            if (exif.Length == 0)
-            {
-                ExceptionUtil.ThrowArgumentException(string.Format(CultureInfo.CurrentCulture,
-                                                                   Resources.ParameterIsEmptyArrayFormat,
-                                                                   nameof(exif)));
-            }
-
+            Validate.IsNotNull(imageHandle, nameof(imageHandle));
+            Validate.IsNotNullOrEmptyArray(exif, nameof(exif));
             VerifyNotDisposed();
 
             unsafe
@@ -181,42 +165,10 @@ namespace LibHeifSharp
         /// <exception cref="ObjectDisposedException">The object has been disposed.</exception>
         public void AddGenericMetadata(HeifImageHandle imageHandle, string type, string contentType, byte[] data)
         {
-            if (imageHandle is null)
-            {
-                ExceptionUtil.ThrowArgumentNullException(nameof(imageHandle));
-            }
-
-            if (type is null)
-            {
-                ExceptionUtil.ThrowArgumentNullException(nameof(type));
-            }
-
-            if (data is null)
-            {
-                ExceptionUtil.ThrowArgumentNullException(nameof(data));
-            }
-
-            if (type.IsEmptyOrWhiteSpace())
-            {
-                ExceptionUtil.ThrowArgumentException(string.Format(CultureInfo.CurrentCulture,
-                                                                   Resources.ParameterStringIsEmptyOrWhitespaceFormat,
-                                                                   nameof(type)));
-            }
-
-            if (contentType != null && contentType.IsEmptyOrWhiteSpace())
-            {
-                ExceptionUtil.ThrowArgumentException(string.Format(CultureInfo.CurrentCulture,
-                                                                   Resources.ParameterStringIsEmptyOrWhitespaceFormat,
-                                                                   nameof(contentType)));
-            }
-
-            if (data.Length == 0)
-            {
-                ExceptionUtil.ThrowArgumentException(string.Format(CultureInfo.CurrentCulture,
-                                                                   Resources.ParameterIsEmptyArrayFormat,
-                                                                   nameof(data)));
-            }
-
+            Validate.IsNotNull(imageHandle, nameof(imageHandle));
+            Validate.IsNotNullOrWhiteSpace(type, nameof(type));
+            Validate.IsNotEmptyOrWhiteSpace(contentType, nameof(contentType));
+            Validate.IsNotNullOrEmptyArray(data, nameof(data));
             VerifyNotDisposed();
 
             unsafe
@@ -251,23 +203,8 @@ namespace LibHeifSharp
         /// <exception cref="ObjectDisposedException">The object has been disposed.</exception>
         public void AddXmpMetadata(HeifImageHandle imageHandle, byte[] xmp)
         {
-            if (imageHandle is null)
-            {
-                ExceptionUtil.ThrowArgumentNullException(nameof(imageHandle));
-            }
-
-            if (xmp is null)
-            {
-                ExceptionUtil.ThrowArgumentNullException(nameof(xmp));
-            }
-
-            if (xmp.Length == 0)
-            {
-                ExceptionUtil.ThrowArgumentException(string.Format(CultureInfo.CurrentCulture,
-                                                                   Resources.ParameterIsEmptyArrayFormat,
-                                                                   nameof(xmp)));
-            }
-
+            Validate.IsNotNull(imageHandle, nameof(imageHandle));
+            Validate.IsNotNullOrEmptyArray(xmp, nameof(xmp));
             VerifyNotDisposed();
 
             unsafe
@@ -300,16 +237,8 @@ namespace LibHeifSharp
         /// <exception cref="ObjectDisposedException">The object has been disposed.</exception>
         public void EncodeImage(HeifImage image, HeifEncoder encoder, HeifEncodingOptions options = null)
         {
-            if (image is null)
-            {
-                ExceptionUtil.ThrowArgumentNullException(nameof(image));
-            }
-
-            if (encoder is null)
-            {
-                ExceptionUtil.ThrowArgumentNullException(nameof(encoder));
-            }
-
+            Validate.IsNotNull(image, nameof(image));
+            Validate.IsNotNull(encoder, nameof(encoder));
             VerifyNotDisposed();
 
             heif_error error;
@@ -354,16 +283,8 @@ namespace LibHeifSharp
         /// <exception cref="ObjectDisposedException">The object has been disposed.</exception>
         public HeifImageHandle EncodeImageAndReturnHandle(HeifImage image, HeifEncoder encoder, HeifEncodingOptions options = null)
         {
-            if (image is null)
-            {
-                ExceptionUtil.ThrowArgumentNullException(nameof(image));
-            }
-
-            if (encoder is null)
-            {
-                ExceptionUtil.ThrowArgumentNullException(nameof(encoder));
-            }
-
+            Validate.IsNotNull(image, nameof(image));
+            Validate.IsNotNull(encoder, nameof(encoder));
             VerifyNotDisposed();
 
             HeifImageHandle imageHandle = null;
@@ -433,26 +354,10 @@ namespace LibHeifSharp
                                     HeifEncoder encoder,
                                     HeifEncodingOptions options = null)
         {
-            if (boundingBoxSize <= 0)
-            {
-                ExceptionUtil.ThrowArgumentOutOfRangeException(nameof(boundingBoxSize), Resources.ParameterMustBePositive);
-            }
-
-            if (thumbnail is null)
-            {
-                ExceptionUtil.ThrowArgumentNullException(nameof(thumbnail));
-            }
-
-            if (parentImageHandle is null)
-            {
-                ExceptionUtil.ThrowArgumentNullException(nameof(parentImageHandle));
-            }
-
-            if (encoder is null)
-            {
-                ExceptionUtil.ThrowArgumentNullException(nameof(encoder));
-            }
-
+            Validate.IsPositive(boundingBoxSize, nameof(boundingBoxSize));
+            Validate.IsNotNull(thumbnail, nameof(thumbnail));
+            Validate.IsNotNull(parentImageHandle, nameof(parentImageHandle));
+            Validate.IsNotNull(encoder, nameof(encoder));
             VerifyNotDisposed();
 
             heif_error error;
@@ -571,11 +476,7 @@ namespace LibHeifSharp
         /// <exception cref="ObjectDisposedException">The object has been disposed.</exception>
         public HeifEncoder GetEncoder(HeifEncoderDescriptor encoderDescriptor)
         {
-            if (encoderDescriptor is null)
-            {
-                ExceptionUtil.ThrowArgumentNullException(nameof(encoderDescriptor));
-            }
-
+            Validate.IsNotNull(encoderDescriptor, nameof(encoderDescriptor));
             VerifyNotDisposed();
 
             HeifEncoder encoder = null;
@@ -734,11 +635,7 @@ namespace LibHeifSharp
         /// </exception>
         public void ReadFromFile(string path)
         {
-            if (path is null)
-            {
-                ExceptionUtil.ThrowArgumentNullException(nameof(path));
-            }
-
+            Validate.IsNotNull(path, nameof(path));
             VerifyNotDisposed();
 
             if (this.readerStreamIO != null)
@@ -765,11 +662,7 @@ namespace LibHeifSharp
         /// <exception cref="ObjectDisposedException">The object has been disposed.</exception>
         public void ReadFromMemory(byte[] bytes)
         {
-            if (bytes is null)
-            {
-                ExceptionUtil.ThrowArgumentNullException(nameof(bytes));
-            }
-
+            Validate.IsNotNull(bytes, nameof(bytes));
             VerifyNotDisposed();
 
             if (this.readerStreamIO != null)
@@ -798,11 +691,7 @@ namespace LibHeifSharp
         /// </remarks>
         public void SetMaximumImageSizeLimit(int maxImageSizeLimit)
         {
-            if (maxImageSizeLimit <= 0)
-            {
-                ExceptionUtil.ThrowArgumentOutOfRangeException(nameof(maxImageSizeLimit), Resources.ParameterMustBePositive);
-            }
-
+            Validate.IsPositive(maxImageSizeLimit, nameof(maxImageSizeLimit));
             VerifyNotDisposed();
 
             LibHeifNative.set_maximum_image_size_limit(this.context, maxImageSizeLimit);
@@ -817,11 +706,7 @@ namespace LibHeifSharp
         /// <exception cref="ObjectDisposedException">The object has been disposed.</exception>
         public void SetPrimaryImage(HeifImageHandle primaryImage)
         {
-            if (primaryImage is null)
-            {
-                ExceptionUtil.ThrowArgumentNullException(nameof(primaryImage));
-            }
-
+            Validate.IsNotNull(primaryImage, nameof(primaryImage));
             VerifyNotDisposed();
 
             var error = LibHeifNative.heif_context_set_primary_image(this.context, primaryImage.SafeHeifImageHandle);
@@ -846,11 +731,7 @@ namespace LibHeifSharp
         /// </exception>
         public void WriteToFile(string path)
         {
-            if (path is null)
-            {
-                ExceptionUtil.ThrowArgumentNullException(nameof(path));
-            }
-
+            Validate.IsNotNull(path, nameof(path));
             VerifyNotDisposed();
 
             using (var writerStreamIO = HeifStreamFactory.CreateFromFile(path, FileMode.Create, FileAccess.Write, FileShare.None))

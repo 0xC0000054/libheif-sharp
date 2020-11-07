@@ -51,10 +51,7 @@ namespace LibHeifSharp
 
         public HeifStreamIO(Stream stream, bool ownsStream = false)
         {
-            if (stream is null)
-            {
-                throw new ArgumentNullException(nameof(stream));
-            }
+            Validate.IsNotNull(stream, nameof(stream));
 
             this.stream = stream;
             this.ownsStream = ownsStream;

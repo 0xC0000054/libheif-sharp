@@ -62,15 +62,8 @@ namespace LibHeifSharp
         /// </exception>
         public HeifImage(int width, int height, HeifColorspace colorspace, HeifChroma chroma)
         {
-            if (width <= 0)
-            {
-                ExceptionUtil.ThrowArgumentOutOfRangeException(nameof(width), Resources.ParameterMustBePositive);
-            }
-
-            if (height <= 0)
-            {
-                ExceptionUtil.ThrowArgumentOutOfRangeException(nameof(height), Resources.ParameterMustBePositive);
-            }
+            Validate.IsPositive(width, nameof(width));
+            Validate.IsPositive(height, nameof(height));
 
             LibHeifVersion.ThrowIfNotSupported();
 
@@ -99,10 +92,7 @@ namespace LibHeifSharp
         /// <param name="imageHandleColorProfile">The image handle color profile.</param>
         internal HeifImage(SafeHeifImage image, int width, int height, HeifColorProfile imageHandleColorProfile)
         {
-            if (image is null)
-            {
-                ExceptionUtil.ThrowArgumentNullException(nameof(image));
-            }
+            Validate.IsNotNull(image, nameof(image));
 
             this.image = image;
             this.cachedImageColorProfile = imageHandleColorProfile;
@@ -183,11 +173,7 @@ namespace LibHeifSharp
             }
             set
             {
-                if (value is null)
-                {
-                    ExceptionUtil.ThrowArgumentNullException(nameof(value));
-                }
-
+                Validate.IsNotNull(value, nameof(value));
                 VerifyNotDisposed();
 
                 if (this.cachedImageColorProfile != value)

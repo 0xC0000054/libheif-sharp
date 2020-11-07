@@ -21,7 +21,6 @@
  */
 
 using System;
-using System.Globalization;
 using LibHeifSharp.Interop;
 using LibHeifSharp.Properties;
 
@@ -43,17 +42,7 @@ namespace LibHeifSharp
         /// <exception cref="ArgumentException"><paramref name="iccProfile"/> is an empty array.</exception>
         public HeifIccColorProfile(byte[] iccProfile) : base(ColorProfileType.Icc)
         {
-            if (iccProfile is null)
-            {
-                ExceptionUtil.ThrowArgumentNullException(nameof(iccProfile));
-            }
-
-            if (iccProfile.Length == 0)
-            {
-                ExceptionUtil.ThrowArgumentException(string.Format(CultureInfo.CurrentCulture,
-                                                                   Resources.ParameterIsEmptyArrayFormat,
-                                                                   nameof(iccProfile)));
-            }
+            Validate.IsNotNullOrEmptyArray(iccProfile, nameof(iccProfile));
 
             this.iccProfileBytes = new byte[iccProfile.Length];
             iccProfile.CopyTo(this.iccProfileBytes, 0);

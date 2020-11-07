@@ -46,10 +46,7 @@ namespace LibHeifSharp
         /// <exception cref="ArgumentNullException"><paramref name="handle"/> is null.</exception>
         internal HeifImageHandle(SafeHeifImageHandle handle, HeifContext.ImageDecodeErrorDelegate decodeErrorHandler = null)
         {
-            if (handle is null)
-            {
-                ExceptionUtil.ThrowArgumentNullException(nameof(handle));
-            }
+            Validate.IsNotNull(handle, nameof(handle));
 
             this.imageHandle = handle;
             this.decodeErrorHandler = decodeErrorHandler;

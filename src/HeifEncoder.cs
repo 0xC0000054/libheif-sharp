@@ -47,10 +47,7 @@ namespace LibHeifSharp
         /// <param name="encoder">The encoder.</param>
         internal HeifEncoder(SafeHeifEncoder encoder)
         {
-            if (encoder is null)
-            {
-                ExceptionUtil.ThrowArgumentNullException(nameof(encoder));
-            }
+            Validate.IsNotNull(encoder, nameof(encoder));
 
             this.encoder = encoder;
             this.encoderParameterList = new Lazy<ReadOnlyCollection<IHeifEncoderParameter>>(GetEncoderParameterList);
@@ -136,10 +133,7 @@ namespace LibHeifSharp
         /// <exception cref="ObjectDisposedException">The object has been disposed.</exception>
         public void SetParameter(HeifBooleanEncoderParameter parameter, bool value)
         {
-            if (parameter is null)
-            {
-                ExceptionUtil.ThrowArgumentNullException(nameof(parameter));
-            }
+            Validate.IsNotNull(parameter, nameof(parameter));
 
             SetParameter(parameter.Name, value);
         }
@@ -154,10 +148,7 @@ namespace LibHeifSharp
         /// <exception cref="ObjectDisposedException">The object has been disposed.</exception>
         public void SetParameter(HeifIntegerEncoderParameter parameter, int value)
         {
-            if (parameter is null)
-            {
-                ExceptionUtil.ThrowArgumentNullException(nameof(parameter));
-            }
+            Validate.IsNotNull(parameter, nameof(parameter));
 
             SetParameter(parameter.Name, value);
         }
@@ -178,10 +169,7 @@ namespace LibHeifSharp
         /// <exception cref="ObjectDisposedException">The object has been disposed.</exception>
         public void SetParameter(HeifStringEncoderParameter parameter, string value)
         {
-            if (parameter is null)
-            {
-                ExceptionUtil.ThrowArgumentNullException(nameof(parameter));
-            }
+            Validate.IsNotNull(parameter, nameof(parameter));
 
             SetStringParameter(parameter.Name, value, coerceParameterType: false);
         }
@@ -196,11 +184,7 @@ namespace LibHeifSharp
         /// <exception cref="ObjectDisposedException">The object has been disposed.</exception>
         public void SetParameter(string name, bool value)
         {
-            if (name is null)
-            {
-                ExceptionUtil.ThrowArgumentNullException(nameof(name));
-            }
-
+            Validate.IsNotNull(name, nameof(name));
             VerifyNotDisposed();
 
             SetBooleanParameter(name, value);
@@ -216,11 +200,7 @@ namespace LibHeifSharp
         /// <exception cref="ObjectDisposedException">The object has been disposed.</exception>
         public void SetParameter(string name, int value)
         {
-            if (name is null)
-            {
-                ExceptionUtil.ThrowArgumentNullException(nameof(name));
-            }
-
+            Validate.IsNotNull(name, nameof(name));
             VerifyNotDisposed();
 
             SetIntegerParameter(name, value);
@@ -362,16 +342,8 @@ namespace LibHeifSharp
         /// <exception cref="ObjectDisposedException">The object has been disposed.</exception>
         private void SetStringParameter(string name, string value, bool coerceParameterType)
         {
-            if (name is null)
-            {
-                ExceptionUtil.ThrowArgumentNullException(nameof(name));
-            }
-
-            if (value is null)
-            {
-                ExceptionUtil.ThrowArgumentNullException(nameof(value));
-            }
-
+            Validate.IsNotNull(name, nameof(name));
+            Validate.IsNotNull(value, nameof(value));
             VerifyNotDisposed();
 
             if (coerceParameterType)
