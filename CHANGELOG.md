@@ -16,6 +16,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * The `SetParameter(string, string)` overload will now try to convert Boolean and integer values to the correct type, an exception will be thrown if the conversion fails.
 * `GetExifMetadata()` will now return `null` if the TIFF header offset is not valid.
 * Mark the `HeifItemId` structure as readonly.
+* `ReadFromMemory` now throws an exception if the array length is zero.
 * The name of the image parameter in the `EncodeImage` method. **(breaking change)**
 
 ### Fixed

@@ -657,12 +657,13 @@ namespace LibHeifSharp
         /// </summary>
         /// <param name="bytes">The byte array.</param>
         /// <exception cref="ArgumentNullException"><paramref name="bytes"/> is null.</exception>
+        /// <exception cref="ArgumentException"><paramref name="bytes"/> is an empty array.</exception>
         /// <exception cref="HeifException">A LibHeif error occurred.</exception>
         /// <exception cref="InvalidOperationException">This HeifContext already has an associated reader.</exception>
         /// <exception cref="ObjectDisposedException">The object has been disposed.</exception>
         public void ReadFromMemory(byte[] bytes)
         {
-            Validate.IsNotNull(bytes, nameof(bytes));
+            Validate.IsNotNullOrEmptyArray(bytes, nameof(bytes));
             VerifyNotDisposed();
 
             if (this.readerStreamIO != null)
