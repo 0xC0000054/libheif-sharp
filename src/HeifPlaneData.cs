@@ -63,10 +63,10 @@ namespace LibHeifSharp
         public int Height { get; }
 
         /// <summary>
-        /// Gets the plane stride.
+        /// Gets the plane stride, the width of a single row of pixels.
         /// </summary>
         /// <value>
-        /// The stride.
+        /// The plane stride, in bytes.
         /// </value>
         public int Stride { get; }
 
