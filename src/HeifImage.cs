@@ -241,6 +241,17 @@ namespace LibHeifSharp
         /// <param name="width">The width.</param>
         /// <param name="height">The height.</param>
         /// <param name="bitDepth">The bit depth.</param>
+        /// <exception cref="ArgumentOutOfRangeException">
+        /// <paramref name="width"/> is less than or equal to zero.
+        ///
+        /// -or-
+        ///
+        /// <paramref name="height"/> is less than or equal to zero.
+        ///
+        /// -or-
+        ///
+        /// <paramref name="bitDepth"/> is less than or equal to zero.
+        /// </exception>
         /// <exception cref="HeifException">A LibHeif error occurred.</exception>
         /// <exception cref="ObjectDisposedException">The object has been disposed.</exception>
         public void AddPlane(HeifChannel channel,
@@ -248,6 +259,9 @@ namespace LibHeifSharp
                              int height,
                              int bitDepth)
         {
+            Validate.IsPositive(width, nameof(width));
+            Validate.IsPositive(height, nameof(height));
+            Validate.IsPositive(bitDepth, nameof(bitDepth));
             VerifyNotDisposed();
 
             var error = LibHeifNative.heif_image_add_plane(this.image,
