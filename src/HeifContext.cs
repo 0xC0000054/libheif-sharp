@@ -724,7 +724,6 @@ namespace LibHeifSharp
         /// </exception>
         /// <exception cref="HeifException">A LibHeif error occurred.</exception>
         /// <exception cref="IOException">An I/O error occurred.</exception>
-        /// <exception cref="InvalidOperationException">This HeifContext already has an associated reader.</exception>
         /// <exception cref="ObjectDisposedException">The object has been disposed.</exception>
         /// <exception cref="System.Security.SecurityException">The caller does not have the required permission.</exception>
         /// <exception cref="UnauthorizedAccessException">
