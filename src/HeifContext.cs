@@ -22,6 +22,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO;
 using LibHeifSharp.Interop;
 using LibHeifSharp.Properties;
@@ -53,13 +54,132 @@ namespace LibHeifSharp
         {
             LibHeifVersion.ThrowIfNotSupported();
 
-            this.context = LibHeifNative.heif_context_alloc();
-            if (this.context.IsInvalid)
+            this.context = CreateNativeContext();
+            this.readerStreamIO = null;
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="HeifContext"/> class, with the specified file to read from.
+        /// </summary>
+        /// <param name="path">The file to read from.</param>
+        /// <exception cref="ArgumentNullException"><paramref name="path"/> is null.</exception>
+        /// <exception cref="ArgumentException">
+        /// <paramref name="path"/> is empty, contains only whitespace or contains invalid characters.
+        /// </exception>
+        /// <exception cref="FileNotFoundException">The file specified by <paramref name="path"/> does not exist.</exception>
+        /// <exception cref="HeifException">
+        /// Unable to create the native HeifContext.
+        ///
+        /// -or-
+        ///
+        /// The LibHeif version is not supported.
+        ///
+        /// -or-
+        ///
+        /// A LibHeif error occurred.
+        /// </exception>
+        /// <exception cref="IOException">An I/O error occurred.</exception>
+        /// <exception cref="System.Security.SecurityException">The caller does not have the required permission.</exception>
+        /// <exception cref="UnauthorizedAccessException">
+        /// The access requested is not permitted by the operating system for the specified path.
+        /// </exception>
+        public HeifContext(string path)
+        {
+            Validate.IsNotNull(path, nameof(path));
+            LibHeifVersion.ThrowIfNotSupported();
+
+            this.context = CreateNativeContext();
+            try
             {
-                ExceptionUtil.ThrowHeifException(Resources.HeifContextCreationFailed);
+                this.readerStreamIO = HeifStreamFactory.CreateFromFile(path, FileMode.Open, FileAccess.Read, FileShare.Read);
+                InitializeContextFromReader();
+            }
+            catch
+            {
+                this.context.Dispose();
+                this.readerStreamIO?.Dispose();
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="HeifContext"/> class, with the specified byte array to read from.
+        /// </summary>
+        /// <param name="bytes">A byte array that contains the HEIF image.</param>
+        /// <exception cref="ArgumentNullException"><paramref name="bytes"/> is null.</exception>
+        /// <exception cref="ArgumentException"><paramref name="bytes"/> is an empty array.</exception>
+        /// <exception cref="HeifException">
+        /// Unable to create the native HeifContext.
+        ///
+        /// -or-
+        ///
+        /// The LibHeif version is not supported.
+        ///
+        /// -or-
+        ///
+        /// A LibHeif error occurred.
+        /// </exception>
+        public HeifContext(byte[] bytes)
+        {
+            Validate.IsNotNullOrEmptyArray(bytes, nameof(bytes));
+            LibHeifVersion.ThrowIfNotSupported();
+
+            this.context = CreateNativeContext();
+            try
+            {
+                this.readerStreamIO = HeifStreamFactory.CreateFromMemory(bytes);
+                InitializeContextFromReader();
+            }
+            catch
+            {
+                this.context.Dispose();
+                this.readerStreamIO?.Dispose();
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="HeifContext"/> class with the specified stream to read from, and optionally leaves the stream open.
+        /// </summary>
+        /// <param name="stream">The stream to read from.</param>
+        /// <param name="leaveOpen">
+        /// <see langword="true"/> to leave the stream open after the <see cref="HeifContext"/> object is disposed; otherwise, <see langword="false"/>.
+        /// </param>
+        /// <exception cref="ArgumentNullException"><paramref name="stream"/> is null.</exception>
+        /// <exception cref="ArgumentException"><paramref name="stream"/> must support reading and seeking.</exception>
+        /// <exception cref="HeifException">
+        /// Unable to create the native HeifContext.
+        ///
+        /// -or-
+        ///
+        /// The LibHeif version is not supported.
+        ///
+        /// -or-
+        ///
+        /// A LibHeif error occurred.
+        /// </exception>
+        public HeifContext(Stream stream, bool leaveOpen = false)
+        {
+            Validate.IsNotNull(stream, nameof(stream));
+            LibHeifVersion.ThrowIfNotSupported();
+
+            if (!stream.CanRead || !stream.CanSeek)
+            {
+                ExceptionUtil.ThrowArgumentException(Resources.StreamCannotReadAndSeek);
             }
 
-            this.readerStreamIO = null;
+            this.context = CreateNativeContext();
+            try
+            {
+                this.readerStreamIO = new HeifStreamIO(stream, !leaveOpen);
+                InitializeContextFromReader();
+            }
+            catch
+            {
+                this.context.Dispose();
+                this.readerStreamIO?.Dispose();
+                throw;
+            }
         }
 
         /// <summary>
@@ -506,9 +626,7 @@ namespace LibHeifSharp
         /// <param name="imageId">The image id.</param>
         /// <returns>The image handle for the specified image id.</returns>
         /// <exception cref="HeifException">A LibHeif error occurred.</exception>
-        /// <exception cref="InvalidOperationException">
-        /// <see cref="ReadFromFile(string)"/> or <see cref="ReadFromMemory(byte[])"/> must be called before this method.
-        /// </exception>
+        /// <exception cref="InvalidOperationException">A reader must be set before calling this method.</exception>
         /// <exception cref="ObjectDisposedException">The object has been disposed.</exception>
         public HeifImageHandle GetImageHandle(HeifItemId imageId)
         {
@@ -541,9 +659,7 @@ namespace LibHeifSharp
         /// </summary>
         /// <returns>The image handle for the primary image.</returns>
         /// <exception cref="HeifException">A LibHeif error occurred.</exception>
-        /// <exception cref="InvalidOperationException">
-        /// <see cref="ReadFromFile(string)"/> or <see cref="ReadFromMemory(byte[])"/> must be called before this method.
-        /// </exception>
+        /// <exception cref="InvalidOperationException">A reader must be set before calling this method.</exception>
         /// <exception cref="ObjectDisposedException">The object has been disposed.</exception>
         public HeifImageHandle GetPrimaryImageHandle()
         {
@@ -581,9 +697,7 @@ namespace LibHeifSharp
         ///
         /// Could not get all of the top-level image ids.
         /// </exception>
-        /// <exception cref="InvalidOperationException">
-        /// <see cref="ReadFromFile(string)"/> or <see cref="ReadFromMemory(byte[])"/> must be called before this method.
-        /// </exception>
+        /// <exception cref="InvalidOperationException">A reader must be set before calling this method.</exception>
         /// <exception cref="ObjectDisposedException">The object has been disposed.</exception>
         public IReadOnlyList<HeifItemId> GetTopLevelImageIds()
         {
@@ -633,6 +747,8 @@ namespace LibHeifSharp
         /// <exception cref="UnauthorizedAccessException">
         /// The access requested is not permitted by the operating system for the specified path.
         /// </exception>
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        [Obsolete("Please use the HeifContext(string) constructor overload instead.")]
         public void ReadFromFile(string path)
         {
             Validate.IsNotNull(path, nameof(path));
@@ -644,12 +760,7 @@ namespace LibHeifSharp
             }
 
             this.readerStreamIO = HeifStreamFactory.CreateFromFile(path, FileMode.Open, FileAccess.Read, FileShare.Read);
-
-            var error = LibHeifNative.heif_context_read_from_reader(this.context,
-                                                                    this.readerStreamIO.ReaderHandle,
-                                                                    IntPtr.Zero,
-                                                                    IntPtr.Zero);
-            HandleFileReadError(error);
+            InitializeContextFromReader();
         }
 
         /// <summary>
@@ -661,6 +772,8 @@ namespace LibHeifSharp
         /// <exception cref="HeifException">A LibHeif error occurred.</exception>
         /// <exception cref="InvalidOperationException">This HeifContext already has an associated reader.</exception>
         /// <exception cref="ObjectDisposedException">The object has been disposed.</exception>
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        [Obsolete("Please use the HeifContext(byte[]) constructor overload instead.")]
         public void ReadFromMemory(byte[] bytes)
         {
             Validate.IsNotNullOrEmptyArray(bytes, nameof(bytes));
@@ -672,12 +785,7 @@ namespace LibHeifSharp
             }
 
             this.readerStreamIO = HeifStreamFactory.CreateFromMemory(bytes);
-
-            var error = LibHeifNative.heif_context_read_from_reader(this.context,
-                                                                    this.readerStreamIO.ReaderHandle,
-                                                                    IntPtr.Zero,
-                                                                    IntPtr.Zero);
-            HandleFileReadError(error);
+            InitializeContextFromReader();
         }
 
         /// <summary>
@@ -759,6 +867,23 @@ namespace LibHeifSharp
         }
 
         /// <summary>
+        /// Creates the native LibHeif context.
+        /// </summary>
+        /// <returns>The native LibHeif context.</returns>
+        /// <exception cref="HeifException">Unable to create the native HeifContext.</exception>
+        private static SafeHeifContext CreateNativeContext()
+        {
+            var context = LibHeifNative.heif_context_alloc();
+
+            if (context.IsInvalid)
+            {
+                ExceptionUtil.ThrowHeifException(Resources.HeifContextCreationFailed);
+            }
+
+            return context;
+        }
+
+        /// <summary>
         /// Ensures that the reader has been set.
         /// </summary>
         /// <exception cref="InvalidOperationException">The reader has not been set.</exception>
@@ -766,7 +891,7 @@ namespace LibHeifSharp
         {
             if (this.readerStreamIO is null)
             {
-                ExceptionUtil.ThrowInvalidOperationException($"{ nameof(ReadFromFile) } or { nameof(ReadFromMemory) } must be called before this method.");
+                ExceptionUtil.ThrowInvalidOperationException(Resources.ReaderNotSet);
             }
         }
 
@@ -801,6 +926,19 @@ namespace LibHeifSharp
         private void HandleFileReadError(in heif_error error)
         {
             HandleFileIOError(this.readerStreamIO, error);
+        }
+
+        /// <summary>
+        /// Initializes the native context from the current reader.
+        /// </summary>
+        /// <exception cref="HeifException">A LibHeif error occurred.</exception>
+        private void InitializeContextFromReader()
+        {
+            var error = LibHeifNative.heif_context_read_from_reader(this.context,
+                                                                    this.readerStreamIO.ReaderHandle,
+                                                                    IntPtr.Zero,
+                                                                    IntPtr.Zero);
+            HandleFileReadError(error);
         }
     }
 }

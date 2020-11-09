@@ -10,6 +10,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 * A `SetMaximumImageSizeLimit` method to the `HeifContext` class.
+* A few `HeifContext` constructor overloads that read the image data.
+  * `HeifContext(string)` replaces the `ReadFromFile` method.
+  * `HeifContext(byte[])` replaces the `ReadFromMemory` method.
+  * `HeifContext(Stream, bool)` reads from a Stream, and optionally leaves the stream open after the HeifContext has been disposed.
 
 ### Changed
 
@@ -18,6 +22,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * Mark the `HeifItemId` structure as readonly.
 * `ReadFromMemory` now throws an exception if the array length is zero.
 * Improved parameter validation for the `AddPlane` method.
+* Mark the `ReadFromFile` and `ReadFromMemory` methods as obsolete.
 * The name of the image parameter in the `EncodeImage` method. **(breaking change)**
 
 ### Fixed

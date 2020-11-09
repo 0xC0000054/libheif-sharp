@@ -251,6 +251,24 @@ namespace LibHeifSharp.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to A reader must be set before calling before this method..
+        /// </summary>
+        internal static string ReaderNotSet {
+            get {
+                return ResourceManager.GetString("ReaderNotSet", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The stream must support reading and seeking..
+        /// </summary>
+        internal static string StreamCannotReadAndSeek {
+            get {
+                return ResourceManager.GetString("StreamCannotReadAndSeek", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to An unspecified error occurred..
         /// </summary>
         internal static string UnspecifiedError {

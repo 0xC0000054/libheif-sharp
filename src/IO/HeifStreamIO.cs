@@ -25,6 +25,7 @@ using System.IO;
 using System.Runtime.ExceptionServices;
 using System.Runtime.InteropServices;
 using LibHeifSharp.Interop;
+using LibHeifSharp.Properties;
 using LibHeifSharp.ResourceManagement;
 
 namespace LibHeifSharp
@@ -121,7 +122,7 @@ namespace LibHeifSharp
         {
             if (!this.stream.CanRead || !this.stream.CanSeek)
             {
-                throw new IOException("The stream must support reading and seeking.");
+                throw new IOException(Resources.StreamCannotReadAndSeek);
             }
 
             // This must be allocated in unmanaged memory because LibHeif keeps a reference

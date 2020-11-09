@@ -185,6 +185,12 @@
     <value>{0} is empty or contains only whitespace characters.</value>
     <comment>{0} is the parameter name.</comment>
   </data>
+  <data name="ReaderNotSet" xml:space="preserve">
+    <value>A reader must be set before calling before this method.</value>
+  </data>
+  <data name="StreamCannotReadAndSeek" xml:space="preserve">
+    <value>The stream must support reading and seeking.</value>
+  </data>
   <data name="UnspecifiedError" xml:space="preserve">
     <value>An unspecified error occurred.</value>
   </data>
