@@ -842,13 +842,33 @@ namespace LibHeifSharp
             Validate.IsNotNull(path, nameof(path));
             VerifyNotDisposed();
 
-            using (var writerStreamIO = HeifStreamFactory.CreateFromFile(path, FileMode.Create, FileAccess.Write, FileShare.None))
+            using (var stream = new FileStream(path, FileMode.Create, FileAccess.Write, FileShare.None))
             {
-                var error = LibHeifNative.heif_context_write(this.context,
-                                                             writerStreamIO.WriterHandle,
-                                                             IntPtr.Zero);
-                HandleFileIOError(writerStreamIO, error);
+                WriteToStreamInternal(stream);
             }
+        }
+
+        /// <summary>
+        /// Writes this instance to the specified stream.
+        /// </summary>
+        /// <param name="stream">The stream.</param>
+        /// <exception cref="ArgumentNullException"><paramref name="stream"/> is null.</exception>
+        /// <exception cref="ArgumentException"><paramref name="stream"/> must support writing.</exception>
+        /// <exception cref="HeifException">A LibHeif error occurred.</exception>
+        /// <exception cref="IOException">An I/O error occurred.</exception>
+        /// <exception cref="ObjectDisposedException">The object has been disposed.</exception>
+        public void WriteToStream(Stream stream)
+        {
+            Validate.IsNotNull(stream, nameof(stream));
+
+            if (!stream.CanWrite)
+            {
+                ExceptionUtil.ThrowArgumentException(Resources.StreamCannotWrite);
+            }
+
+            VerifyNotDisposed();
+
+            WriteToStreamInternal(stream);
         }
 
         /// <summary>
@@ -939,6 +959,22 @@ namespace LibHeifSharp
                                                                     IntPtr.Zero,
                                                                     IntPtr.Zero);
             HandleFileReadError(error);
+        }
+
+        /// <summary>
+        /// Writes the HeifContext to the specified stream.
+        /// </summary>
+        /// <param name="stream">The stream.</param>
+        /// <exception cref="HeifException">A LibHeif error occurred.</exception>
+        private void WriteToStreamInternal(Stream stream)
+        {
+            using (var writerStreamIO = new HeifStreamIO(stream, ownsStream: false))
+            {
+                var error = LibHeifNative.heif_context_write(this.context,
+                                                             writerStreamIO.WriterHandle,
+                                                             IntPtr.Zero);
+                HandleFileIOError(writerStreamIO, error);
+            }
         }
     }
 }

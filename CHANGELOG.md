@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 * A `SetMaximumImageSizeLimit` method to the `HeifContext` class.
+* A `WriteToStream` method to the `HeifContext` class.
 * A few `HeifContext` constructor overloads that read the image data.
   * `HeifContext(string)` replaces the `ReadFromFile` method.
   * `HeifContext(byte[])` replaces the `ReadFromMemory` method.

@@ -191,6 +191,9 @@
   <data name="StreamCannotReadAndSeek" xml:space="preserve">
     <value>The stream must support reading and seeking.</value>
   </data>
+  <data name="StreamCannotWrite" xml:space="preserve">
+    <value>The stream must support writing.</value>
+  </data>
   <data name="UnspecifiedError" xml:space="preserve">
     <value>An unspecified error occurred.</value>
   </data>

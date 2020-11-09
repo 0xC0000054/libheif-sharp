@@ -269,6 +269,15 @@ namespace LibHeifSharp.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The stream must support writing..
+        /// </summary>
+        internal static string StreamCannotWrite {
+            get {
+                return ResourceManager.GetString("StreamCannotWrite", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to An unspecified error occurred..
         /// </summary>
         internal static string UnspecifiedError {

@@ -147,7 +147,7 @@ namespace LibHeifSharp
         {
             if (!this.stream.CanWrite)
             {
-                throw new IOException("The stream must support writing.");
+                throw new IOException(Resources.StreamCannotWrite);
             }
 
             this.writerErrors = new WriterErrors();
