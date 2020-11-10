@@ -92,8 +92,8 @@ namespace LibHeifSharp
         /// <summary>
         /// Sets the encoder lossy quality.
         /// </summary>
-        /// <param name="quality">The quality.</param>
-        /// <exception cref="ArgumentOutOfRangeException">The quality parameter is not in the range of [0, 100] inclusive.</exception>
+        /// <param name="quality">The quality value.</param>
+        /// <exception cref="ArgumentOutOfRangeException"><paramref name="quality"/> must be in the range of [0, 100] inclusive.</exception>
         /// <exception cref="HeifException">A LibHeif error occurred.</exception>
         /// <exception cref="ObjectDisposedException">The object has been disposed.</exception>
         public void SetLossyQuality(int quality)
