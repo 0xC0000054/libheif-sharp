@@ -70,24 +70,7 @@ namespace LibHeifSharp
         /// <exception cref="ArgumentNullException"><paramref name="bytes"/> is null.</exception>
         public static HeifReader CreateFromMemory(byte[] bytes)
         {
-            HeifReader reader;
-
-            MemoryStream memoryStream = null;
-
-            try
-            {
-                memoryStream = new MemoryStream(bytes);
-
-                reader = new HeifStreamReader(memoryStream, ownsStream: true);
-
-                memoryStream = null;
-            }
-            finally
-            {
-                memoryStream?.Dispose();
-            }
-
-            return reader;
+            return new HeifByteArrayReader(bytes);
         }
     }
 }

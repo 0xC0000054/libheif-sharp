@@ -24,6 +24,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * `ReadFromMemory` now throws an exception if the array length is zero.
 * Improved parameter validation for the `AddPlane` method.
 * Mark the `ReadFromFile` and `ReadFromMemory` methods as obsolete.
+* Reduce memory usage when reading a HEIF image from a byte array.
 * The name of the image parameter in the `EncodeImage` method. **(breaking change)**
 
 ### Fixed
