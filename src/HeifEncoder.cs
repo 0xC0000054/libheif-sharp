@@ -112,7 +112,9 @@ namespace LibHeifSharp
         /// <summary>
         /// Sets the lossless compression support.
         /// </summary>
-        /// <param name="lossless"><c>true</c> [lossless].</param>
+        /// <param name="lossless">
+        /// <see langword="true"/> if the encoder should use lossless compression; otherwise, <see langword="false"/>.
+        /// </param>
         /// <exception cref="HeifException">A LibHeif error occurred.</exception>
         /// <exception cref="ObjectDisposedException">The object has been disposed.</exception>
         public void SetLossless(bool lossless)
