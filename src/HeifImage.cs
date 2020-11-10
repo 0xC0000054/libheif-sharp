@@ -372,7 +372,7 @@ namespace LibHeifSharp
         ///
         /// A LibHeif error occurred.
         /// </exception>
-        private unsafe HeifColorProfile GetImageColorProfile()
+        private HeifColorProfile GetImageColorProfile()
         {
             HeifColorProfile profile = null;
 
