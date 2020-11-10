@@ -38,7 +38,7 @@ namespace LibHeifSharp
     public sealed class HeifContext : Disposable
     {
         private SafeHeifContext context;
-        private HeifStreamIO readerStreamIO;
+        private HeifReader reader;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="HeifContext"/> class.
@@ -55,7 +55,7 @@ namespace LibHeifSharp
             LibHeifVersion.ThrowIfNotSupported();
 
             this.context = CreateNativeContext();
-            this.readerStreamIO = null;
+            this.reader = null;
         }
 
         /// <summary>
@@ -91,13 +91,13 @@ namespace LibHeifSharp
             this.context = CreateNativeContext();
             try
             {
-                this.readerStreamIO = HeifStreamFactory.CreateFromFile(path, FileMode.Open, FileAccess.Read, FileShare.Read);
+                this.reader = HeifReaderFactory.CreateFromFile(path);
                 InitializeContextFromReader();
             }
             catch
             {
                 this.context.Dispose();
-                this.readerStreamIO?.Dispose();
+                this.reader?.Dispose();
                 throw;
             }
         }
@@ -127,13 +127,13 @@ namespace LibHeifSharp
             this.context = CreateNativeContext();
             try
             {
-                this.readerStreamIO = HeifStreamFactory.CreateFromMemory(bytes);
+                this.reader = HeifReaderFactory.CreateFromMemory(bytes);
                 InitializeContextFromReader();
             }
             catch
             {
                 this.context.Dispose();
-                this.readerStreamIO?.Dispose();
+                this.reader?.Dispose();
                 throw;
             }
         }
@@ -171,13 +171,13 @@ namespace LibHeifSharp
             this.context = CreateNativeContext();
             try
             {
-                this.readerStreamIO = new HeifStreamIO(stream, !leaveOpen);
+                this.reader = new HeifStreamReader(stream, !leaveOpen);
                 InitializeContextFromReader();
             }
             catch
             {
                 this.context.Dispose();
-                this.readerStreamIO?.Dispose();
+                this.reader?.Dispose();
                 throw;
             }
         }
@@ -754,12 +754,12 @@ namespace LibHeifSharp
             Validate.IsNotNull(path, nameof(path));
             VerifyNotDisposed();
 
-            if (this.readerStreamIO != null)
+            if (this.reader != null)
             {
                 ExceptionUtil.ThrowInvalidOperationException(Resources.HeifContextAlreadyHasReader);
             }
 
-            this.readerStreamIO = HeifStreamFactory.CreateFromFile(path, FileMode.Open, FileAccess.Read, FileShare.Read);
+            this.reader = HeifReaderFactory.CreateFromFile(path);
             InitializeContextFromReader();
         }
 
@@ -779,12 +779,12 @@ namespace LibHeifSharp
             Validate.IsNotNullOrEmptyArray(bytes, nameof(bytes));
             VerifyNotDisposed();
 
-            if (this.readerStreamIO != null)
+            if (this.reader != null)
             {
                 ExceptionUtil.ThrowInvalidOperationException(Resources.HeifContextAlreadyHasReader);
             }
 
-            this.readerStreamIO = HeifStreamFactory.CreateFromMemory(bytes);
+            this.reader = HeifReaderFactory.CreateFromMemory(bytes);
             InitializeContextFromReader();
         }
 
@@ -880,7 +880,7 @@ namespace LibHeifSharp
             if (disposing)
             {
                 DisposableUtil.Free(ref this.context);
-                DisposableUtil.Free(ref this.readerStreamIO);
+                DisposableUtil.Free(ref this.reader);
             }
 
             base.Dispose(disposing);
@@ -909,7 +909,7 @@ namespace LibHeifSharp
         /// <exception cref="InvalidOperationException">The reader has not been set.</exception>
         private void EnsureReaderSet()
         {
-            if (this.readerStreamIO is null)
+            if (this.reader is null)
             {
                 ExceptionUtil.ThrowInvalidOperationException(Resources.ReaderNotSet);
             }
@@ -918,16 +918,16 @@ namespace LibHeifSharp
         /// <summary>
         /// Handles the file IO error.
         /// </summary>
-        /// <param name="streamIO">The stream IO.</param>
+        /// <param name="heifIOError">The IO error.</param>
         /// <param name="error">The error.</param>
         /// <exception cref="HeifException">The exception that is thrown with the error details.</exception>
-        private static void HandleFileIOError(HeifStreamIO streamIO, in heif_error error)
+        private static void HandleFileIOError(IHeifIOError heifIOError, in heif_error error)
         {
             if (error.IsError)
             {
-                if (streamIO != null && streamIO.CallbackExceptionInfo != null)
+                if (heifIOError != null && heifIOError.CallbackExceptionInfo != null)
                 {
-                    var inner = streamIO.CallbackExceptionInfo.SourceException;
+                    var inner = heifIOError.CallbackExceptionInfo.SourceException;
 
                     throw new HeifException(inner.Message, inner);
                 }
@@ -945,7 +945,7 @@ namespace LibHeifSharp
         /// <exception cref="HeifException">The exception that is thrown with the error details.</exception>
         private void HandleFileReadError(in heif_error error)
         {
-            HandleFileIOError(this.readerStreamIO, error);
+            HandleFileIOError(this.reader, error);
         }
 
         /// <summary>
@@ -955,7 +955,7 @@ namespace LibHeifSharp
         private void InitializeContextFromReader()
         {
             var error = LibHeifNative.heif_context_read_from_reader(this.context,
-                                                                    this.readerStreamIO.ReaderHandle,
+                                                                    this.reader.ReaderHandle,
                                                                     IntPtr.Zero,
                                                                     IntPtr.Zero);
             HandleFileReadError(error);
@@ -968,7 +968,7 @@ namespace LibHeifSharp
         /// <exception cref="HeifException">A LibHeif error occurred.</exception>
         private void WriteToStreamInternal(Stream stream)
         {
-            using (var writerStreamIO = new HeifStreamIO(stream, ownsStream: false))
+            using (var writerStreamIO = new HeifStreamWriter(stream, ownsStream: false))
             {
                 var error = LibHeifNative.heif_context_write(this.context,
                                                              writerStreamIO.WriterHandle,

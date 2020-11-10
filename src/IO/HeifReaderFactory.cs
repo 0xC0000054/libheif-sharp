@@ -25,36 +25,32 @@ using System.IO;
 
 namespace LibHeifSharp
 {
-    internal static class HeifStreamFactory
+    internal static class HeifReaderFactory
     {
         /// <summary>
-        /// Creates a <see cref="HeifStreamIO" /> instance from the specified file.
+        /// Creates a <see cref="HeifReader" /> instance from the specified file.
         /// </summary>
         /// <param name="path">The path.</param>
-        /// <param name="fileMode">The file mode.</param>
-        /// <param name="fileAccess">The file access.</param>
-        /// <param name="fileShare">The file share mode.</param>
         /// <returns>
-        /// The created <see cref="HeifStreamIO" /> instance.
+        /// The created <see cref="HeifReader" /> instance.
         /// </returns>
         /// <exception cref="ArgumentNullException"><paramref name="path" /> is null.</exception>
         /// <exception cref="ArgumentException"><paramref name="path" /> is empty, contains only whitespace or contains invalid characters.</exception>
-        /// <exception cref="ArgumentOutOfRangeException"><paramref name="fileMode" /> contains an invalid value.</exception>
         /// <exception cref="FileNotFoundException">The file specified by <paramref name="path" /> does not exist.</exception>
         /// <exception cref="IOException">An I/O error occurred.</exception>
         /// <exception cref="System.Security.SecurityException">The caller does not have the required permission.</exception>
         /// <exception cref="UnauthorizedAccessException">The access requested is not permitted by the operating system for the specified path.</exception>
-        public static HeifStreamIO CreateFromFile(string path, FileMode fileMode, FileAccess fileAccess, FileShare fileShare)
+        public static HeifReader CreateFromFile(string path)
         {
-            HeifStreamIO heifStreamIO;
+            HeifReader reader;
 
             FileStream fileStream = null;
 
             try
             {
-                fileStream = new FileStream(path, fileMode, fileAccess, fileShare);
+                fileStream = new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.Read);
 
-                heifStreamIO = new HeifStreamIO(fileStream, ownsStream: true);
+                reader = new HeifStreamReader(fileStream, ownsStream: true);
 
                 fileStream = null;
             }
@@ -63,18 +59,18 @@ namespace LibHeifSharp
                 fileStream?.Dispose();
             }
 
-            return heifStreamIO;
+            return reader;
         }
 
         /// <summary>
-        /// Creates a <see cref="HeifStreamIO"/> instance from the specified byte array.
+        /// Creates a <see cref="HeifReader"/> instance from the specified byte array.
         /// </summary>
         /// <param name="bytes">The byte array.</param>
-        /// <returns>The created <see cref="HeifStreamIO"/> instance.</returns>
+        /// <returns>The created <see cref="HeifReader"/> instance.</returns>
         /// <exception cref="ArgumentNullException"><paramref name="bytes"/> is null.</exception>
-        public static HeifStreamIO CreateFromMemory(byte[] bytes)
+        public static HeifReader CreateFromMemory(byte[] bytes)
         {
-            HeifStreamIO heifStreamIO;
+            HeifReader reader;
 
             MemoryStream memoryStream = null;
 
@@ -82,7 +78,7 @@ namespace LibHeifSharp
             {
                 memoryStream = new MemoryStream(bytes);
 
-                heifStreamIO = new HeifStreamIO(memoryStream, ownsStream: true);
+                reader = new HeifStreamReader(memoryStream, ownsStream: true);
 
                 memoryStream = null;
             }
@@ -91,7 +87,7 @@ namespace LibHeifSharp
                 memoryStream?.Dispose();
             }
 
-            return heifStreamIO;
+            return reader;
         }
     }
 }
