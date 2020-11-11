@@ -112,7 +112,7 @@ namespace LibHeifSharp
             catch (Exception ex)
             {
                 this.CallbackExceptionInfo = ExceptionDispatchInfo.Capture(ex);
-                return 0;
+                return -1;
             }
         }
 
