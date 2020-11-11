@@ -7,6 +7,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Breaking
+
+* The `thumbnail` parameter in the `EncodeImage` method has been renamed to `image`.
+
+### Deprecated
+
+* The `ReadFromFile` method, use the `HeifContext(string)` constructor overload instead.
+* The `ReadFromMemory` method, use the `HeifContext(byte[])` constructor overload instead.
+
 ### Added
 
 * A `SetMaximumImageSizeLimit` method to the `HeifContext` class.
@@ -23,9 +32,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * Mark the `HeifItemId` structure as readonly.
 * `ReadFromMemory` now throws an exception if the array length is zero.
 * Improved parameter validation for the `AddPlane` method.
-* Mark the `ReadFromFile` and `ReadFromMemory` methods as obsolete.
 * Reduce memory usage when reading a HEIF image from a byte array.
-* The name of the image parameter in the `EncodeImage` method. **(breaking change)**
 
 ### Fixed
 
