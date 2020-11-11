@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## v2.0.0 - 2020-11-11
+
 ### Breaking
 
 * The `thumbnail` parameter in the `EncodeImage` method has been renamed to `image`.
