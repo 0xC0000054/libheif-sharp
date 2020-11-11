@@ -47,6 +47,17 @@ namespace LibHeifSharp
             this.length = buffer.Length;
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="HeifByteArrayReader"/> class.
+        /// </summary>
+        /// <param name="buffer">The buffer.</param>
+        public HeifByteArrayReader(ArraySegment<byte> buffer)
+        {
+            this.buffer = buffer.Array;
+            this.origin = this.position = buffer.Offset;
+            this.length = buffer.Count;
+        }
+
         protected override long GetPositionCore()
         {
             return this.position - this.origin;

@@ -171,7 +171,7 @@ namespace LibHeifSharp
             this.context = CreateNativeContext();
             try
             {
-                this.reader = new HeifStreamReader(stream, !leaveOpen);
+                this.reader = HeifReaderFactory.CreateFromStream(stream, !leaveOpen);
                 InitializeContextFromReader();
             }
             catch

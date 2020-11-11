@@ -72,5 +72,38 @@ namespace LibHeifSharp
         {
             return new HeifByteArrayReader(bytes);
         }
+
+        /// <summary>
+        /// Creates a <see cref="HeifReader"/> instance from the specified stream, and optionally leaves the stream open.
+        /// </summary>
+        /// <param name="stream">The stream.</param>
+        /// <param name="ownsStream"><see langword="true"/> if the writer owns the stream; otherwise, <see langword="false"/>.</param>
+        /// <returns>The created <see cref="HeifReader"/> instance.</returns>
+        /// <exception cref="ArgumentNullException"><paramref name="stream"/> is null.</exception>
+        public static HeifReader CreateFromStream(Stream stream, bool ownsStream)
+        {
+            Validate.IsNotNull(stream, nameof(stream));
+
+            HeifReader reader;
+
+            // If the stream is a MemoryStream with an accessible buffer we can avoid
+            // having to copy data to a temporary buffer when reading from the stream.
+            if (stream is MemoryStream memoryStream && memoryStream.TryGetBuffer(out var buffer))
+            {
+                reader = new HeifByteArrayReader(buffer);
+
+                // The documentation for GetBuffer indicates that the buffer remains valid after the MemoryStream is disposed.
+                if (ownsStream)
+                {
+                    stream.Dispose();
+                }
+            }
+            else
+            {
+                reader = new HeifStreamReader(stream, ownsStream);
+            }
+
+            return reader;
+        }
     }
 }
