@@ -74,7 +74,7 @@ namespace LibHeifSharp
         }
 
         /// <summary>
-        /// Creates a <see cref="HeifReader"/> instance from the specified stream, and optionally leaves the stream open.
+        /// Creates a <see cref="HeifReader"/> instance from the specified stream, and optionally takes ownership of the stream.
         /// </summary>
         /// <param name="stream">The stream.</param>
         /// <param name="ownsStream"><see langword="true"/> if the writer owns the stream; otherwise, <see langword="false"/>.</param>
