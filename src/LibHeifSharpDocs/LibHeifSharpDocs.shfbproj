@@ -14,17 +14,21 @@
     <Name>LibHeifSharpDocs</Name>
     <!-- SHFB properties -->
     <FrameworkVersion>.NET Framework 4.7.2</FrameworkVersion>
-    <OutputPath>.\Help\</OutputPath>
+    <OutputPath>..\..\docs\API\</OutputPath>
     <HtmlHelpName>LibHeifSharpDocs</HtmlHelpName>
     <Language>en-US</Language>
     <TransformComponentArguments>
-      <Argument Key="logoFile" Value="Help.png" xmlns="" />
-      <Argument Key="logoHeight" Value="" xmlns="" />
-      <Argument Key="logoWidth" Value="" xmlns="" />
-      <Argument Key="logoAltText" Value="" xmlns="" />
-      <Argument Key="logoPlacement" Value="left" xmlns="" />
-      <Argument Key="logoAlignment" Value="left" xmlns="" />
-      <Argument Key="maxVersionParts" Value="" xmlns="" />
+      <Argument Key="logoFile" Value="" />
+      <Argument Key="logoHeight" Value="" />
+      <Argument Key="logoWidth" Value="" />
+      <Argument Key="logoAltText" Value="" />
+      <Argument Key="logoPlacement" Value="left" />
+      <Argument Key="logoAlignment" Value="left" />
+      <Argument Key="maxVersionParts" Value="" />
+      <Argument Key="defaultLanguage" Value="cs" />
+      <Argument Key="includeEnumValues" Value="true" />
+      <Argument Key="baseSourceCodeUrl" Value="" />
+      <Argument Key="requestExampleUrl" Value="" />
     </TransformComponentArguments>
     <DocumentationSources>
       <DocumentationSource sourceFile="..\LibHeifSharp.csproj" xmlns="" />
@@ -32,13 +36,13 @@
     <ComponentConfigurations>
       <ComponentConfig id="IntelliSense Component" enabled="True">
         <component id="IntelliSense Component">
-          <output includeNamespaces="false" namespacesFile="Namespaces" folder="{@OutputFolder}" boundedCapacity="100" />
-        </component>
+  <output includeNamespaces="false" namespacesFile="Namespaces" folder="{@OutputFolder}..\..\src\LibHeifSharpDocs\Help" boundedCapacity="100" />
+</component>
       </ComponentConfig>
     </ComponentConfigurations>
     <PlugInConfigurations>
     </PlugInConfigurations>
-    <HelpFileFormat>HtmlHelp1</HelpFileFormat>
+    <HelpFileFormat>Website</HelpFileFormat>
     <SyntaxFilters>Standard</SyntaxFilters>
     <PresentationStyle>VS2013</PresentationStyle>
     <CleanIntermediates>True</CleanIntermediates>
@@ -61,6 +65,16 @@
     <MaximumGroupParts>2</MaximumGroupParts>
     <Preliminary>False</Preliminary>
     <SdkLinkTarget>Blank</SdkLinkTarget>
+    <HtmlSdkLinkType>Msdn</HtmlSdkLinkType>
+    <BinaryTOC>True</BinaryTOC>
+    <IncludeFavorites>False</IncludeFavorites>
+    <WebsiteSdkLinkType>Msdn</WebsiteSdkLinkType>
+    <AppendMarkdownFileExtensionsToUrls>False</AppendMarkdownFileExtensionsToUrls>
+    <WarnOnMissingSourceContext>False</WarnOnMissingSourceContext>
+    <WorkingPath>
+    </WorkingPath>
+    <CopyrightHref>https://github.com/0xC0000054/libheif-sharp</CopyrightHref>
+    <CopyrightText>Copyright &amp;#169%3b 2020 Nicholas Hayes</CopyrightText>
   </PropertyGroup>
   <!-- There are no properties for these groups.  AnyCPU needs to appear in order for Visual Studio to perform
 			 the build.  The others are optional common platform types that may appear. -->
