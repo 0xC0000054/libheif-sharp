@@ -30,8 +30,6 @@ namespace LibHeifSharp.Interop
     {
         // This structure is a type-safe wrapper for
         // an opaque native structure.
-#pragma warning disable IDE0051 // Remove unused private members
         private readonly IntPtr value;
-#pragma warning restore IDE0051 // Remove unused private members
     }
 }
