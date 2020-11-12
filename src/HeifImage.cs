@@ -28,7 +28,7 @@ using LibHeifSharp.ResourceManagement;
 namespace LibHeifSharp
 {
     /// <summary>
-    /// Represents a LinHeif image.
+    /// Represents a LibHeif image.
     /// </summary>
     /// <seealso cref="Disposable"/>
     /// <threadsafety static="true" instance="false"/>
