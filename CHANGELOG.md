@@ -16,6 +16,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Breaking
 
 * The `thumbnail` parameter in the `EncodeImage` method has been renamed to `image`.
+* `ReadFromMemory` now throws an `ArgumentException` if the array length is zero.
+* `AddPlane` now throws an `ArgumentOutOfRangeException` if the `width`, `height` or `bitDepth` parameters are less than or equal to 0.
 
 ### Deprecated
 
@@ -36,8 +38,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * The `SetParameter(string, string)` overload will now try to convert Boolean and integer values to the correct type, an exception will be thrown if the conversion fails.
 * `GetExifMetadata()` will now return `null` if the TIFF header offset is not valid.
 * Mark the `HeifItemId` structure as readonly.
-* `ReadFromMemory` now throws an exception if the array length is zero.
-* Improved parameter validation for the `AddPlane` method.
 * Reduce memory usage when reading a HEIF image from a byte array.
 
 ### Fixed
