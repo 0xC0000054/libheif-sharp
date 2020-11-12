@@ -27,4 +27,4 @@
 
 using System.Diagnostics.CodeAnalysis;
 
-[assembly: SuppressMessage("Style", "IDE1006:Naming Styles", Justification = "Libheif method and type names are lower case.", Scope = "namespaceanddescendants", Target = "LibHeifSharp.Interop")]
+[assembly: SuppressMessage("Style", "IDE1006:Naming Styles", Justification = "Libheif method and type names are lower case.", Scope = "namespaceanddescendants", Target = "~N:LibHeifSharp.Interop")]
