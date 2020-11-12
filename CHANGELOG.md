@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
-* A typo in the `HeifImage` class summary.
+* A few issues with the documentation.
 
 ## v2.0.0 - 2020-11-11
 
