@@ -104,19 +104,18 @@ namespace LibHeifSharp
 
             if (hasDefaultValue)
             {
-                byte[] bytes = new byte[256];
+                const int ByteArrayLength = 256;
 
-                fixed (byte* ptr = bytes)
-                {
-                    // The error value is ignored because some encoders return an error
-                    // when getting the value of a valid command.
-                    _ = LibHeifNative.heif_encoder_get_parameter_string(encoder, name, ptr, bytes.Length);
-                }
+                byte* bytes = stackalloc byte[ByteArrayLength];
 
-                int count = bytes.Length;
+                // The error value is ignored because some encoders return an error
+                // when getting the value of a valid command.
+                _ = LibHeifNative.heif_encoder_get_parameter_string(encoder, name, bytes, ByteArrayLength);
+
+                int count = ByteArrayLength;
 
                 // Look for the NUL terminator at the end of the string.
-                for (int i = 0; i < bytes.Length; i++)
+                for (int i = 0; i < ByteArrayLength; i++)
                 {
                     if (bytes[i] == 0)
                     {
@@ -125,7 +124,7 @@ namespace LibHeifSharp
                     }
                 }
 
-                defaultValue = System.Text.Encoding.ASCII.GetString(bytes, 0, count);
+                defaultValue = System.Text.Encoding.ASCII.GetString(bytes, count);
             }
 
             var error = LibHeifNative.heif_encoder_parameter_get_valid_string_values(nativeParameter, out var stringArray);
