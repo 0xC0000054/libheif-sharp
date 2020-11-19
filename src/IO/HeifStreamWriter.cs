@@ -29,7 +29,7 @@ namespace LibHeifSharp
     internal sealed class HeifStreamWriter : HeifWriter
     {
         // 81920 is the largest multiple of 4096 that is below the large object heap threshold.
-        private const int MaxBufferSize = 81920;
+        private const int MaxWriteBufferSize = 81920;
 
         private Stream stream;
 
@@ -48,7 +48,7 @@ namespace LibHeifSharp
 
             this.stream = stream;
             this.ownsStream = ownsStream;
-            this.streamBuffer = new byte[MaxBufferSize];
+            this.streamBuffer = new byte[MaxWriteBufferSize];
         }
 
         protected override void Dispose(bool disposing)
@@ -75,7 +75,7 @@ namespace LibHeifSharp
 
             while (remaining > 0)
             {
-                int copySize = (int)Math.Min(MaxBufferSize, remaining);
+                int copySize = (int)Math.Min(MaxWriteBufferSize, remaining);
 
                 Marshal.Copy(new IntPtr(data.ToInt64() + offset), this.streamBuffer, 0, copySize);
 
