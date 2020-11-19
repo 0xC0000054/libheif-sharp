@@ -30,7 +30,7 @@ namespace LibHeifSharp
     internal sealed class HeifStreamReader : HeifReader
     {
         // 81920 is the largest multiple of 4096 that is below the large object heap threshold.
-        private const int MaxBufferSize = 81920;
+        private const int MaxReadBufferSize = 81920;
 
         private Stream stream;
 
@@ -49,7 +49,7 @@ namespace LibHeifSharp
 
             this.stream = stream;
             this.ownsStream = ownsStream;
-            this.streamBuffer = new byte[MaxBufferSize];
+            this.streamBuffer = new byte[MaxReadBufferSize];
         }
 
         protected override void Dispose(bool disposing)
@@ -81,7 +81,7 @@ namespace LibHeifSharp
 
             while (remaining > 0)
             {
-                int streamBytesRead = this.stream.Read(this.streamBuffer, 0, (int)Math.Min(MaxBufferSize, remaining));
+                int streamBytesRead = this.stream.Read(this.streamBuffer, 0, (int)Math.Min(MaxReadBufferSize, remaining));
 
                 if (streamBytesRead == 0)
                 {
