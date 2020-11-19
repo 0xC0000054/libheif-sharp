@@ -88,7 +88,9 @@ namespace LibHeifSharp
 
             // If the stream is a MemoryStream with an accessible buffer we can avoid
             // having to copy data to a temporary buffer when reading from the stream.
-            if (stream is MemoryStream memoryStream && memoryStream.TryGetBuffer(out var buffer))
+            // This check excludes types that are derived from MemoryStream because they may invalidate the
+            // underlying buffer when the stream is disposed.
+            if (stream.GetType() == typeof(MemoryStream) && ((MemoryStream)stream).TryGetBuffer(out var buffer))
             {
                 reader = new HeifByteArrayReader(buffer);
 

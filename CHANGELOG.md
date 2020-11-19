@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 
 * A few issues with the documentation.
+* A compatibility issue with some classes that are derived from `MemoryStream`.
 
 ## v2.0.0 - 2020-11-11
 
