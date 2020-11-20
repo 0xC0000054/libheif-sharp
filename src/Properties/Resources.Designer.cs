@@ -116,6 +116,15 @@ namespace LibHeifSharp.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The device does not support seeking..
+        /// </summary>
+        internal static string FileStreamDoesNotSupportSeeking {
+            get {
+                return ResourceManager.GetString("FileStreamDoesNotSupportSeeking", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to This HeifContext already has an associated reader..
         /// </summary>
         internal static string HeifContextAlreadyHasReader {

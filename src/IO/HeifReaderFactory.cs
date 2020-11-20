@@ -50,6 +50,11 @@ namespace LibHeifSharp
             {
                 fileStream = new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.Read);
 
+                if (!fileStream.CanSeek)
+                {
+                    throw new IOException(Properties.Resources.FileStreamDoesNotSupportSeeking);
+                }
+
                 if (fileStream.Length <= HeifStreamReader.MaxReadBufferSize)
                 {
                     byte[] bytes = CopyStreamToByteArray(fileStream);

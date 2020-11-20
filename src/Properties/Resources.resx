@@ -137,6 +137,9 @@
   <data name="ColorProfileTypeNotSupported" xml:space="preserve">
     <value>The color profile type is not supported.</value>
   </data>
+  <data name="FileStreamDoesNotSupportSeeking" xml:space="preserve">
+    <value>The device does not support seeking.</value>
+  </data>
   <data name="HeifContextAlreadyHasReader" xml:space="preserve">
     <value>This HeifContext already has an associated reader.</value>
   </data>
