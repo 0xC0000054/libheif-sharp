@@ -174,11 +174,19 @@ namespace LibHeifSharp
                 this.reader = HeifReaderFactory.CreateFromStream(stream, !leaveOpen);
                 InitializeContextFromReader();
             }
-            catch
+            catch (Exception ex)
             {
                 this.context.Dispose();
                 this.reader?.Dispose();
-                throw;
+
+                if (ex is ArgumentException || ex is HeifException)
+                {
+                    throw;
+                }
+                else
+                {
+                    throw new HeifException(ex.Message, ex);
+                }
             }
         }
 

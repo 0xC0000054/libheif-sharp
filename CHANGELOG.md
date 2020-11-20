@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+* Reduced memory usage when reading small files.
+
 ### Fixed
 
 * A few issues with the documentation.

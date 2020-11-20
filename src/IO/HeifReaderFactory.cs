@@ -50,9 +50,18 @@ namespace LibHeifSharp
             {
                 fileStream = new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.Read);
 
-                reader = new HeifStreamReader(fileStream, ownsStream: true);
+                if (fileStream.Length <= HeifStreamReader.MaxReadBufferSize)
+                {
+                    byte[] bytes = CopyStreamToByteArray(fileStream);
 
-                fileStream = null;
+                    reader = new HeifByteArrayReader(bytes);
+                }
+                else
+                {
+                    reader = new HeifStreamReader(fileStream, ownsStream: true);
+
+                    fileStream = null;
+                }
             }
             finally
             {
@@ -80,6 +89,7 @@ namespace LibHeifSharp
         /// <param name="ownsStream"><see langword="true"/> if the writer owns the stream; otherwise, <see langword="false"/>.</param>
         /// <returns>The created <see cref="HeifReader"/> instance.</returns>
         /// <exception cref="ArgumentNullException"><paramref name="stream"/> is null.</exception>
+        /// <exception cref="IOException">An I/O error occurred.</exception>
         public static HeifReader CreateFromStream(Stream stream, bool ownsStream)
         {
             Validate.IsNotNull(stream, nameof(stream));
@@ -102,10 +112,53 @@ namespace LibHeifSharp
             }
             else
             {
-                reader = new HeifStreamReader(stream, ownsStream);
+                if (stream.Length <= HeifStreamReader.MaxReadBufferSize)
+                {
+                    byte[] bytes = CopyStreamToByteArray(stream);
+
+                    if (ownsStream)
+                    {
+                        stream.Dispose();
+                    }
+
+                    reader = new HeifByteArrayReader(bytes);
+                }
+                else
+                {
+                    reader = new HeifStreamReader(stream, ownsStream);
+                }
             }
 
             return reader;
+        }
+
+        /// <summary>
+        /// Copies the stream to byte array.
+        /// </summary>
+        /// <param name="stream">The stream.</param>
+        /// <returns>A byte array containing the stream data.</returns>
+        /// <exception cref="IOException">An I/O error occurred.</exception>
+        private static byte[] CopyStreamToByteArray(Stream stream)
+        {
+            byte[] buffer = new byte[stream.Length];
+
+            int offset = 0;
+            int remaining = buffer.Length;
+
+            while (remaining > 0)
+            {
+                int bytesRead = stream.Read(buffer, offset, remaining);
+
+                if (bytesRead == 0)
+                {
+                    throw new EndOfStreamException();
+                }
+
+                offset += bytesRead;
+                remaining -= bytesRead;
+            }
+
+            return buffer;
         }
     }
 }
