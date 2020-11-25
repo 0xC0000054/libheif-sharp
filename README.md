@@ -16,6 +16,10 @@ It is built against [.NET Standard 1.3](https://docs.microsoft.com/en-us/dotnet/
     *  Thumbnails
 * Supports reading and writing meta-data
 
+### API Documentation
+
+The API documentation is hosted on GitHub Pages: https://0xc0000054.github.io/libheif-sharp/API/index.html
+
 ### Sample Applications
 
 The [libheif-sharp-samples](https://github.com/0xC0000054/libheif-sharp-samples) repository contains decoder and encoder samples that demonstrate the use of the library.
