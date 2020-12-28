@@ -25,6 +25,7 @@ using System.Runtime.InteropServices;
 
 namespace LibHeifSharp.Interop
 {
+    [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     internal delegate heif_error WriteDelegate(IntPtr ctx, IntPtr data, UIntPtr size, IntPtr userData);
 
     [StructLayout(LayoutKind.Sequential)]
