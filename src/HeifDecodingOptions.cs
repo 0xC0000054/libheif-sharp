@@ -66,20 +66,14 @@ namespace LibHeifSharp
                 ExceptionUtil.ThrowHeifException(Properties.Resources.HeifDecodingOptionsCreationFailed);
             }
 
-            byte version = Marshal.ReadByte(decodingOptions.DangerousGetHandle());
+            var options = (DecodeOptionsVersion1*)decodingOptions.DangerousGetHandle();
+            options->ignore_transformations = (byte)(this.IgnoreTransformations ? 1 : 0);
 
-            if (version >= 2)
+            if (options->version >= 2)
             {
-                var options = (DecodeOptionsVersion2*)decodingOptions.DangerousGetHandle();
+                var optionsVersion2 = (DecodeOptionsVersion2*)decodingOptions.DangerousGetHandle();
 
-                options->ignore_transformations = (byte)(this.IgnoreTransformations ? 1 : 0);
-                options->convert_hdr_to_8bit = (byte)(this.ConvertHdrToEightBit ? 1 : 0);
-            }
-            else
-            {
-                var options = (DecodeOptionsVersion1*)decodingOptions.DangerousGetHandle();
-
-                options->ignore_transformations = (byte)(this.IgnoreTransformations ? 1 : 0);
+                optionsVersion2->convert_hdr_to_8bit = (byte)(this.ConvertHdrToEightBit ? 1 : 0);
             }
 
             return decodingOptions;
