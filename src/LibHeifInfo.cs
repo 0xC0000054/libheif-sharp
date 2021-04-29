@@ -46,11 +46,12 @@ namespace LibHeifSharp
         internal static uint VersionNumber => libheifVersionNumber.Value;
 
         /// <summary>
-        /// Determines whether LibHeif supports the specified decoder.
+        /// Determines whether LibHeif has a decoder for the specified <see cref="HeifCompressionFormat"/>.
         /// </summary>
         /// <param name="format">The compression format.</param>
         /// <returns>
-        /// <see langword="true" /> if LibHeif supports the specified decoder; otherwise, <see langword="false" />.
+        /// <see langword="true" /> if LibHeif has a decoder for the specified <see cref="HeifCompressionFormat"/>;
+        /// otherwise, <see langword="false" />.
         /// </returns>
         public static bool HaveDecoder(HeifCompressionFormat format)
         {
@@ -61,11 +62,12 @@ namespace LibHeifSharp
         }
 
         /// <summary>
-        /// Determines whether LibHeif supports the specified encoder.
+        /// Determines whether LibHeif has an encoder for the specified <see cref="HeifCompressionFormat"/>.
         /// </summary>
         /// <param name="format">The compression format.</param>
         /// <returns>
-        /// <see langword="true" /> if LibHeif supports the specified encoder; otherwise, <see langword="false" />.
+        /// <see langword="true" /> if LibHeif an encoder for the specified <see cref="HeifCompressionFormat"/>;
+        /// otherwise, <see langword="false" />.
         /// </returns>
         public static bool HaveEncoder(HeifCompressionFormat format)
         {
