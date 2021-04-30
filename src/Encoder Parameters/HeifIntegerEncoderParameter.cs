@@ -20,6 +20,9 @@
  * along with libheif-sharp.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+
 namespace LibHeifSharp
 {
     /// <summary>
@@ -37,17 +40,20 @@ namespace LibHeifSharp
         /// <param name="hasMinimumMaximum"><see langword="true"/> if this instance has minimum and maximum values; otherwise, <see langword="false"/></param>
         /// <param name="minimum">The minimum.</param>
         /// <param name="maximum">The maximum.</param>
+        /// <param name="validValues">The valid values.</param>
         internal HeifIntegerEncoderParameter(string name,
                                              bool hasDefaultValue,
                                              int defaultValue,
                                              bool hasMinimumMaximum,
                                              int minimum,
-                                             int maximum)
+                                             int maximum,
+                                             ReadOnlyCollection<int> validValues)
             : base(name, hasDefaultValue, defaultValue)
         {
             this.HasMinimumMaximum = hasMinimumMaximum;
             this.Minimum = minimum;
             this.Maximum = maximum;
+            this.ValidValues = validValues;
         }
 
         /// <summary>
@@ -79,6 +85,14 @@ namespace LibHeifSharp
         /// The value of this property is only meaningful when <see cref="HasMinimumMaximum"/> is <see langword="true"/>.
         /// </remarks>
         public int Maximum { get; }
+
+        /// <summary>
+        /// Gets the valid values.
+        /// </summary>
+        /// <value>
+        /// The valid values.
+        /// </value>
+        public IReadOnlyList<int> ValidValues { get; }
 
         ///<inheritdoc/>
         public override HeifEncoderParameterType ParameterType => HeifEncoderParameterType.Integer;

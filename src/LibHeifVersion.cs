@@ -25,6 +25,14 @@ namespace LibHeifSharp
     internal static class LibHeifVersion
     {
         /// <summary>
+        /// Gets a value indicating whether the LibHeif version is at least 1.10.
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if the LibHeif version is at least 1.10; otherwise, <c>false</c>.
+        /// </value>
+        public static bool Is1Point10OrLater => LibHeifInfo.VersionNumber >= 0x010A0000;
+
+        /// <summary>
         /// Throws an exception if the LibHeif version is not supported.
         /// </summary>
         /// <exception cref="HeifException">The LibHeif version is not supported.</exception>

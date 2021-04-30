@@ -9,6 +9,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+* A `ValidValues` property to the `HeifIntegerEncoderParameter` class.
+  * This is used to get the supported values for the rav1e `tile-cols` and `tile-rows` parameters.
+  * Requires LibHeif version 1.10 or later.
 * Support for the new encoding options in LibHeif versions 1.9.2, 1.10 and 1.11.
 
 ## v2.0.2 - 2020-12-29

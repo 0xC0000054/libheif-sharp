@@ -20,6 +20,8 @@
  * along with libheif-sharp.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+using System;
+using System.Collections.Generic;
 using LibHeifSharp.Interop;
 
 namespace LibHeifSharp
@@ -83,16 +85,52 @@ namespace LibHeifSharp
                 _ = LibHeifNative.heif_encoder_get_parameter_integer(encoder, name, out defaultValue);
             }
 
+            bool haveMinimumMaximum;
             int minimum = 0;
             int maximum = 0;
+            var validValues = new List<int>();
 
-            var error = LibHeifNative.heif_encoder_parameter_get_valid_integer_range(nativeParameter,
-                                                                                     out bool haveMinimumMaximum,
-                                                                                     ref minimum,
-                                                                                     ref maximum);
-            error.ThrowIfError();
+            if (LibHeifVersion.Is1Point10OrLater)
+            {
+                var error = LibHeifNative.heif_encoder_parameter_get_valid_integer_values(nativeParameter,
+                                                                                          out bool haveMinimum,
+                                                                                          out bool haveMaximum,
+                                                                                          ref minimum,
+                                                                                          ref maximum,
+                                                                                          out int numValidValues,
+                                                                                          out var validValuesArray);
+                error.ThrowIfError();
 
-            return new HeifIntegerEncoderParameter(name, hasDefaultValue, defaultValue, haveMinimumMaximum, minimum, maximum);
+                haveMinimumMaximum = haveMinimum && haveMaximum;
+
+                if (numValidValues > 0 && validValuesArray != IntPtr.Zero)
+                {
+                    validValues.Capacity = numValidValues;
+
+                    int* integerArray = (int*)validValuesArray;
+
+                    for (int i = 0; i < numValidValues; i++)
+                    {
+                        validValues.Add(integerArray[i]);
+                    }
+                }
+            }
+            else
+            {
+                var error = LibHeifNative.heif_encoder_parameter_get_valid_integer_range(nativeParameter,
+                                                                                         out haveMinimumMaximum,
+                                                                                         ref minimum,
+                                                                                         ref maximum);
+                error.ThrowIfError();
+            }
+
+            return new HeifIntegerEncoderParameter(name,
+                                                   hasDefaultValue,
+                                                   defaultValue,
+                                                   haveMinimumMaximum,
+                                                   minimum,
+                                                   maximum,
+                                                   validValues.AsReadOnly());
         }
 
         private static unsafe HeifStringEncoderParameter CreateStringParameter(SafeHeifEncoder encoder,
