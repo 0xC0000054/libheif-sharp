@@ -41,7 +41,7 @@ namespace LibHeifSharp.Interop
 
         [DllImport(DllName, CallingConvention = DllCallingConvention)]
         internal static extern unsafe heif_error heif_encoder_parameter_get_valid_integer_range(heif_encoder_parameter parameter,
-                                                                                                out bool haveMinimumMaximum,
+                                                                                                [MarshalAs(UnmanagedType.Bool)] out bool haveMinimumMaximum,
                                                                                                 ref int minimum,
                                                                                                 ref int maximum);
 
