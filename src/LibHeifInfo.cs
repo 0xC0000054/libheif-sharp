@@ -36,6 +36,14 @@ namespace LibHeifSharp
         private static readonly object nativeCallLock = new object();
 
         /// <summary>
+        /// Gets a value indicating whether LibHeif can write two color profiles when both ICC and NCLX profiles are available.
+        /// </summary>
+        /// <value>
+        ///   <see langword="true"/> if LibHeif can write two color profiles; otherwise, <see langword="false"/>.
+        /// </value>
+        public static bool CanWriteTwoColorProfiles => LibHeifVersion.Is1Point10OrLater;
+
+        /// <summary>
         /// Gets the LibHeif version.
         /// </summary>
         /// <value>

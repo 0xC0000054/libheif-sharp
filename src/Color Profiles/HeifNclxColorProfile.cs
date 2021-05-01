@@ -49,60 +49,6 @@ namespace LibHeifSharp
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="HeifNclxColorProfile"/> class.
-        /// </summary>
-        /// <param name="handle">The handle.</param>
-        /// <exception cref="HeifException">A LibHeif error occurred.</exception>
-        internal unsafe HeifNclxColorProfile(SafeHeifImageHandle handle) : base(ColorProfileType.Nclx)
-        {
-            SafeHeifNclxColorProfile safeNclxProfile = null;
-
-            try
-            {
-                var error = LibHeifNative.heif_image_handle_get_nclx_color_profile(handle, out safeNclxProfile);
-                error.ThrowIfError();
-
-                var nclxProfileV1 = (heif_nclx_color_profile_v1*)safeNclxProfile.DangerousGetHandle();
-
-                this.ColorPrimaries = nclxProfileV1->colorPrimaries;
-                this.TransferCharacteristics = nclxProfileV1->transferCharacteristics;
-                this.MatrixCoefficients = nclxProfileV1->matrixCoefficients;
-                this.FullRange = nclxProfileV1->fullRange != 0;
-            }
-            finally
-            {
-                safeNclxProfile?.Dispose();
-            }
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="HeifNclxColorProfile"/> class.
-        /// </summary>
-        /// <param name="image">The image.</param>
-        /// <exception cref="HeifException">A LibHeif error occurred.</exception>
-        internal unsafe HeifNclxColorProfile(SafeHeifImage image) : base(ColorProfileType.Nclx)
-        {
-            SafeHeifNclxColorProfile safeNclxProfile = null;
-
-            try
-            {
-                var error = LibHeifNative.heif_image_get_nclx_color_profile(image, out safeNclxProfile);
-                error.ThrowIfError();
-
-                var nclxProfileV1 = (heif_nclx_color_profile_v1*)safeNclxProfile.DangerousGetHandle();
-
-                this.ColorPrimaries = nclxProfileV1->colorPrimaries;
-                this.TransferCharacteristics = nclxProfileV1->transferCharacteristics;
-                this.MatrixCoefficients = nclxProfileV1->matrixCoefficients;
-                this.FullRange = nclxProfileV1->fullRange != 0;
-            }
-            finally
-            {
-                safeNclxProfile?.Dispose();
-            }
-        }
-
-        /// <summary>
         /// Gets the color primaries.
         /// </summary>
         /// <value>
@@ -133,6 +79,92 @@ namespace LibHeifSharp
         ///   <see langword="true"/> if the full color range is used; otherwise, <see langword="false"/>.
         /// </value>
         public bool FullRange { get; }
+
+        /// <summary>
+        /// Create a <see cref="HeifNclxColorProfile"/> from the specified image handle.
+        /// </summary>
+        /// <param name="handle">The handle.</param>
+        /// <returns>The created profile.</returns>
+        /// <exception cref="HeifException">
+        /// A LibHeif error occurred.
+        /// </exception>
+        internal static unsafe HeifNclxColorProfile TryCreate(SafeHeifImageHandle handle)
+        {
+            HeifNclxColorProfile profile = null;
+
+            SafeHeifNclxColorProfile safeNclxProfile = null;
+
+            try
+            {
+                var error = LibHeifNative.heif_image_handle_get_nclx_color_profile(handle, out safeNclxProfile);
+
+                if (error.ErrorCode == heif_error_code.Ok)
+                {
+                    var nclxProfileV1 = (heif_nclx_color_profile_v1*)safeNclxProfile.DangerousGetHandle();
+
+                    profile = new HeifNclxColorProfile(nclxProfileV1->colorPrimaries,
+                                                       nclxProfileV1->transferCharacteristics,
+                                                       nclxProfileV1->matrixCoefficients,
+                                                       nclxProfileV1->fullRange != 0);
+                }
+                else
+                {
+                    if (!LibHeifVersion.Is1Point10OrLater || error.ErrorCode != heif_error_code.Color_profile_does_not_exist)
+                    {
+                        error.ThrowIfError();
+                    }
+                }
+            }
+            finally
+            {
+                safeNclxProfile?.Dispose();
+            }
+
+            return profile;
+        }
+
+        /// <summary>
+        /// Create a <see cref="HeifNclxColorProfile"/> from the specified image.
+        /// </summary>
+        /// <param name="image">The image.</param>
+        /// <returns>The created profile.</returns>
+        /// <exception cref="HeifException">
+        /// A LibHeif error occurred.
+        /// </exception>
+        internal static unsafe HeifNclxColorProfile TryCreate(SafeHeifImage image)
+        {
+            HeifNclxColorProfile profile = null;
+
+            SafeHeifNclxColorProfile safeNclxProfile = null;
+
+            try
+            {
+                var error = LibHeifNative.heif_image_get_nclx_color_profile(image, out safeNclxProfile);
+
+                if (error.ErrorCode == heif_error_code.Ok)
+                {
+                    var nclxProfileV1 = (heif_nclx_color_profile_v1*)safeNclxProfile.DangerousGetHandle();
+
+                    profile = new HeifNclxColorProfile(nclxProfileV1->colorPrimaries,
+                                                       nclxProfileV1->transferCharacteristics,
+                                                       nclxProfileV1->matrixCoefficients,
+                                                       nclxProfileV1->fullRange != 0);
+                }
+                else
+                {
+                    if (!LibHeifVersion.Is1Point10OrLater || error.ErrorCode != heif_error_code.Color_profile_does_not_exist)
+                    {
+                        error.ThrowIfError();
+                    }
+                }
+            }
+            finally
+            {
+                safeNclxProfile?.Dispose();
+            }
+
+            return profile;
+        }
 
         /// <summary>
         /// Sets the image color profile.

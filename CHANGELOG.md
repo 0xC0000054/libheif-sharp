@@ -7,12 +7,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Deprecated
+
+* The `ColorProfile` property in the `HeifImage` class, use the `IccColorProfile` and `NclxColorProfile` properties instead.
+
 ### Added
 
 * A `ValidValues` property to the `HeifIntegerEncoderParameter` class.
   * This is used to get the supported values for the rav1e `tile-cols` and `tile-rows` parameters.
   * Requires LibHeif version 1.10 or later.
 * Support for the new encoding options in LibHeif versions 1.9.2, 1.10 and 1.11.
+* Support for reading and writing images with two color profiles (one ICC profile and one NCLX profile).
+   * This feature requires LibHeif version 1.10 or later, you can use the `CanWriteTwoColorProfiles` property in the `LibHeifInfo` class for runtime checks.
+   * It must be enabled in the `HeifEncodingOptions` instance by setting the `WriteTwoColorProfiles` property to `true`.
 
 ## v2.0.2 - 2020-12-29
 

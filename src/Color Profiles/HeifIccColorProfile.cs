@@ -40,85 +40,31 @@ namespace LibHeifSharp
         /// <param name="iccProfile">The ICC profile.</param>
         /// <exception cref="ArgumentNullException"><paramref name="iccProfile"/> is null.</exception>
         /// <exception cref="ArgumentException"><paramref name="iccProfile"/> is an empty array.</exception>
-        public HeifIccColorProfile(byte[] iccProfile) : base(ColorProfileType.Icc)
+        public HeifIccColorProfile(byte[] iccProfile) : this(iccProfile, copyToNewArray: true)
+        {
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="HeifIccColorProfile"/> class.
+        /// </summary>
+        /// <param name="iccProfile">The ICC profile.</param>
+        /// <param name="copyToNewArray">
+        /// <see langword="true"/> if the parameter should be copied to a new array; otherwise, <see langword="false"/>
+        /// </param>
+        /// <exception cref="ArgumentNullException"><paramref name="iccProfile"/> is null.</exception>
+        /// <exception cref="ArgumentException"><paramref name="iccProfile"/> is an empty array.</exception>
+        private HeifIccColorProfile(byte[] iccProfile, bool copyToNewArray) : base(ColorProfileType.Icc)
         {
             Validate.IsNotNullOrEmptyArray(iccProfile, nameof(iccProfile));
 
-            this.iccProfileBytes = new byte[iccProfile.Length];
-            iccProfile.CopyTo(this.iccProfileBytes, 0);
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="HeifIccColorProfile"/> class.
-        /// </summary>
-        /// <param name="handle">The handle.</param>
-        /// <exception cref="HeifException">
-        /// A LibHeif error occurred.
-        ///
-        /// -or-
-        ///
-        /// The ICC profile is zero bytes.
-        ///
-        /// -or-
-        ///
-        /// The ICC profile is larger than 2 GB.
-        /// </exception>
-        internal unsafe HeifIccColorProfile(SafeHeifImageHandle handle) : base(ColorProfileType.Icc)
-        {
-            ulong iccProfileSize = LibHeifNative.heif_image_handle_get_raw_color_profile_size(handle).ToUInt64();
-
-            if (iccProfileSize == 0)
+            if (copyToNewArray)
             {
-                ExceptionUtil.ThrowHeifException(Resources.IccProfileZeroBytes);
+                this.iccProfileBytes = new byte[iccProfile.Length];
+                iccProfile.CopyTo(this.iccProfileBytes, 0);
             }
-            else if (iccProfileSize > int.MaxValue)
+            else
             {
-                ExceptionUtil.ThrowHeifException(Resources.IccProfileLargerThan2Gb);
-            }
-
-            this.iccProfileBytes = new byte[iccProfileSize];
-
-            fixed (byte* ptr = this.iccProfileBytes)
-            {
-                var error = LibHeifNative.heif_image_handle_get_raw_color_profile(handle, ptr);
-                error.ThrowIfError();
-            }
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="HeifIccColorProfile"/> class.
-        /// </summary>
-        /// <param name="image">The image.</param>
-        /// <exception cref="HeifException">
-        /// A LibHeif error occurred.
-        ///
-        /// -or-
-        ///
-        /// The ICC profile is zero bytes.
-        ///
-        /// -or-
-        ///
-        /// The ICC profile is larger than 2 GB.
-        /// </exception>
-        internal unsafe HeifIccColorProfile(SafeHeifImage image) : base(ColorProfileType.Icc)
-        {
-            ulong iccProfileSize = LibHeifNative.heif_image_get_raw_color_profile_size(image).ToUInt64();
-
-            if (iccProfileSize == 0)
-            {
-                ExceptionUtil.ThrowHeifException(Resources.IccProfileZeroBytes);
-            }
-            else if (iccProfileSize > int.MaxValue)
-            {
-                ExceptionUtil.ThrowHeifException(Resources.IccProfileLargerThan2Gb);
-            }
-
-            this.iccProfileBytes = new byte[iccProfileSize];
-
-            fixed (byte* ptr = this.iccProfileBytes)
-            {
-                var error = LibHeifNative.heif_image_get_raw_color_profile(image, ptr);
-                error.ThrowIfError();
+                this.iccProfileBytes = iccProfile;
             }
         }
 
@@ -132,6 +78,84 @@ namespace LibHeifSharp
             this.iccProfileBytes.CopyTo(clone, 0);
 
             return clone;
+        }
+
+        /// <summary>
+        /// Create a <see cref="HeifIccColorProfile"/> from the specified image handle.
+        /// </summary>
+        /// <param name="handle">The handle.</param>
+        /// <returns>The created profile.</returns>
+        /// <exception cref="HeifException">
+        /// A LibHeif error occurred.
+        ///
+        /// -or-
+        ///
+        /// The ICC profile is larger than 2 GB.
+        /// </exception>
+        internal static unsafe HeifIccColorProfile TryCreate(SafeHeifImageHandle handle)
+        {
+            HeifIccColorProfile profile = null;
+
+            ulong iccProfileSize = LibHeifNative.heif_image_handle_get_raw_color_profile_size(handle).ToUInt64();
+
+            if (iccProfileSize > 0)
+            {
+                if (iccProfileSize > int.MaxValue)
+                {
+                    ExceptionUtil.ThrowHeifException(Resources.IccProfileLargerThan2Gb);
+                }
+
+                byte[] iccProfileBytes = new byte[iccProfileSize];
+
+                fixed (byte* ptr = iccProfileBytes)
+                {
+                    var error = LibHeifNative.heif_image_handle_get_raw_color_profile(handle, ptr);
+                    error.ThrowIfError();
+                }
+
+                profile = new HeifIccColorProfile(iccProfileBytes, copyToNewArray: false);
+            }
+
+            return profile;
+        }
+
+        /// <summary>
+        /// Create a <see cref="HeifIccColorProfile"/> from the specified image.
+        /// </summary>
+        /// <param name="image">The image.</param>
+        /// <returns>The created profile.</returns>
+        /// <exception cref="HeifException">
+        /// A LibHeif error occurred.
+        ///
+        /// -or-
+        ///
+        /// The ICC profile is larger than 2 GB.
+        /// </exception>
+        internal static unsafe HeifIccColorProfile TryCreate(SafeHeifImage image)
+        {
+            HeifIccColorProfile profile = null;
+
+            ulong iccProfileSize = LibHeifNative.heif_image_get_raw_color_profile_size(image).ToUInt64();
+
+            if (iccProfileSize > 0)
+            {
+                if (iccProfileSize > int.MaxValue)
+                {
+                    ExceptionUtil.ThrowHeifException(Resources.IccProfileLargerThan2Gb);
+                }
+
+                byte[] iccProfileBytes = new byte[iccProfileSize];
+
+                fixed (byte* ptr = iccProfileBytes)
+                {
+                    var error = LibHeifNative.heif_image_get_raw_color_profile(image, ptr);
+                    error.ThrowIfError();
+                }
+
+                profile = new HeifIccColorProfile(iccProfileBytes, copyToNewArray: false);
+            }
+
+            return profile;
         }
 
         /// <summary>

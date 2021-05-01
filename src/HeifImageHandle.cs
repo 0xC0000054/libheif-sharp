@@ -200,7 +200,7 @@ namespace LibHeifSharp
             HeifImage image = null;
             SafeHeifImage safeHeifImage = null;
 
-            var imageHandleColorProfile = GetImageHandleColorProfile();
+            var imageHandleColorProfiles = GetImageHandleColorProfiles();
 
             try
             {
@@ -243,7 +243,8 @@ namespace LibHeifSharp
                 image = new HeifImage(safeHeifImage,
                                       this.Width,
                                       this.Height,
-                                      imageHandleColorProfile);
+                                      imageHandleColorProfiles.Icc,
+                                      imageHandleColorProfiles.Nclx);
                 safeHeifImage = null;
             }
             finally
@@ -624,9 +625,9 @@ namespace LibHeifSharp
         }
 
         /// <summary>
-        /// Gets image handle color profile.
+        /// Gets image handle color profiles.
         /// </summary>
-        /// <returns>The image handle color profile.</returns>
+        /// <returns>The image handle color profiles.</returns>
         /// <exception cref="HeifException">
         /// The color profile type is not supported.
         ///
@@ -634,28 +635,55 @@ namespace LibHeifSharp
         ///
         /// A LibHeif error occurred.
         /// </exception>
-        private unsafe HeifColorProfile GetImageHandleColorProfile()
+        private unsafe ImageHandleColorProfiles GetImageHandleColorProfiles()
         {
-            HeifColorProfile profile = null;
+            HeifIccColorProfile iccProfile;
+            HeifNclxColorProfile nclxProfile;
 
-            var colorProfileType = LibHeifNative.heif_image_handle_get_color_profile_type(this.imageHandle);
-
-            switch (colorProfileType)
+            if (LibHeifVersion.Is1Point10OrLater)
             {
-                case heif_color_profile_type.None:
-                    break;
-                case heif_color_profile_type.Nclx:
-                    profile = new HeifNclxColorProfile(this.imageHandle);
-                    break;
-                case heif_color_profile_type.IccProfile:
-                case heif_color_profile_type.RestrictedIcc:
-                    profile = new HeifIccColorProfile(this.imageHandle);
-                    break;
-                default:
-                    throw new HeifException(Resources.ColorProfileTypeNotSupported);
+                iccProfile = HeifIccColorProfile.TryCreate(this.imageHandle);
+                nclxProfile = HeifNclxColorProfile.TryCreate(this.imageHandle);
+            }
+            else
+            {
+                // LibHeif versions prior to 1.10 only support one color profile per image.
+                var colorProfileType = LibHeifNative.heif_image_handle_get_color_profile_type(this.imageHandle);
+
+                switch (colorProfileType)
+                {
+                    case heif_color_profile_type.None:
+                        iccProfile = null;
+                        nclxProfile = null;
+                        break;
+                    case heif_color_profile_type.Nclx:
+                        iccProfile = null;
+                        nclxProfile = HeifNclxColorProfile.TryCreate(this.imageHandle);
+                        break;
+                    case heif_color_profile_type.IccProfile:
+                    case heif_color_profile_type.RestrictedIcc:
+                        iccProfile = HeifIccColorProfile.TryCreate(this.imageHandle);
+                        nclxProfile = null;
+                        break;
+                    default:
+                        throw new HeifException(Resources.ColorProfileTypeNotSupported);
+                }
             }
 
-            return profile;
+            return new ImageHandleColorProfiles(iccProfile, nclxProfile);
+        }
+
+        private readonly struct ImageHandleColorProfiles
+        {
+            public ImageHandleColorProfiles(HeifIccColorProfile icc, HeifNclxColorProfile nclx)
+            {
+                this.Icc = icc;
+                this.Nclx = nclx;
+            }
+
+            public HeifIccColorProfile Icc { get; }
+
+            public HeifNclxColorProfile Nclx { get; }
         }
     }
 }

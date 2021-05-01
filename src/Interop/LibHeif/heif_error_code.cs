@@ -52,6 +52,9 @@ namespace LibHeifSharp.Interop
         Encoder_plugin_error = 8,
 
         // Error during encoding or when writing to the output
-        Encoding_error = 9
+        Encoding_error = 9,
+
+        // Application has asked for a color profile type that does not exist
+        Color_profile_does_not_exist = 10
     }
 }
