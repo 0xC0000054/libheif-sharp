@@ -421,7 +421,7 @@ namespace LibHeifSharp
         /// Gets the depth images.
         /// </summary>
         /// <param name="id">The depth image id.</param>
-        /// <returns>The meta-data bytes.</returns>
+        /// <returns>The depth image handle.</returns>
         /// <exception cref="HeifException">A LibHeif error occurred.</exception>
         /// <exception cref="ObjectDisposedException">The object has been disposed.</exception>
         public HeifImageHandle GetDepthImage(HeifItemId id)

@@ -25,6 +25,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   * These methods require LibHeif version 1.11 or later.
 * An `AuxiliaryImageType` property to the `HeifImageHandle` class.
 
+### Fixed
+
+* A few issues with the documentation.
+
 ## v2.0.2 - 2020-12-29
 
 ### Fixed
