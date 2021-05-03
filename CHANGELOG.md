@@ -21,7 +21,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
    * This feature requires LibHeif version 1.10 or later, you can use the `CanWriteTwoColorProfiles` property in the `LibHeifInfo` class for runtime checks.
    * It must be enabled in the `HeifEncodingOptions` instance by setting the `WriteTwoColorProfiles` property to `true`.
 * Support for reading the vendor-specific auxiliary images.
-  * Added `GetAuxiliaryImage`, `GetAuxiliaryImageIds` and `GetAuxiliaryImageType` methods to the `HeifImageHandle` class.
+  * Added `GetAuxiliaryImage`, `GetAuxiliaryImageIds` and `GetAuxiliaryType` methods to the `HeifImageHandle` class.
   * These methods require LibHeif version 1.11 or later.
 * An `AuxiliaryImageType` property to the `HeifImageHandle` class.
 
