@@ -518,34 +518,27 @@ namespace LibHeifSharp
         /// </exception>
         private void UpdateCachedColorProfilesWhileLocked()
         {
-            if (LibHeifVersion.Is1Point10OrLater)
-            {
-                this.cachedIccColorProfile = HeifIccColorProfile.TryCreate(this.image);
-                this.cachedNclxColorProfile = HeifNclxColorProfile.TryCreate(this.image);
-            }
-            else
-            {
-                // LibHeif versions prior to 1.10 only support one color profile per image.
-                var colorProfileType = LibHeifNative.heif_image_get_color_profile_type(this.image);
+            // LibHeif version 1.11 and earlier will crash when retrieving the NCLX color
+            // profile if the image does not have one.
+            var colorProfileType = LibHeifNative.heif_image_get_color_profile_type(this.image);
 
-                switch (colorProfileType)
-                {
-                    case heif_color_profile_type.None:
-                        this.cachedIccColorProfile = null;
-                        this.cachedNclxColorProfile = null;
-                        break;
-                    case heif_color_profile_type.Nclx:
-                        this.cachedIccColorProfile = null;
-                        this.cachedNclxColorProfile = HeifNclxColorProfile.TryCreate(this.image);
-                        break;
-                    case heif_color_profile_type.IccProfile:
-                    case heif_color_profile_type.RestrictedIcc:
-                        this.cachedIccColorProfile = HeifIccColorProfile.TryCreate(this.image);
-                        this.cachedNclxColorProfile = null;
-                        break;
-                    default:
-                        throw new HeifException(Resources.ColorProfileTypeNotSupported);
-                }
+            switch (colorProfileType)
+            {
+                case heif_color_profile_type.None:
+                    this.cachedIccColorProfile = null;
+                    this.cachedNclxColorProfile = null;
+                    break;
+                case heif_color_profile_type.Nclx:
+                    this.cachedIccColorProfile = null;
+                    this.cachedNclxColorProfile = HeifNclxColorProfile.TryCreate(this.image);
+                    break;
+                case heif_color_profile_type.IccProfile:
+                case heif_color_profile_type.RestrictedIcc:
+                    this.cachedIccColorProfile = HeifIccColorProfile.TryCreate(this.image);
+                    this.cachedNclxColorProfile = null;
+                    break;
+                default:
+                    throw new HeifException(Resources.ColorProfileTypeNotSupported);
             }
         }
     }
