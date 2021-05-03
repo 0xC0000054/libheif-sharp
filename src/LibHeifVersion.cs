@@ -33,6 +33,14 @@ namespace LibHeifSharp
         public static bool Is1Point10OrLater => LibHeifInfo.VersionNumber >= 0x010A0000;
 
         /// <summary>
+        /// Gets a value indicating whether the LibHeif version is at least 1.11.
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if the LibHeif version is at least 1.11; otherwise, <c>false</c>.
+        /// </value>
+        public static bool Is1Point11OrLater => LibHeifInfo.VersionNumber >= 0x010B0000;
+
+        /// <summary>
         /// Throws an exception if the LibHeif version is not supported.
         /// </summary>
         /// <exception cref="HeifException">The LibHeif version is not supported.</exception>

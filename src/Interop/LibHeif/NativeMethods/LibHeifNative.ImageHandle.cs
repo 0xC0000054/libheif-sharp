@@ -128,5 +128,28 @@ namespace LibHeifSharp.Interop
         internal static extern bool heif_image_handle_get_depth_image_representation_info(SafeHeifImageHandle handle,
                                                                                           HeifItemId id,
                                                                                           out SafeDepthRepresentationInfo depthInfoHandle);
+
+        [DllImport(DllName, CallingConvention = DllCallingConvention)]
+        internal static extern int heif_image_handle_get_number_of_auxiliary_images(SafeHeifImageHandle handle,
+                                                                                    heif_auxiliary_image_filter filter);
+
+        [DllImport(DllName, CallingConvention = DllCallingConvention)]
+        internal static extern unsafe int heif_image_handle_get_list_of_auxiliary_image_IDs(SafeHeifImageHandle handle,
+                                                                                            heif_auxiliary_image_filter filter,
+                                                                                            HeifItemId* idArrayPtr,
+                                                                                            int idArrayCount);
+
+        [DllImport(DllName, CallingConvention = DllCallingConvention)]
+        internal static extern heif_error heif_image_handle_get_auxiliary_image_handle(SafeHeifImageHandle handle,
+                                                                                       HeifItemId id,
+                                                                                       out SafeHeifImageHandle auxiliaryImageHandle);
+
+        [DllImport(DllName, CallingConvention = DllCallingConvention)]
+        internal static extern unsafe heif_error heif_image_handle_get_auxiliary_type(SafeHeifImageHandle handle,
+                                                                                      out AuxiliaryType outType);
+
+        [DllImport(DllName, CallingConvention = DllCallingConvention)]
+        internal static extern unsafe void heif_image_handle_free_auxiliary_types(SafeHeifImageHandle handle,
+                                                                                  ref AuxiliaryType outType);
     }
 }

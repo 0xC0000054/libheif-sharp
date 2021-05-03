@@ -37,6 +37,7 @@ namespace LibHeifSharp
     {
         private SafeHeifImageHandle imageHandle;
         private readonly HeifContext.ImageDecodeErrorDelegate decodeErrorHandler;
+        private readonly AuxiliaryImageType auxiliaryImageType;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="HeifImageHandle"/> class.
@@ -45,11 +46,26 @@ namespace LibHeifSharp
         /// <param name="decodeErrorHandler">The decode error handler.</param>
         /// <exception cref="ArgumentNullException"><paramref name="handle"/> is null.</exception>
         internal HeifImageHandle(SafeHeifImageHandle handle, HeifContext.ImageDecodeErrorDelegate decodeErrorHandler = null)
+            : this(handle, decodeErrorHandler, AuxiliaryImageType.None)
+        {
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="HeifImageHandle"/> class.
+        /// </summary>
+        /// <param name="handle">The handle.</param>
+        /// <param name="decodeErrorHandler">The decode error handler.</param>
+        /// <param name="auxiliaryImageType">The auxiliary image type.</param>
+        /// <exception cref="ArgumentNullException"><paramref name="handle"/> is null.</exception>
+        private HeifImageHandle(SafeHeifImageHandle handle,
+                                HeifContext.ImageDecodeErrorDelegate decodeErrorHandler,
+                                AuxiliaryImageType auxiliaryImageType)
         {
             Validate.IsNotNull(handle, nameof(handle));
 
             this.imageHandle = handle;
             this.decodeErrorHandler = decodeErrorHandler;
+            this.auxiliaryImageType = auxiliaryImageType;
         }
 
         /// <summary>
@@ -108,6 +124,23 @@ namespace LibHeifSharp
                 }
 
                 return value;
+            }
+        }
+
+        /// <summary>
+        /// Gets the type of auxiliary image that this instance represents.
+        /// </summary>
+        /// <value>
+        /// The type of auxiliary image that this instance represents.
+        /// </value>
+        /// <exception cref="ObjectDisposedException">The object has been disposed.</exception>
+        public AuxiliaryImageType AuxiliaryImageType
+        {
+            get
+            {
+                VerifyNotDisposed();
+
+                return this.auxiliaryImageType;
             }
         }
 
@@ -256,6 +289,135 @@ namespace LibHeifSharp
         }
 
         /// <summary>
+        /// Gets the auxiliary image handle.
+        /// </summary>
+        /// <param name="id">The auxiliary image id.</param>
+        /// <returns>The auxiliary image handle.</returns>
+        /// <exception cref="HeifException">A LibHeif error occurred.</exception>
+        /// <exception cref="ObjectDisposedException">The object has been disposed.</exception>
+        /// <seealso cref="GetAuxiliaryImageIds"/>
+        public HeifImageHandle GetAuxiliaryImage(HeifItemId id)
+        {
+            VerifyNotDisposed();
+
+            if (LibHeifVersion.Is1Point11OrLater)
+            {
+                HeifImageHandle aux = null;
+                SafeHeifImageHandle auxSafeHandle = null;
+
+                try
+                {
+                    var error = LibHeifNative.heif_image_handle_get_auxiliary_image_handle(this.imageHandle, id, out auxSafeHandle);
+                    error.ThrowIfError();
+
+                    aux = new HeifImageHandle(auxSafeHandle, this.decodeErrorHandler, AuxiliaryImageType.VendorSpecific);
+                    auxSafeHandle = null;
+                }
+                finally
+                {
+                    auxSafeHandle?.Dispose();
+                }
+
+                return aux;
+            }
+            else
+            {
+                throw new HeifException(Resources.AuxiliaryImageAPINotSupported);
+            }
+        }
+
+        /// <summary>
+        /// Gets a list of the auxiliary image ids.
+        /// </summary>
+        /// <returns>A list of the auxiliary image ids.</returns>
+        /// <exception cref="HeifException">A LibHeif error occurred.</exception>
+        /// <exception cref="ObjectDisposedException">The object has been disposed.</exception>
+        /// <remarks>
+        /// <para>The alpha and/or depth images are omitted from this list.</para>
+        /// <para>
+        /// LibHeif will include the alpha image (if present) when you call <see cref="Decode(HeifColorspace, HeifChroma, HeifDecodingOptions)"/>
+        /// with the <see cref="HeifChroma"/> parameter set to one of the <c>InterleavedRgba</c> values.
+        /// </para>
+        /// <para>
+        /// To read the depth images use <see cref="GetDepthImageIds"/> to get a list of the depth image item ids and
+        /// <see cref="GetDepthImage(HeifItemId)"/> to convert the item id to a <see cref="HeifImageHandle"/>.
+        /// </para>
+        /// </remarks>
+        /// <seealso cref="GetAuxiliaryImage(HeifItemId)"/>
+        /// <seealso cref="GetAuxiliaryType"/>
+        public IReadOnlyList<HeifItemId> GetAuxiliaryImageIds()
+        {
+            VerifyNotDisposed();
+
+            if (LibHeifVersion.Is1Point11OrLater)
+            {
+                const heif_auxiliary_image_filter filter = heif_auxiliary_image_filter.OmitAlpha | heif_auxiliary_image_filter.OmitDepth;
+
+                int count = LibHeifNative.heif_image_handle_get_number_of_auxiliary_images(this.imageHandle, filter);
+
+                if (count == 0)
+                {
+                    return Array.Empty<HeifItemId>();
+                }
+
+                var ids = new HeifItemId[count];
+
+                unsafe
+                {
+                    fixed (HeifItemId* ptr = ids)
+                    {
+                        int filledCount = LibHeifNative.heif_image_handle_get_list_of_auxiliary_image_IDs(this.imageHandle,
+                                                                                                          filter,
+                                                                                                          ptr,
+                                                                                                          count);
+                        if (filledCount != count)
+                        {
+                            ExceptionUtil.ThrowHeifException(Resources.CannotGetAllAuxillaryImages);
+                        }
+                    }
+                }
+
+                return ids;
+            }
+            else
+            {
+                return Array.Empty<HeifItemId>();
+            }
+        }
+
+        /// <summary>
+        /// Gets the type identifier for the auxiliary image.
+        /// </summary>
+        /// <returns>The type identifier for the auxiliary image.</returns>
+        /// <exception cref="HeifException">A LibHeif error occurred.</exception>
+        /// <exception cref="ObjectDisposedException">The object has been disposed.</exception>
+        public string GetAuxiliaryType()
+        {
+            VerifyNotDisposed();
+
+            string type = string.Empty;
+
+            if (this.auxiliaryImageType == AuxiliaryImageType.VendorSpecific)
+            {
+                var error = LibHeifNative.heif_image_handle_get_auxiliary_type(this.imageHandle,
+                                                                               out var typePtr);
+                error.ThrowIfError();
+
+                try
+                {
+                    type = typePtr.GetStringValue();
+                }
+                finally
+                {
+                    LibHeifNative.heif_image_handle_free_auxiliary_types(this.imageHandle,
+                                                                         ref typePtr);
+                }
+            }
+
+            return type;
+        }
+
+        /// <summary>
         /// Gets the depth images.
         /// </summary>
         /// <param name="id">The depth image id.</param>
@@ -274,7 +436,7 @@ namespace LibHeifSharp
                 var error = LibHeifNative.heif_image_handle_get_depth_image_handle(this.imageHandle, id, out depthSafeHandle);
                 error.ThrowIfError();
 
-                depth = new HeifImageHandle(depthSafeHandle, this.decodeErrorHandler);
+                depth = new HeifImageHandle(depthSafeHandle, this.decodeErrorHandler, AuxiliaryImageType.Depth);
                 depthSafeHandle = null;
             }
             finally
@@ -534,7 +696,7 @@ namespace LibHeifSharp
                 var error = LibHeifNative.heif_image_handle_get_thumbnail(this.imageHandle, id, out thumbnailSafeHandle);
                 error.ThrowIfError();
 
-                thumbnail = new HeifImageHandle(thumbnailSafeHandle, this.decodeErrorHandler);
+                thumbnail = new HeifImageHandle(thumbnailSafeHandle, this.decodeErrorHandler, AuxiliaryImageType.Thumbnail);
                 thumbnailSafeHandle = null;
             }
             finally

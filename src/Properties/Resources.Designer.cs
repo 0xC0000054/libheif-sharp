@@ -62,6 +62,24 @@ namespace LibHeifSharp.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to This method requires LibHeif version 1.11 or later..
+        /// </summary>
+        internal static string AuxiliaryImageAPINotSupported {
+            get {
+                return ResourceManager.GetString("AuxiliaryImageAPINotSupported", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Could not get all of the auxillary images..
+        /// </summary>
+        internal static string CannotGetAllAuxillaryImages {
+            get {
+                return ResourceManager.GetString("CannotGetAllAuxillaryImages", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Could not get all of the meta-data block ids..
         /// </summary>
         internal static string CannotGetAllMetadataBlockIds {
