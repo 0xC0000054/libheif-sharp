@@ -424,6 +424,7 @@ namespace LibHeifSharp
         /// <returns>The depth image handle.</returns>
         /// <exception cref="HeifException">A LibHeif error occurred.</exception>
         /// <exception cref="ObjectDisposedException">The object has been disposed.</exception>
+        /// <seealso cref="GetDepthImageIds"/>
         public HeifImageHandle GetDepthImage(HeifItemId id)
         {
             VerifyNotDisposed();
@@ -453,6 +454,7 @@ namespace LibHeifSharp
         /// <returns>A list of the depth image ids.</returns>
         /// <exception cref="HeifException">A LibHeif error occurred.</exception>
         /// <exception cref="ObjectDisposedException">The object has been disposed.</exception>
+        /// <seealso cref="GetDepthImage(HeifItemId)"/>
         public IReadOnlyList<HeifItemId> GetDepthImageIds()
         {
             VerifyNotDisposed();
@@ -587,6 +589,7 @@ namespace LibHeifSharp
         /// The meta-data block is larger than 2 GB.
         /// </exception>
         /// <exception cref="ObjectDisposedException">The object has been disposed.</exception>
+        /// <seealso cref="GetMetadataBlockIds(string, string)"/>
         public byte[] GetMetadata(HeifItemId id)
         {
             VerifyNotDisposed();
@@ -625,6 +628,7 @@ namespace LibHeifSharp
         /// <returns>A list of the meta-data block ids.</returns>
         /// <exception cref="HeifException">Could not get all of the meta-data block ids.</exception>
         /// <exception cref="ObjectDisposedException">The object has been disposed.</exception>
+        /// <seealso cref="GetMetadata(HeifItemId)"/>
         public IReadOnlyList<HeifItemId> GetMetadataBlockIds(string type = null, string contentType = null)
         {
             VerifyNotDisposed();
@@ -684,6 +688,7 @@ namespace LibHeifSharp
         /// <returns>The thumbnail image handle.</returns>
         /// <exception cref="HeifException">A LibHeif error occurred.</exception>
         /// <exception cref="ObjectDisposedException">The object has been disposed.</exception>
+        /// <seealso cref="GetThumbnailImageIds"/>
         public HeifImageHandle GetThumbnailImage(HeifItemId id)
         {
             VerifyNotDisposed();
@@ -713,6 +718,7 @@ namespace LibHeifSharp
         /// <returns>A list of the thumbnail image ids.</returns>
         /// <exception cref="HeifException">Could not get all of the thumbnail image ids.</exception>
         /// <exception cref="ObjectDisposedException">The object has been disposed.</exception>
+        /// <seealso cref="GetThumbnailImage(HeifItemId)"/>
         public IReadOnlyList<HeifItemId> GetThumbnailImageIds()
         {
             VerifyNotDisposed();
