@@ -469,6 +469,18 @@ namespace LibHeifSharp
         {
             VerifyNotDisposed();
 
+            if (!this.fetchedColorProfilesFromImage)
+            {
+                lock (this.sync)
+                {
+                    if (!this.fetchedColorProfilesFromImage)
+                    {
+                        UpdateCachedColorProfilesWhileLocked();
+                        this.fetchedColorProfilesFromImage = true;
+                    }
+                }
+            }
+
             HeifImage scaledImage = null;
             SafeHeifImage safeHeifImage = null;
 
