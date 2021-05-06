@@ -928,8 +928,13 @@ namespace LibHeifSharp
         /// </summary>
         /// <param name="heifIOError">The IO error.</param>
         /// <param name="error">The error.</param>
+        /// <param name="wrapIOExceptions">
+        /// <see langword="true"/> if an IOException should be wrapped in a HeifException; otherwise, <see langword="false"/>.
+        /// </param>
         /// <exception cref="HeifException">The exception that is thrown with the error details.</exception>
-        private static void HandleFileIOError(IHeifIOError heifIOError, in heif_error error)
+        private static void HandleFileIOError(IHeifIOError heifIOError,
+                                              in heif_error error,
+                                              bool wrapIOExceptions)
         {
             if (error.IsError)
             {
@@ -937,7 +942,14 @@ namespace LibHeifSharp
                 {
                     var inner = heifIOError.CallbackExceptionInfo.SourceException;
 
-                    throw new HeifException(inner.Message, inner);
+                    if (inner is IOException && !wrapIOExceptions)
+                    {
+                        heifIOError.CallbackExceptionInfo.Throw();
+                    }
+                    else
+                    {
+                        throw new HeifException(inner.Message, inner);
+                    }
                 }
                 else
                 {
@@ -953,7 +965,7 @@ namespace LibHeifSharp
         /// <exception cref="HeifException">The exception that is thrown with the error details.</exception>
         private void HandleFileReadError(in heif_error error)
         {
-            HandleFileIOError(this.reader, error);
+            HandleFileIOError(this.reader, error, wrapIOExceptions: true);
         }
 
         /// <summary>
@@ -981,7 +993,7 @@ namespace LibHeifSharp
                 var error = LibHeifNative.heif_context_write(this.context,
                                                              writerStreamIO.WriterHandle,
                                                              IntPtr.Zero);
-                HandleFileIOError(writerStreamIO, error);
+                HandleFileIOError(writerStreamIO, error, wrapIOExceptions: false);
             }
         }
     }
