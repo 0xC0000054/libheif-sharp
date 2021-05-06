@@ -21,6 +21,7 @@
  */
 
 using System;
+using System.ComponentModel;
 using LibHeifSharp.Interop;
 using LibHeifSharp.Properties;
 using LibHeifSharp.ResourceManagement;
@@ -159,6 +160,7 @@ namespace LibHeifSharp
         /// The color profile type is not supported.
         /// </exception>
         /// <exception cref="ObjectDisposedException">The object has been disposed.</exception>
+        [EditorBrowsable(EditorBrowsableState.Never)]
         [Obsolete("Use the IccColorProfile and NclxColorProfile properties instead.")]
         public HeifColorProfile ColorProfile
         {
