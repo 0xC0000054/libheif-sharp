@@ -38,6 +38,7 @@ namespace LibHeifSharp
     public sealed class HeifEncoder : Disposable
     {
         private SafeHeifEncoder encoder;
+        private bool lossyQualitySet;
         private readonly Lazy<ReadOnlyCollection<IHeifEncoderParameter>> encoderParameterList;
         private readonly Lazy<IReadOnlyDictionary<string, HeifEncoderParameterType>> encoderParameterTypes;
 
@@ -50,6 +51,7 @@ namespace LibHeifSharp
             Validate.IsNotNull(encoder, nameof(encoder));
 
             this.encoder = encoder;
+            this.lossyQualitySet = false;
             this.encoderParameterList = new Lazy<ReadOnlyCollection<IHeifEncoderParameter>>(GetEncoderParameterList);
             this.encoderParameterTypes = new Lazy<IReadOnlyDictionary<string, HeifEncoderParameterType>>(GetEncoderParameterTypes);
         }
@@ -107,6 +109,7 @@ namespace LibHeifSharp
 
             var error = LibHeifNative.heif_encoder_set_lossy_quality(this.encoder, quality);
             error.ThrowIfError();
+            this.lossyQualitySet = true;
         }
 
         /// <summary>
@@ -123,6 +126,15 @@ namespace LibHeifSharp
 
             var error = LibHeifNative.heif_encoder_set_lossless(this.encoder, lossless);
             error.ThrowIfError();
+
+            if (lossless && !this.lossyQualitySet)
+            {
+                // LibHeif requires the lossy quality to be always be set, if it has
+                // not been set the encoder will produce a corrupted image.
+                error = LibHeifNative.heif_encoder_set_lossy_quality(this.encoder, 50);
+                error.ThrowIfError();
+                this.lossyQualitySet = true;
+            }
         }
 
         /// <summary>

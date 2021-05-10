@@ -27,6 +27,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+* A corrupted image bug when using lossless encoding.
 * A few issues with the documentation.
 
 ## v2.0.2 - 2020-12-29
