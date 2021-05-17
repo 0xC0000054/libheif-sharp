@@ -30,6 +30,7 @@ namespace LibHeifSharp.Interop
     [StructLayout(LayoutKind.Sequential)]
     internal readonly struct OutputStringArray
     {
+        // A pointer to an array of const char* strings.
         private readonly IntPtr arrayPointer;
 
         /// <summary>
