@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## v2.1.0 - 2021-05-19
+
 ### Deprecated
 
 * The `ColorProfile` property in the `HeifImage` class, use the `IccColorProfile` and `NclxColorProfile` properties instead.

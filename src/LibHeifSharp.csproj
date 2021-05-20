@@ -5,8 +5,8 @@
     <RootNamespace>LibHeifSharp</RootNamespace>
     <AssemblyName>LibHeifSharp</AssemblyName>
     <AssemblyVersion>2.0.0.0</AssemblyVersion>
-    <FileVersion>2.0.2.0</FileVersion>
-    <Version>2.0.2</Version>
+    <FileVersion>2.1.0.0</FileVersion>
+    <Version>2.1.0</Version>
     <PackageLicenseExpression>LGPL-3.0-or-later</PackageLicenseExpression>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
@@ -23,15 +23,15 @@ Features:
     * Top-level images
     * Thumbnails
     * Depth images
+    * Vendor-specific auxiliary images
 * Supports encoding
-    *  Top-level images
-    *  Thumbnails
+    * Top-level images
+    * Thumbnails   
 * Supports reading and writing meta-data
 
 Requirements:
 
 The libheif shared library must be named `libheif` in order for it to be found by P/Invoke.
-If your program or OS uses a different library name, you will need to use SetDllImportResolver to redirect searches for `libheif` to the appropriate library.
 
 The minimum supported libheif version is 1.9.0.</Description>
     <PackageProjectUrl>https://github.com/0xC0000054/libheif-sharp</PackageProjectUrl>

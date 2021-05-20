@@ -5,6 +5,8 @@
   <HelpKINode Title="AddPlane method" Url="html/76e0b9de-c2ab-873b-e201-1a8bf64c7e67.htm" />
   <HelpKINode Title="AddXmpMetadata method" Url="html/beb8b8ec-168a-b1d8-6b8c-f86fe0f143ba.htm" />
   <HelpKINode Title="Alpha enumeration member" Url="html/fcf58ce2-85d4-bd84-802c-ec091672b0e9.htm" />
+  <HelpKINode Title="AuxiliaryImageType enumeration" Url="html/678320a9-e43b-4387-1a59-6121fd1b4ce7.htm" />
+  <HelpKINode Title="AuxiliaryImageType property" Url="html/05b224ac-bfd2-a6eb-9949-46486d554597.htm" />
   <HelpKINode Title="Av1 enumeration member" Url="html/924da9ad-87cb-0b7e-93ba-878ee1461032.htm" />
   <HelpKINode Title="Avc enumeration member" Url="html/924da9ad-87cb-0b7e-93ba-878ee1461032.htm" />
   <HelpKINode Title="B enumeration member" Url="html/fcf58ce2-85d4-bd84-802c-ec091672b0e9.htm" />
@@ -35,12 +37,12 @@
     <HelpKINode Title="MatrixCoefficients Enumeration" Url="html/4ef89399-2b7e-d1eb-aaaf-811dbc9d6342.htm" />
     <HelpKINode Title="TransferCharacteristics Enumeration" Url="html/5acefc3e-1ccb-a84b-5420-e51cebd9c2f8.htm" />
   </HelpKINode>
+  <HelpKINode Title="CanWriteTwoColorProfiles property" Url="html/47551f85-2d08-1523-a219-0804e978cca7.htm" />
   <HelpKINode Title="Cb enumeration member" Url="html/fcf58ce2-85d4-bd84-802c-ec091672b0e9.htm" />
   <HelpKINode Title="Channel property" Url="html/24b78b96-34df-5dc4-f7aa-d2b00db28489.htm" />
   <HelpKINode Title="Chroma property" Url="html/60aeb1b8-5e15-89ff-57b8-cfc4100e6c6b.htm" />
   <HelpKINode Title="ColorPrimaries enumeration" Url="html/6f292654-efef-45bb-c993-99ea1193a300.htm" />
   <HelpKINode Title="ColorPrimaries property" Url="html/20550e61-803b-f5df-aa56-d861a69d66fb.htm" />
-  <HelpKINode Title="ColorProfile property" Url="html/6c38fd1e-4763-cf49-1b3c-505a0d0cb410.htm" />
   <HelpKINode Title="ColorProfileType enumeration" Url="html/7f0c942b-4e7f-6cbe-85b3-d0c57ee3e3cf.htm" />
   <HelpKINode Title="Colorspace property" Url="html/9a2f6ea2-a392-419c-635f-add8aed59e4a.htm" />
   <HelpKINode Title="CompressionFormat property" Url="html/62ae91cd-1db7-cc5f-6165-d807fbdf2c32.htm" />
@@ -48,8 +50,10 @@
   <HelpKINode Title="Cr enumeration member" Url="html/fcf58ce2-85d4-bd84-802c-ec091672b0e9.htm" />
   <HelpKINode Title="CromatCL enumeration member" Url="html/4ef89399-2b7e-d1eb-aaaf-811dbc9d6342.htm" />
   <HelpKINode Title="CromatNCL enumeration member" Url="html/4ef89399-2b7e-d1eb-aaaf-811dbc9d6342.htm" />
+  <HelpKINode Title="CropWithImageGrid property" Url="html/7d348662-3860-efe9-950f-9c232338a18b.htm" />
   <HelpKINode Title="Decode method" Url="html/b67a23c9-e7b5-971c-c367-ce367bb23f4b.htm" />
   <HelpKINode Title="DefaultValue property" Url="html/8aee84ac-787b-712e-e3ad-bb51b1f70ef8.htm" />
+  <HelpKINode Title="Depth enumeration member" Url="html/678320a9-e43b-4387-1a59-6121fd1b4ce7.htm" />
   <HelpKINode Title="DepthRepresentationType property" Url="html/8dda9d9f-fda7-8dd0-4592-8f349bc49510.htm" />
   <HelpKINode Title="DisparityReferenceView property" Url="html/d598cf17-ac0c-dde6-65f2-3df5056f28d4.htm" />
   <HelpKINode Title="Disposable class">
@@ -74,6 +78,9 @@
   <HelpKINode Title="FullRange property" Url="html/e8969ea6-362c-529c-1fff-33c94122a944.htm" />
   <HelpKINode Title="G enumeration member" Url="html/fcf58ce2-85d4-bd84-802c-ec091672b0e9.htm" />
   <HelpKINode Title="GenericFilm enumeration member" Url="html/6f292654-efef-45bb-c993-99ea1193a300.htm" />
+  <HelpKINode Title="GetAuxiliaryImage method" Url="html/3dc59391-9b87-58bc-dedc-67163eab3ab4.htm" />
+  <HelpKINode Title="GetAuxiliaryImageIds method" Url="html/950db953-d65a-cd00-3f63-9cd4b9f65dd0.htm" />
+  <HelpKINode Title="GetAuxiliaryType method" Url="html/7b5c9b88-5a92-c0ee-d0b0-fa0d47fa8728.htm" />
   <HelpKINode Title="GetDepthImage method" Url="html/400d029b-2cb0-e074-7ba8-0f48873bf7c3.htm" />
   <HelpKINode Title="GetDepthImageIds method" Url="html/cf1d8e19-e823-815f-c641-1c42b79a9d16.htm" />
   <HelpKINode Title="GetDepthRepresentationInfo method" Url="html/76613a7e-cdaa-50ff-d4f2-d3f8df7b342e.htm" />
@@ -204,8 +211,11 @@
     <HelpKINode Title="methods" Url="html/9bc0de2a-c6dc-4698-207b-9e6d8265cd4c.htm" />
     <HelpKINode Title="properties" Url="html/c92a3ad0-8390-550f-e522-0d24b6e4f920.htm" />
   </HelpKINode>
+  <HelpKINode Title="HeifEncodingOptions.CropWithImageGrid property" Url="html/7d348662-3860-efe9-950f-9c232338a18b.htm" />
   <HelpKINode Title="HeifEncodingOptions.HeifEncodingOptions constructor" Url="html/4c9fa041-5a66-ddb8-e97d-05877781e748.htm" />
   <HelpKINode Title="HeifEncodingOptions.SaveAlphaChannel property" Url="html/07f45696-739f-bc33-198d-51dc875240b9.htm" />
+  <HelpKINode Title="HeifEncodingOptions.WriteNclxColorProfile property" Url="html/653c4759-d07e-2d4d-e552-b3378d45c09a.htm" />
+  <HelpKINode Title="HeifEncodingOptions.WriteTwoColorProfiles property" Url="html/e991dedf-3744-8d18-e188-ab9fc1a1302d.htm" />
   <HelpKINode Title="HeifException class">
     <HelpKINode Title="HeifException Class" Url="html/3bbc1cf7-3517-81f6-ef41-2615d015596f.htm" />
     <HelpKINode Title="constructor" Url="html/a50d393e-1484-21d4-0f78-fc398c19d7fc.htm" />
@@ -229,13 +239,14 @@
   </HelpKINode>
   <HelpKINode Title="HeifImage.AddPlane method" Url="html/76e0b9de-c2ab-873b-e201-1a8bf64c7e67.htm" />
   <HelpKINode Title="HeifImage.Chroma property" Url="html/60aeb1b8-5e15-89ff-57b8-cfc4100e6c6b.htm" />
-  <HelpKINode Title="HeifImage.ColorProfile property" Url="html/6c38fd1e-4763-cf49-1b3c-505a0d0cb410.htm" />
   <HelpKINode Title="HeifImage.Colorspace property" Url="html/9a2f6ea2-a392-419c-635f-add8aed59e4a.htm" />
   <HelpKINode Title="HeifImage.GetPlane method" Url="html/9c1168f9-4d4f-3dd8-e07f-0bcc9704985d.htm" />
   <HelpKINode Title="HeifImage.HasAlphaChannel property" Url="html/91577e55-274a-2c42-e65b-120003388f06.htm" />
   <HelpKINode Title="HeifImage.HasChannel method" Url="html/cec35b3c-8e89-f911-6f41-57561211fd46.htm" />
   <HelpKINode Title="HeifImage.HeifImage constructor" Url="html/7a1933d3-83cb-d55d-3b18-7046ce9acb1b.htm" />
   <HelpKINode Title="HeifImage.Height property" Url="html/3410c2b7-81b6-c42b-7225-1deefbc5d8ae.htm" />
+  <HelpKINode Title="HeifImage.IccColorProfile property" Url="html/71b50f90-0259-a9bd-42ef-118dca2dc51d.htm" />
+  <HelpKINode Title="HeifImage.NclxColorProfile property" Url="html/04c0667c-c770-d90b-45fd-2feafc6ee22d.htm" />
   <HelpKINode Title="HeifImage.ScaleImage method" Url="html/b052cead-8fd6-6578-8ebf-4c05bb462276.htm" />
   <HelpKINode Title="HeifImage.Width property" Url="html/41ed3f30-d27e-1ca2-f6b6-3e9b9e5ada14.htm" />
   <HelpKINode Title="HeifImageHandle class">
@@ -243,8 +254,12 @@
     <HelpKINode Title="methods" Url="html/744da788-ef2c-b92c-b566-2f2e3d600b08.htm" />
     <HelpKINode Title="properties" Url="html/0ee63021-45a3-052d-b580-051a03a651ec.htm" />
   </HelpKINode>
+  <HelpKINode Title="HeifImageHandle.AuxiliaryImageType property" Url="html/05b224ac-bfd2-a6eb-9949-46486d554597.htm" />
   <HelpKINode Title="HeifImageHandle.BitDepth property" Url="html/63762640-2017-9fb0-951d-8e4586474a13.htm" />
   <HelpKINode Title="HeifImageHandle.Decode method" Url="html/b67a23c9-e7b5-971c-c367-ce367bb23f4b.htm" />
+  <HelpKINode Title="HeifImageHandle.GetAuxiliaryImage method" Url="html/3dc59391-9b87-58bc-dedc-67163eab3ab4.htm" />
+  <HelpKINode Title="HeifImageHandle.GetAuxiliaryImageIds method" Url="html/950db953-d65a-cd00-3f63-9cd4b9f65dd0.htm" />
+  <HelpKINode Title="HeifImageHandle.GetAuxiliaryType method" Url="html/7b5c9b88-5a92-c0ee-d0b0-fa0d47fa8728.htm" />
   <HelpKINode Title="HeifImageHandle.GetDepthImage method" Url="html/400d029b-2cb0-e074-7ba8-0f48873bf7c3.htm" />
   <HelpKINode Title="HeifImageHandle.GetDepthImageIds method" Url="html/cf1d8e19-e823-815f-c641-1c42b79a9d16.htm" />
   <HelpKINode Title="HeifImageHandle.GetDepthRepresentationInfo method" Url="html/76613a7e-cdaa-50ff-d4f2-d3f8df7b342e.htm" />
@@ -268,6 +283,7 @@
   <HelpKINode Title="HeifIntegerEncoderParameter.Maximum property" Url="html/a4d720ab-992f-a32a-20c6-fae3f937efb9.htm" />
   <HelpKINode Title="HeifIntegerEncoderParameter.Minimum property" Url="html/bc9bf16a-6793-510c-74dd-8e7f921e0ef1.htm" />
   <HelpKINode Title="HeifIntegerEncoderParameter.ParameterType property" Url="html/ac0bda87-8a9c-03e5-0066-5b053a9cbac0.htm" />
+  <HelpKINode Title="HeifIntegerEncoderParameter.ValidValues property" Url="html/2919d3c5-3abd-96d9-7192-7b07a37dbec4.htm" />
   <HelpKINode Title="HeifItemId structure">
     <HelpKINode Title="HeifItemId Structure" Url="html/0fb0cc41-d083-13c7-2466-5218391f2b85.htm" />
     <HelpKINode Title="methods" Url="html/a42ad422-a7de-aa2f-a7c1-b45a3cea82be.htm" />
@@ -314,6 +330,7 @@
   <HelpKINode Title="Hevc enumeration member" Url="html/924da9ad-87cb-0b7e-93ba-878ee1461032.htm" />
   <HelpKINode Title="HLG enumeration member" Url="html/5acefc3e-1ccb-a84b-5420-e51cebd9c2f8.htm" />
   <HelpKINode Title="Icc enumeration member" Url="html/7f0c942b-4e7f-6cbe-85b3-d0c57ee3e3cf.htm" />
+  <HelpKINode Title="IccColorProfile property" Url="html/71b50f90-0259-a9bd-42ef-118dca2dc51d.htm" />
   <HelpKINode Title="ICtCp enumeration member" Url="html/4ef89399-2b7e-d1eb-aaaf-811dbc9d6342.htm" />
   <HelpKINode Title="Identity enumeration member" Url="html/4ef89399-2b7e-d1eb-aaaf-811dbc9d6342.htm" />
   <HelpKINode Title="IdName property" Url="html/12672b81-447f-aacd-8476-1f5b22b524dc.htm" />
@@ -341,10 +358,12 @@
     <HelpKINode Title="methods" Url="html/41796b55-9d66-f3d1-aa25-81906f5d7f58.htm" />
     <HelpKINode Title="properties" Url="html/e4ff3ea7-fa24-6678-b8c1-707df3ac325c.htm" />
   </HelpKINode>
+  <HelpKINode Title="LibHeifInfo.CanWriteTwoColorProfiles property" Url="html/47551f85-2d08-1523-a219-0804e978cca7.htm" />
   <HelpKINode Title="LibHeifInfo.HaveDecoder method" Url="html/7ab8a6d7-9217-9742-3f32-a43268749ae3.htm" />
   <HelpKINode Title="LibHeifInfo.HaveEncoder method" Url="html/e6e2dc3d-9f2f-d1a0-6465-39706535a39d.htm" />
   <HelpKINode Title="LibHeifInfo.Version property" Url="html/b750db91-e7ac-f3bb-54b6-cb5c10ba91fe.htm" />
   <HelpKINode Title="LibHeifSharp namespace" Url="html/726e933b-7f7a-549d-cbcc-ed8da9a22f83.htm" />
+  <HelpKINode Title="LibHeifSharp.AuxiliaryImageType enumeration" Url="html/678320a9-e43b-4387-1a59-6121fd1b4ce7.htm" />
   <HelpKINode Title="LibHeifSharp.ColorPrimaries enumeration" Url="html/6f292654-efef-45bb-c993-99ea1193a300.htm" />
   <HelpKINode Title="LibHeifSharp.ColorProfileType enumeration" Url="html/7f0c942b-4e7f-6cbe-85b3-d0c57ee3e3cf.htm" />
   <HelpKINode Title="LibHeifSharp.HeifBooleanEncoderParameter class" Url="html/16fdd1e9-f0f4-61eb-1c42-91c4fb610ca0.htm" />
@@ -395,6 +414,8 @@
     <HelpKINode Title="IHeifEncoderParameter.Name Property " Url="html/917fb8f2-3fe5-74e7-cbe8-508e4e1b3023.htm" />
   </HelpKINode>
   <HelpKINode Title="Nclx enumeration member" Url="html/7f0c942b-4e7f-6cbe-85b3-d0c57ee3e3cf.htm" />
+  <HelpKINode Title="NclxColorProfile property" Url="html/04c0667c-c770-d90b-45fd-2feafc6ee22d.htm" />
+  <HelpKINode Title="None enumeration member" Url="html/678320a9-e43b-4387-1a59-6121fd1b4ce7.htm" />
   <HelpKINode Title="NonlinearRepresentationModel property" Url="html/9f397052-3e3b-5605-97a3-93e806084617.htm" />
   <HelpKINode Title="NonuniformDisparity enumeration member" Url="html/073b42bf-97b4-dd4b-225f-614e6b5d128e.htm" />
   <HelpKINode Title="ParameterType property">
@@ -438,6 +459,7 @@
   <HelpKINode Title="String enumeration member" Url="html/7abe386c-2304-b4e4-64fd-007f9b925c62.htm" />
   <HelpKINode Title="SupportsLosslessCompression property" Url="html/8330d5a2-a6b5-eddc-63e4-bfdec48de346.htm" />
   <HelpKINode Title="SupportsLossyCompression property" Url="html/2ca5e994-73fb-df2c-f84d-62bf8e0db659.htm" />
+  <HelpKINode Title="Thumbnail enumeration member" Url="html/678320a9-e43b-4387-1a59-6121fd1b4ce7.htm" />
   <HelpKINode Title="ToString method" Url="html/9d01c8a8-9a4e-06d4-cc27-46e4294a0556.htm" />
   <HelpKINode Title="TransferCharacteristics enumeration" Url="html/5acefc3e-1ccb-a84b-5420-e51cebd9c2f8.htm" />
   <HelpKINode Title="TransferCharacteristics property" Url="html/3093b5ab-3a6b-538d-9777-adf691caafb1.htm" />
@@ -454,7 +476,11 @@
     <HelpKINode Title="MatrixCoefficients Enumeration" Url="html/4ef89399-2b7e-d1eb-aaaf-811dbc9d6342.htm" />
     <HelpKINode Title="TransferCharacteristics Enumeration" Url="html/5acefc3e-1ccb-a84b-5420-e51cebd9c2f8.htm" />
   </HelpKINode>
-  <HelpKINode Title="ValidValues property" Url="html/36c8469a-621e-060a-7846-6899d34c84cc.htm" />
+  <HelpKINode Title="ValidValues property">
+    <HelpKINode Title="HeifIntegerEncoderParameter.ValidValues Property " Url="html/2919d3c5-3abd-96d9-7192-7b07a37dbec4.htm" />
+    <HelpKINode Title="HeifStringEncoderParameter.ValidValues Property " Url="html/36c8469a-621e-060a-7846-6899d34c84cc.htm" />
+  </HelpKINode>
+  <HelpKINode Title="VendorSpecific enumeration member" Url="html/678320a9-e43b-4387-1a59-6121fd1b4ce7.htm" />
   <HelpKINode Title="VerifyNotDisposed method" Url="html/706f4bcc-d66c-fe3c-ce8c-b753f76ccf48.htm" />
   <HelpKINode Title="Version property" Url="html/b750db91-e7ac-f3bb-54b6-cb5c10ba91fe.htm" />
   <HelpKINode Title="Width property">
@@ -462,8 +488,10 @@
     <HelpKINode Title="HeifImageHandle.Width Property " Url="html/35b5562f-7740-ca44-1508-3f61d9487e6e.htm" />
     <HelpKINode Title="HeifPlaneData.Width Property " Url="html/33c66e8f-7dc8-97cc-5743-319241a12356.htm" />
   </HelpKINode>
+  <HelpKINode Title="WriteNclxColorProfile property" Url="html/653c4759-d07e-2d4d-e552-b3378d45c09a.htm" />
   <HelpKINode Title="WriteToFile method" Url="html/79a21ea4-7cd8-0f48-2430-00fa9a7999da.htm" />
   <HelpKINode Title="WriteToStream method" Url="html/db9c5780-d94b-425b-2b7b-40d4d25fc9f2.htm" />
+  <HelpKINode Title="WriteTwoColorProfiles property" Url="html/e991dedf-3744-8d18-e188-ab9fc1a1302d.htm" />
   <HelpKINode Title="Y enumeration member" Url="html/fcf58ce2-85d4-bd84-802c-ec091672b0e9.htm" />
   <HelpKINode Title="YCbCr enumeration member" Url="html/95366291-d774-653d-a994-e7b99c2d8dea.htm" />
   <HelpKINode Title="YCgCo enumeration member" Url="html/4ef89399-2b7e-d1eb-aaaf-811dbc9d6342.htm" />
