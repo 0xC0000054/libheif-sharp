@@ -11,6 +11,7 @@ It is built against [.NET Standard 1.3](https://docs.microsoft.com/en-us/dotnet/
     * Top-level images
     * Thumbnails
     * Depth images
+	* Vendor-specific auxiliary images
 * Supports encoding
     *  Top-level images
     *  Thumbnails
