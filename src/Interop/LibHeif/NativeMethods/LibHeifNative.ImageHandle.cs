@@ -44,6 +44,10 @@ namespace LibHeifSharp.Interop
         internal static extern bool heif_image_handle_has_alpha_channel(SafeHeifImageHandle handle);
 
         [DllImport(DllName, CallingConvention = DllCallingConvention)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        internal static extern bool heif_image_handle_is_premultiplied_alpha(SafeHeifImageHandle handle);
+
+        [DllImport(DllName, CallingConvention = DllCallingConvention)]
         internal static extern heif_error heif_decode_image(SafeHeifImageHandle inHandle,
                                                             out SafeHeifImage outImage,
                                                             HeifColorspace colorspace,

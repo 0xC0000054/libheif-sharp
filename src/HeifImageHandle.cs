@@ -178,6 +178,29 @@ namespace LibHeifSharp
         }
 
         /// <summary>
+        /// Gets a value indicating whether the alpha channel is premultiplied.
+        /// </summary>
+        /// <value>
+        ///   <see langword="true"/> if the alpha channel is premultiplied; otherwise, <see langword="false"/>.
+        /// </value>
+        /// <exception cref="ObjectDisposedException">The object has been disposed.</exception>
+        /// <remarks>
+        /// This property is supported starting with LibHeif 1.12, it will return <see langword="false"/>
+        /// on earlier versions.
+        /// </remarks>
+        public bool IsPremultipliedAlpha
+        {
+            get
+            {
+                VerifyNotDisposed();
+
+                return LibHeifVersion.Is1Point12OrLater
+                       && LibHeifNative.heif_image_handle_has_alpha_channel(this.imageHandle)
+                       && LibHeifNative.heif_image_handle_is_premultiplied_alpha(this.imageHandle);
+            }
+        }
+
+        /// <summary>
         /// Gets a value indicating whether this instance is the primary image.
         /// </summary>
         /// <value>
