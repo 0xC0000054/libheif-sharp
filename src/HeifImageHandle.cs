@@ -583,10 +583,10 @@ namespace LibHeifSharp
 
             int tiffHeaderStartOffset = (exifBlob[0] << 24) | (exifBlob[1] << 16) | (exifBlob[2] << 8) | exifBlob[3];
 
-            int startIndex = checked(4 + tiffHeaderStartOffset);
+            int startIndex = 4 + tiffHeaderStartOffset;
 
             // The start index must be within the buffer.
-            if (startIndex >= exifBlob.Length)
+            if ((uint)startIndex >= (uint)exifBlob.Length)
             {
                 return null;
             }
