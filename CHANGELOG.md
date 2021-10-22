@@ -12,6 +12,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * An `IsPremultipliedAlpha` property to the `HeifImage` and `HeifImageHandle` classes.
   * This property is supported on LibHeif 1.12 and later.
 
+### Fixed
+
+* A potential crash when creating the `HeifDepthRepresentationInfo`.
+
 ## v2.1.0 - 2021-05-19
 
 ### Deprecated

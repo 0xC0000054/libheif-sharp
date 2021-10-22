@@ -69,7 +69,8 @@ namespace LibHeifSharp
             this.DepthRepresentationType = info->depth_representation_type;
             this.DisparityReferenceView = info->disparity_reference_view;
 
-            if (info->depth_nonlinear_representation_model_size > 0)
+            if (info->depth_nonlinear_representation_model_size > 0
+                && info->depth_nonlinear_representation_model_size <= int.MaxValue)
             {
                 byte[] bytes = new byte[info->depth_nonlinear_representation_model_size];
 
