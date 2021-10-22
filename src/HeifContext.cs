@@ -986,6 +986,7 @@ namespace LibHeifSharp
         /// </summary>
         /// <param name="stream">The stream.</param>
         /// <exception cref="HeifException">A LibHeif error occurred.</exception>
+        /// <exception cref="IOException">An I/O error occurred.</exception>
         private void WriteToStreamInternal(Stream stream)
         {
             using (var writerStreamIO = new HeifStreamWriter(stream, ownsStream: false))
