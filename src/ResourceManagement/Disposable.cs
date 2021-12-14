@@ -21,6 +21,7 @@
  */
 
 using System;
+using System.Threading;
 
 namespace LibHeifSharp.ResourceManagement
 {
@@ -30,24 +31,29 @@ namespace LibHeifSharp.ResourceManagement
     /// <seealso cref="IDisposable" />
     public abstract class Disposable : IDisposable
     {
-        private bool disposed;
+        private int disposed;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Disposable"/> class.
         /// </summary>
         protected Disposable()
         {
-            this.disposed = false;
+            this.disposed = 0;
         }
+
+        private bool IsDisposed => Volatile.Read(ref this.disposed) != 0;
 
         /// <summary>
         /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
         /// </summary>
         public void Dispose()
         {
-            // Do not change this code. Put cleanup code in 'Dispose(bool disposing)' method
-            Dispose(disposing: true);
-            GC.SuppressFinalize(this);
+            if (Interlocked.Exchange(ref this.disposed, 1) == 0)
+            {
+                // Do not change this code. Put cleanup code in 'Dispose(bool disposing)' method
+                Dispose(disposing: true);
+                GC.SuppressFinalize(this);
+            }
         }
 
         /// <summary>
@@ -56,7 +62,6 @@ namespace LibHeifSharp.ResourceManagement
         /// <param name="disposing"><c>true</c> to release both managed and unmanaged resources; <c>false</c> to release only unmanaged resources.</param>
         protected virtual void Dispose(bool disposing)
         {
-            this.disposed = true;
         }
 
         /// <summary>
@@ -65,7 +70,7 @@ namespace LibHeifSharp.ResourceManagement
         /// <exception cref="ObjectDisposedException">The object has been disposed.</exception>
         protected void VerifyNotDisposed()
         {
-            if (this.disposed)
+            if (this.IsDisposed)
             {
                 throw new ObjectDisposedException(GetType().Name);
             }
