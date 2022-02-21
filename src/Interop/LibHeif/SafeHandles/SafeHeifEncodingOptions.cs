@@ -1,6 +1,6 @@
 ﻿/*
  * .NET bindings for libheif.
- * Copyright (c) 2020, 2021 Nicholas Hayes
+ * Copyright (c) 2020, 2021, 2022 Nicholas Hayes
  *
  * Portions Copyright (c) 2017 struktur AG, Dirk Farin <farin@struktur.de>
  *

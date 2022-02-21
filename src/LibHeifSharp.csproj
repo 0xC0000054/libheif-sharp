@@ -12,7 +12,7 @@
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
     <Authors>Nicholas Hayes</Authors>
     <Company>LibHeifSharp contributors</Company>
-    <Copyright>Copyright © 2021 Nicholas Hayes and contributors</Copyright>
+    <Copyright>Copyright © 2022 Nicholas Hayes and contributors</Copyright>
     <PackageTags>libheif heif heic avif</PackageTags>
     <PackageReleaseNotes></PackageReleaseNotes>
     <Description>Provides .NET bindings for libheif.
@@ -26,7 +26,7 @@ Features:
     * Vendor-specific auxiliary images
 * Supports encoding
     * Top-level images
-    * Thumbnails   
+    * Thumbnails
 * Supports reading and writing meta-data
 
 Requirements:

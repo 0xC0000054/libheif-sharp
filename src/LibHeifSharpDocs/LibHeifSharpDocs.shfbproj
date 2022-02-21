@@ -36,8 +36,8 @@
     <ComponentConfigurations>
       <ComponentConfig id="IntelliSense Component" enabled="True">
         <component id="IntelliSense Component">
-  <output includeNamespaces="false" namespacesFile="Namespaces" folder="{@OutputFolder}..\..\src\LibHeifSharpDocs\Help" boundedCapacity="100" />
-</component>
+          <output includeNamespaces="false" namespacesFile="Namespaces" folder="{@OutputFolder}..\..\src\LibHeifSharpDocs\Help" boundedCapacity="100" />
+        </component>
       </ComponentConfig>
     </ComponentConfigurations>
     <PlugInConfigurations>
@@ -74,7 +74,7 @@
     <WorkingPath>
     </WorkingPath>
     <CopyrightHref>https://github.com/0xC0000054/libheif-sharp</CopyrightHref>
-    <CopyrightText>Copyright &amp;#169%3b 2020 Nicholas Hayes</CopyrightText>
+    <CopyrightText>Copyright &amp;#169%3b 2022 Nicholas Hayes</CopyrightText>
   </PropertyGroup>
   <!-- There are no properties for these groups.  AnyCPU needs to appear in order for Visual Studio to perform
 			 the build.  The others are optional common platform types that may appear. -->
