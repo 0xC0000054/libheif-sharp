@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+    <meta charset="utf-8" />
+    <title>Building libheif on Windows with vcpkg</title>
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+</head>
+<body>
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+            <a id="forkme_banner" href="https://github.com/0xC0000054/libheif-sharp">View on GitHub</a>
+            <h1 id="project_title">LibHeifSharp</h1>
+            <h2 id="project_tagline">Online documentation site for LibHeifSharp</h2>
+        </header>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+        <section id="main_content" class="inner">
+            <h1>Building libheif on Windows with vcpkg</h1>
+            <p>
+                This page details the steps that are required to build libheif from
+                the <a href="https://github.com/microsoft/vcpkg">vcpkg</a> port.
+                <br />
+                The following examples use the <code>x64-windows</code> vcpkg triplet.
+            </p>
+            <h2>Installing the libheif dependencies</h2>
+            <p>
+                Before building libheif you need to install the one or more of the
+                libraries you want to use with it.
+            </p>
+            <h3>AOM</h3>
+            <p>AOM can be used for decoding and/or encoding AVIF images.</p>
+            <p>
+                <code>vcpkg install aom:x64-windows</code>
+            </p>
+            <h3>dav1d</h3>
+            <p>dav1d can be used for decoding AVIF images.</p>
+            <p>
+                <code>vcpkg install dav1d:x64-windows</code>
+            </p>
+            <h3>libde265</h3>
+            <p>libde265 can be used for decoding H.265 HEIF images.</p>
+            <p>
+                <code>vcpkg install libde265:x64-windows</code>
+            </p>
+            <h3>x265</h3>
+            <p>x265 can be used for encoding H.265 HEIF images.</p>
+            <p>
+                <code>vcpkg install x265:x64-windows</code>
+            </p>
+            <h2>Building libheif</h2>
+            <p>After the dependencies have been installed you can build libheif.</p>
+            <p>
+                <code>vcpkg install libheif:x64-windows</code>
+            </p>
+            <h3>Using libheif with libheif-sharp</h3>
+            <p>
+                You will need to copy the required DLLs from the vcpkg bin folder to
+                your application folder.
+                <br />
+                In the above examples the vcpkg bin folder would be:
+                <code>&lt;VCPKG_ROOT&gt;\installed\x64-windows\bin</code>.
+            </p>
+            <p>
+                Copy<code>heif.dll</code> and rename it to <code>libheif.dll</code>.
+                <br />
+                Copy any required dependencies:
+            </p>
+            <p>
+                AOM: <code>aom.dll</code>
+                <br />
+                dav1d: <code>dav1d.dll</code>
+                <br />
+                libde265: <code>libde265.dll</code>
+                <br />
+                x265: <code>libx265.dll</code>
+            </p>
+        </section>
+    </div>
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+        <footer class="inner">
+            <p>Published with <a href="https://pages.github.com">GitHub Pages</a></p>
+        </footer>
+    </div>
+</body>
+</html>
