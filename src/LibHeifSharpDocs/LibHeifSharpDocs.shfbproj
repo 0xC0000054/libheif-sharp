@@ -13,7 +13,7 @@
     <RootNamespace>LibHeifSharpDocs</RootNamespace>
     <Name>LibHeifSharpDocs</Name>
     <!-- SHFB properties -->
-    <FrameworkVersion>.NET Framework 4.7.2</FrameworkVersion>
+    <FrameworkVersion>.NET Core/.NET Standard/.NET 5.0+</FrameworkVersion>
     <OutputPath>..\..\docs\API\</OutputPath>
     <HtmlHelpName>LibHeifSharpDocs</HtmlHelpName>
     <Language>en-US</Language>
