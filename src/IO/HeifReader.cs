@@ -118,16 +118,16 @@ namespace LibHeifSharp
 
         private int Read(IntPtr data, UIntPtr size, IntPtr userData)
         {
-            if (data == IntPtr.Zero)
-            {
-                return Failure;
-            }
-
             ulong count = size.ToUInt64();
 
             if (count == 0)
             {
                 return Success;
+            }
+
+            if (data == IntPtr.Zero)
+            {
+                return Failure;
             }
 
             try
