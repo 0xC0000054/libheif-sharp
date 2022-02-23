@@ -1,36 +1,36 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <HelpTOC>
 
-  <HelpTOCNode Id="790e4269-3540-4ac1-beff-22eb7d43cd89" Title="LibHeifSharp" Url="html/726e933b-7f7a-549d-cbcc-ed8da9a22f83.htm">
+  <HelpTOCNode Id="f4685d84-6417-4a4d-b796-0ef422612841" Title="LibHeifSharp" Url="html/726e933b-7f7a-549d-cbcc-ed8da9a22f83.htm">
     <HelpTOCNode Title="AuxiliaryImageType Enumeration" Url="html/678320a9-e43b-4387-1a59-6121fd1b4ce7.htm" />
     <HelpTOCNode Title="ColorPrimaries Enumeration" Url="html/6f292654-efef-45bb-c993-99ea1193a300.htm" />
     <HelpTOCNode Title="ColorProfileType Enumeration" Url="html/7f0c942b-4e7f-6cbe-85b3-d0c57ee3e3cf.htm" />
-    <HelpTOCNode Id="dfcd2238-eb4a-4fbb-8652-5d635acb4d2a" Title="HeifBooleanEncoderParameter Class" Url="html/16fdd1e9-f0f4-61eb-1c42-91c4fb610ca0.htm">
-      <HelpTOCNode Id="633228fc-4091-4daa-827b-c0b5e1eff5c4" Title="HeifBooleanEncoderParameter Properties" Url="html/25d41389-7d59-c442-a37b-fa284cb2ab13.htm">
+    <HelpTOCNode Id="1a5b0553-a7d3-448a-90b7-a1f777e8eb7e" Title="HeifBooleanEncoderParameter Class" Url="html/16fdd1e9-f0f4-61eb-1c42-91c4fb610ca0.htm">
+      <HelpTOCNode Id="2df25294-ac7d-4cfe-bb66-b65f85c96099" Title="HeifBooleanEncoderParameter Properties" Url="html/25d41389-7d59-c442-a37b-fa284cb2ab13.htm">
         <HelpTOCNode Title="ParameterType Property " Url="html/57b6bf84-1cb6-4cfb-ad41-ef5a788441a6.htm" />
       </HelpTOCNode>
       <HelpTOCNode Title="HeifBooleanEncoderParameter Methods" Url="html/a5cddd12-79e9-61ee-e4ae-9604a3d772ec.htm" />
     </HelpTOCNode>
     <HelpTOCNode Title="HeifChannel Enumeration" Url="html/fcf58ce2-85d4-bd84-802c-ec091672b0e9.htm" />
     <HelpTOCNode Title="HeifChroma Enumeration" Url="html/f7373115-67d1-70fd-8cb4-02ef708ad6f6.htm" />
-    <HelpTOCNode Id="03d72946-82a7-48ee-b6d0-0a385419582b" Title="HeifColorProfile Class" Url="html/4452b034-1e83-9c6b-acb8-741967b1dc30.htm">
-      <HelpTOCNode Id="b5de90fd-646e-44ab-a308-a21a517e2025" Title="HeifColorProfile Properties" Url="html/06fc6174-7f07-3ac0-fced-e4ae37c4dafa.htm">
+    <HelpTOCNode Id="da6bce99-e277-4e8f-83fd-9ff9e6fd5daa" Title="HeifColorProfile Class" Url="html/4452b034-1e83-9c6b-acb8-741967b1dc30.htm">
+      <HelpTOCNode Id="c9987130-6326-4e71-9f9b-9286d6474571" Title="HeifColorProfile Properties" Url="html/06fc6174-7f07-3ac0-fced-e4ae37c4dafa.htm">
         <HelpTOCNode Title="ProfileType Property " Url="html/cabb7f66-122c-7c75-cf78-34ad73706b16.htm" />
       </HelpTOCNode>
       <HelpTOCNode Title="HeifColorProfile Methods" Url="html/eac8c9b8-9f87-8a03-c8a0-d27d4858b3d4.htm" />
     </HelpTOCNode>
     <HelpTOCNode Title="HeifColorspace Enumeration" Url="html/95366291-d774-653d-a994-e7b99c2d8dea.htm" />
     <HelpTOCNode Title="HeifCompressionFormat Enumeration" Url="html/924da9ad-87cb-0b7e-93ba-878ee1461032.htm" />
-    <HelpTOCNode Id="cf0a307f-4ebb-47cc-895d-c66f8818d19e" Title="HeifContext Class" Url="html/a41bfbec-0ae9-7c30-ba8e-312d2dc88c95.htm">
-      <HelpTOCNode Id="9d30c375-4223-4842-a93c-891b216fbcf8" Title="HeifContext Constructor " Url="html/679fbb18-4b10-cb55-0f22-178bac4f512d.htm">
+    <HelpTOCNode Id="c575acf4-79ee-46dd-991c-69fa474b8785" Title="HeifContext Class" Url="html/a41bfbec-0ae9-7c30-ba8e-312d2dc88c95.htm">
+      <HelpTOCNode Id="1f852351-db95-475e-b7e0-8733e4ffa390" Title="HeifContext Constructor " Url="html/679fbb18-4b10-cb55-0f22-178bac4f512d.htm">
         <HelpTOCNode Title="HeifContext Constructor " Url="html/aa2a14dc-2f84-86ea-2d9d-0bcf2c67cb7d.htm" />
         <HelpTOCNode Title="HeifContext Constructor (Byte[])" Url="html/dc2bae6e-96e8-d25b-e08f-4ff9190cfb9d.htm" />
         <HelpTOCNode Title="HeifContext Constructor (String)" Url="html/982dabcb-681b-fb4a-095f-295455fabd6a.htm" />
         <HelpTOCNode Title="HeifContext Constructor (Stream, Boolean)" Url="html/cb0b6db0-87e3-027b-b4b5-747813324e8e.htm" />
       </HelpTOCNode>
-      <HelpTOCNode Id="2da4a23a-a497-4149-8b9a-3272ef59295b" Title="HeifContext Methods" Url="html/15142018-000a-e472-2d2c-e61a0a93679c.htm">
+      <HelpTOCNode Id="3afaaaec-e5cb-4561-b9df-4249bd22af3d" Title="HeifContext Methods" Url="html/15142018-000a-e472-2d2c-e61a0a93679c.htm">
         <HelpTOCNode Title="AddExifMetadata Method " Url="html/b69eae04-1f94-cec4-5e02-a015bf16e8ec.htm" />
-        <HelpTOCNode Id="b7685cd3-4e29-4e6f-a11b-e0d6609d1768" Title="AddGenericMetadata Method " Url="html/6d78f614-9ffd-805f-cd4d-ea988177e990.htm">
+        <HelpTOCNode Id="cebd9eff-a034-4743-81f5-5fd2a45393cf" Title="AddGenericMetadata Method " Url="html/6d78f614-9ffd-805f-cd4d-ea988177e990.htm">
           <HelpTOCNode Title="AddGenericMetadata Method (HeifImageHandle, String, Byte[])" Url="html/3a9eec4b-f7af-6bf3-2e17-3c9ccea60b21.htm" />
           <HelpTOCNode Title="AddGenericMetadata Method (HeifImageHandle, String, String, Byte[])" Url="html/161d93e3-e213-9c89-ea40-10c8fbfb8227.htm" />
         </HelpTOCNode>
@@ -38,7 +38,7 @@
         <HelpTOCNode Title="EncodeImage Method " Url="html/b5df0123-ff89-45fa-a6f5-bcaeaa18595a.htm" />
         <HelpTOCNode Title="EncodeImageAndReturnHandle Method " Url="html/a2aee0e0-e07e-d815-6176-8f43db6392b4.htm" />
         <HelpTOCNode Title="EncodeThumbnail Method " Url="html/139d0f5d-9973-9455-ef22-046ded3636a8.htm" />
-        <HelpTOCNode Id="66fddaf1-f4e8-4144-bbab-5d605ace62f9" Title="GetEncoder Method " Url="html/f0622938-8ddf-5661-c50d-363ef68e8317.htm">
+        <HelpTOCNode Id="9abc3e03-afd1-4769-b510-139bdf57943a" Title="GetEncoder Method " Url="html/f0622938-8ddf-5661-c50d-363ef68e8317.htm">
           <HelpTOCNode Title="GetEncoder Method (HeifCompressionFormat)" Url="html/d9325e0c-10d1-f274-d7bd-45b307ed505f.htm" />
           <HelpTOCNode Title="GetEncoder Method (HeifEncoderDescriptor)" Url="html/36340f35-8b1c-b75d-14ae-7c2bd4420aa0.htm" />
         </HelpTOCNode>
@@ -52,16 +52,16 @@
         <HelpTOCNode Title="WriteToStream Method " Url="html/db9c5780-d94b-425b-2b7b-40d4d25fc9f2.htm" />
       </HelpTOCNode>
     </HelpTOCNode>
-    <HelpTOCNode Id="4c3a66b2-c333-4063-84b8-7ddd821435ee" Title="HeifDecodingOptions Class" Url="html/d0da3881-e891-fa9c-1f26-73b3a2ec31fa.htm">
+    <HelpTOCNode Id="c1e493c6-0e72-47b5-bb52-43822017f669" Title="HeifDecodingOptions Class" Url="html/d0da3881-e891-fa9c-1f26-73b3a2ec31fa.htm">
       <HelpTOCNode Title="HeifDecodingOptions Constructor " Url="html/3e808aaf-ec4e-f27d-59da-04f4f4c3087f.htm" />
-      <HelpTOCNode Id="b1cc8af4-7d30-4d0a-909a-8d1acc41c432" Title="HeifDecodingOptions Properties" Url="html/95f0ee80-8865-d0a3-a726-7501999af5e1.htm">
+      <HelpTOCNode Id="877a9416-d03a-4d47-9bfc-78dfde5169e8" Title="HeifDecodingOptions Properties" Url="html/95f0ee80-8865-d0a3-a726-7501999af5e1.htm">
         <HelpTOCNode Title="ConvertHdrToEightBit Property " Url="html/4505c10e-fdc7-4df4-78e0-01a1ea10e024.htm" />
         <HelpTOCNode Title="IgnoreTransformations Property " Url="html/c4b726b4-465d-9153-899a-9164fa0b2916.htm" />
       </HelpTOCNode>
       <HelpTOCNode Title="HeifDecodingOptions Methods" Url="html/8ac25bd6-2a35-e47a-5b8b-4f946cfed780.htm" />
     </HelpTOCNode>
-    <HelpTOCNode Id="0e86d534-8af6-4dd8-b158-7a8a3c594264" Title="HeifDepthRepresentationInfo Class" Url="html/7e241979-98fa-9868-5b2a-caf6e26277d4.htm">
-      <HelpTOCNode Id="8d34da1d-a85a-4844-97d5-ca05273c8676" Title="HeifDepthRepresentationInfo Properties" Url="html/10a7b602-e4c7-a624-e3d6-ca8190b50c78.htm">
+    <HelpTOCNode Id="6f5dfb77-3ec9-40ee-b323-dcc331298271" Title="HeifDepthRepresentationInfo Class" Url="html/7e241979-98fa-9868-5b2a-caf6e26277d4.htm">
+      <HelpTOCNode Id="22f178b5-482a-4397-9ea3-4ebd52143bdd" Title="HeifDepthRepresentationInfo Properties" Url="html/10a7b602-e4c7-a624-e3d6-ca8190b50c78.htm">
         <HelpTOCNode Title="DepthRepresentationType Property " Url="html/8dda9d9f-fda7-8dd0-4592-8f349bc49510.htm" />
         <HelpTOCNode Title="DisparityReferenceView Property " Url="html/d598cf17-ac0c-dde6-65f2-3df5056f28d4.htm" />
         <HelpTOCNode Title="DMax Property " Url="html/f925a133-3e68-7386-1aea-07843da46771.htm" />
@@ -73,25 +73,25 @@
       <HelpTOCNode Title="HeifDepthRepresentationInfo Methods" Url="html/f8004bb7-5067-e26f-77cd-360c80fc4d50.htm" />
     </HelpTOCNode>
     <HelpTOCNode Title="HeifDepthRepresentationType Enumeration" Url="html/073b42bf-97b4-dd4b-225f-614e6b5d128e.htm" />
-    <HelpTOCNode Id="52c521a9-92dd-4dbc-b362-ed1698ee3e37" Title="HeifEncoder Class" Url="html/9fc984a7-682c-43c9-9779-4ff42ef7163e.htm">
-      <HelpTOCNode Id="0ba54750-3ee6-4a37-990f-e39666f9fedb" Title="HeifEncoder Properties" Url="html/6b4d1a25-4cf8-1697-d8cb-ef49c758d108.htm">
+    <HelpTOCNode Id="f0d21016-04ec-4c86-899e-34990ad3bfcc" Title="HeifEncoder Class" Url="html/9fc984a7-682c-43c9-9779-4ff42ef7163e.htm">
+      <HelpTOCNode Id="5cc9bd4f-3945-490c-8fb9-3d7934e3d193" Title="HeifEncoder Properties" Url="html/6b4d1a25-4cf8-1697-d8cb-ef49c758d108.htm">
         <HelpTOCNode Title="EncoderParameters Property " Url="html/ea855e44-8d4b-7705-7d03-5a70fc836497.htm" />
       </HelpTOCNode>
-      <HelpTOCNode Id="933bf473-4796-4cc2-8b2b-f7dd670bf3db" Title="HeifEncoder Methods" Url="html/105b9d35-415d-a895-9043-4351c327ac7a.htm">
+      <HelpTOCNode Id="c22eddda-e75d-455c-a34e-bfa9ce3d40e5" Title="HeifEncoder Methods" Url="html/105b9d35-415d-a895-9043-4351c327ac7a.htm">
         <HelpTOCNode Title="SetLossless Method " Url="html/c17bbc27-3558-35d5-1fe7-a73421e84e03.htm" />
         <HelpTOCNode Title="SetLossyQuality Method " Url="html/f9e3b910-f246-85e4-e1a2-c53e4f4bef07.htm" />
-        <HelpTOCNode Id="c6f285be-2d57-4a0b-b9e2-149c071a7d3e" Title="SetParameter Method " Url="html/461c7c18-9d0d-5be0-54a9-fc05fae4ca37.htm">
-          <HelpTOCNode Title="SetParameter Method (String, Boolean)" Url="html/a741d51d-3573-9f0e-21ee-05849d300b71.htm" />
-          <HelpTOCNode Title="SetParameter Method (String, Int32)" Url="html/977dc6b2-3e1d-5c87-bbb9-8f2192fc1b5c.htm" />
-          <HelpTOCNode Title="SetParameter Method (String, String)" Url="html/fa8651e8-3992-43b0-d268-48c751ffbbc1.htm" />
+        <HelpTOCNode Id="b524ff8f-a1b0-4e34-9549-bfb3e3ca82fd" Title="SetParameter Method " Url="html/461c7c18-9d0d-5be0-54a9-fc05fae4ca37.htm">
           <HelpTOCNode Title="SetParameter Method (HeifBooleanEncoderParameter, Boolean)" Url="html/5619ae88-ab09-2aa0-29a4-1e6981408358.htm" />
           <HelpTOCNode Title="SetParameter Method (HeifIntegerEncoderParameter, Int32)" Url="html/0ace4ddd-47ec-28d3-ea10-894c7c5685eb.htm" />
           <HelpTOCNode Title="SetParameter Method (HeifStringEncoderParameter, String)" Url="html/05c32879-f140-a823-af5e-73748931dc96.htm" />
+          <HelpTOCNode Title="SetParameter Method (String, Boolean)" Url="html/a741d51d-3573-9f0e-21ee-05849d300b71.htm" />
+          <HelpTOCNode Title="SetParameter Method (String, Int32)" Url="html/977dc6b2-3e1d-5c87-bbb9-8f2192fc1b5c.htm" />
+          <HelpTOCNode Title="SetParameter Method (String, String)" Url="html/fa8651e8-3992-43b0-d268-48c751ffbbc1.htm" />
         </HelpTOCNode>
       </HelpTOCNode>
     </HelpTOCNode>
-    <HelpTOCNode Id="2904b951-2b54-4805-aa77-b1a2ab878258" Title="HeifEncoderDescriptor Class" Url="html/8afd8a9e-0453-e63f-e612-16a5fd5394d6.htm">
-      <HelpTOCNode Id="d50f0625-1c78-4bf1-a1d3-3b690ddb9b0e" Title="HeifEncoderDescriptor Properties" Url="html/5d5d145b-88d3-5490-2f91-9fe0a00a152e.htm">
+    <HelpTOCNode Id="a6971f03-b7e0-4a89-bbba-4e361ca48a6a" Title="HeifEncoderDescriptor Class" Url="html/8afd8a9e-0453-e63f-e612-16a5fd5394d6.htm">
+      <HelpTOCNode Id="5c075b8d-82dc-4211-9ba2-2ff9750b6e43" Title="HeifEncoderDescriptor Properties" Url="html/5d5d145b-88d3-5490-2f91-9fe0a00a152e.htm">
         <HelpTOCNode Title="CompressionFormat Property " Url="html/62ae91cd-1db7-cc5f-6165-d807fbdf2c32.htm" />
         <HelpTOCNode Title="IdName Property " Url="html/12672b81-447f-aacd-8476-1f5b22b524dc.htm" />
         <HelpTOCNode Title="Name Property " Url="html/98cf6db9-155e-77d2-026a-ab2933adbb79.htm" />
@@ -100,8 +100,8 @@
       </HelpTOCNode>
       <HelpTOCNode Title="HeifEncoderDescriptor Methods" Url="html/6581602c-7e7f-878e-b112-ff921eba075b.htm" />
     </HelpTOCNode>
-    <HelpTOCNode Id="8c8b53b8-fa94-4caf-b93f-99ef5fae536e" Title="HeifEncoderParameter(T) Class" Url="html/7184ba99-9cd0-c90a-8019-a2338ef9f0cf.htm">
-      <HelpTOCNode Id="b85b37ed-99ab-416c-b92d-b842f019173f" Title="HeifEncoderParameter(T) Properties" Url="html/2c86b951-5398-2b03-5ae9-5a815aa00878.htm">
+    <HelpTOCNode Id="096838dc-53e3-46fd-8a47-4849674206d1" Title="HeifEncoderParameter(T) Class" Url="html/7184ba99-9cd0-c90a-8019-a2338ef9f0cf.htm">
+      <HelpTOCNode Id="dc9f89f1-2751-4d99-8002-ce3fb838d1da" Title="HeifEncoderParameter(T) Properties" Url="html/2c86b951-5398-2b03-5ae9-5a815aa00878.htm">
         <HelpTOCNode Title="DefaultValue Property " Url="html/8aee84ac-787b-712e-e3ad-bb51b1f70ef8.htm" />
         <HelpTOCNode Title="HasDefault Property " Url="html/cb086e4c-be8b-ebf3-9c72-435ac0c5281d.htm" />
         <HelpTOCNode Title="Name Property " Url="html/068b1d24-af76-74ab-fabd-ba3ed25bb511.htm" />
@@ -110,9 +110,9 @@
       <HelpTOCNode Title="HeifEncoderParameter(T) Methods" Url="html/db82ea8f-8e45-4772-79c8-918abcfceeda.htm" />
     </HelpTOCNode>
     <HelpTOCNode Title="HeifEncoderParameterType Enumeration" Url="html/7abe386c-2304-b4e4-64fd-007f9b925c62.htm" />
-    <HelpTOCNode Id="fa3982ae-38f8-4642-864c-e7b453439084" Title="HeifEncodingOptions Class" Url="html/189c651d-9a29-cda1-16ea-923ae8d2fbc9.htm">
+    <HelpTOCNode Id="6b397fd1-be46-4fac-8b08-6c9dd991a57c" Title="HeifEncodingOptions Class" Url="html/189c651d-9a29-cda1-16ea-923ae8d2fbc9.htm">
       <HelpTOCNode Title="HeifEncodingOptions Constructor " Url="html/4c9fa041-5a66-ddb8-e97d-05877781e748.htm" />
-      <HelpTOCNode Id="3e415a19-5b7c-40d2-8595-da9895b939d6" Title="HeifEncodingOptions Properties" Url="html/c92a3ad0-8390-550f-e522-0d24b6e4f920.htm">
+      <HelpTOCNode Id="604f6e5c-4fcf-4978-8b79-c6f263bc39a3" Title="HeifEncodingOptions Properties" Url="html/c92a3ad0-8390-550f-e522-0d24b6e4f920.htm">
         <HelpTOCNode Title="CropWithImageGrid Property " Url="html/7d348662-3860-efe9-950f-9c232338a18b.htm" />
         <HelpTOCNode Title="SaveAlphaChannel Property " Url="html/07f45696-739f-bc33-198d-51dc875240b9.htm" />
         <HelpTOCNode Title="WriteNclxColorProfile Property " Url="html/653c4759-d07e-2d4d-e552-b3378d45c09a.htm" />
@@ -120,8 +120,8 @@
       </HelpTOCNode>
       <HelpTOCNode Title="HeifEncodingOptions Methods" Url="html/9bc0de2a-c6dc-4698-207b-9e6d8265cd4c.htm" />
     </HelpTOCNode>
-    <HelpTOCNode Id="148c0c48-ff4f-498a-8a2e-06a0b1a69ff2" Title="HeifException Class" Url="html/3bbc1cf7-3517-81f6-ef41-2615d015596f.htm">
-      <HelpTOCNode Id="ef69c4de-6dc1-4893-9aa7-7fb43209057b" Title="HeifException Constructor " Url="html/a50d393e-1484-21d4-0f78-fc398c19d7fc.htm">
+    <HelpTOCNode Id="fe70b197-615a-4674-acd4-2754c179b54f" Title="HeifException Class" Url="html/3bbc1cf7-3517-81f6-ef41-2615d015596f.htm">
+      <HelpTOCNode Id="4196ea2f-83dc-4311-9953-0728944f2b2e" Title="HeifException Constructor " Url="html/a50d393e-1484-21d4-0f78-fc398c19d7fc.htm">
         <HelpTOCNode Title="HeifException Constructor " Url="html/067ac8b3-7647-49f0-a5bb-798e43de4738.htm" />
         <HelpTOCNode Title="HeifException Constructor (String)" Url="html/a6bb0bcb-0160-dcf6-5057-f6375586b4f8.htm" />
         <HelpTOCNode Title="HeifException Constructor (String, Exception)" Url="html/34044b10-dc27-aba9-13a6-a0c2ef04c415.htm" />
@@ -129,42 +129,44 @@
       <HelpTOCNode Title="HeifException Properties" Url="html/87085286-e9e3-a2cf-6bf1-15cfb2fa7840.htm" />
       <HelpTOCNode Title="HeifException Methods" Url="html/a2f2aec0-af70-b40f-0c10-ed9a2b926f7e.htm" />
     </HelpTOCNode>
-    <HelpTOCNode Id="fe17dc70-9dbc-4478-9ac1-ce62af649b75" Title="HeifIccColorProfile Class" Url="html/9c48599f-9e29-02d7-1410-c206156615be.htm">
+    <HelpTOCNode Id="388d6762-bb24-4d3a-8c40-9713c50ae5ca" Title="HeifIccColorProfile Class" Url="html/9c48599f-9e29-02d7-1410-c206156615be.htm">
       <HelpTOCNode Title="HeifIccColorProfile Constructor " Url="html/bc6e32fb-fe8a-9749-8aa8-087d6736e059.htm" />
       <HelpTOCNode Title="HeifIccColorProfile Properties" Url="html/a11e2c31-6825-4295-9af3-36ae2c089eab.htm" />
-      <HelpTOCNode Id="235b5095-7fe4-44a8-a55f-f32ffb51454c" Title="HeifIccColorProfile Methods" Url="html/97e8352f-b2d1-01ea-ee4f-64e021dc57bc.htm">
+      <HelpTOCNode Id="5edfeada-bcc4-4105-a1a7-f8db94146d1d" Title="HeifIccColorProfile Methods" Url="html/97e8352f-b2d1-01ea-ee4f-64e021dc57bc.htm">
         <HelpTOCNode Title="GetIccProfileBytes Method " Url="html/024a9daf-2d8a-db4f-6920-73c4e4f3a7a9.htm" />
       </HelpTOCNode>
     </HelpTOCNode>
-    <HelpTOCNode Id="2ac0cf91-12c4-41c3-a055-fba44929c33b" Title="HeifImage Class" Url="html/4ca1bba8-cf5e-0353-6c4c-6fb2bf25f106.htm">
+    <HelpTOCNode Id="cf65b2a5-6588-4e63-9b39-5136510d960a" Title="HeifImage Class" Url="html/4ca1bba8-cf5e-0353-6c4c-6fb2bf25f106.htm">
       <HelpTOCNode Title="HeifImage Constructor " Url="html/7a1933d3-83cb-d55d-3b18-7046ce9acb1b.htm" />
-      <HelpTOCNode Id="e76428db-6677-419a-b878-994418418483" Title="HeifImage Properties" Url="html/67ac34bf-9e95-42e5-bd25-8dc821103e87.htm">
+      <HelpTOCNode Id="b52a0e09-b521-4121-ab4f-16f026ec02c2" Title="HeifImage Properties" Url="html/67ac34bf-9e95-42e5-bd25-8dc821103e87.htm">
         <HelpTOCNode Title="Chroma Property " Url="html/60aeb1b8-5e15-89ff-57b8-cfc4100e6c6b.htm" />
         <HelpTOCNode Title="Colorspace Property " Url="html/9a2f6ea2-a392-419c-635f-add8aed59e4a.htm" />
         <HelpTOCNode Title="HasAlphaChannel Property " Url="html/91577e55-274a-2c42-e65b-120003388f06.htm" />
         <HelpTOCNode Title="Height Property " Url="html/3410c2b7-81b6-c42b-7225-1deefbc5d8ae.htm" />
         <HelpTOCNode Title="IccColorProfile Property " Url="html/71b50f90-0259-a9bd-42ef-118dca2dc51d.htm" />
+        <HelpTOCNode Title="IsPremultipliedAlpha Property " Url="html/0a483bde-a827-ac06-a49e-52f73ddf3e03.htm" />
         <HelpTOCNode Title="NclxColorProfile Property " Url="html/04c0667c-c770-d90b-45fd-2feafc6ee22d.htm" />
         <HelpTOCNode Title="Width Property " Url="html/41ed3f30-d27e-1ca2-f6b6-3e9b9e5ada14.htm" />
       </HelpTOCNode>
-      <HelpTOCNode Id="acf02423-38c0-4133-9167-f9c0462df944" Title="HeifImage Methods" Url="html/fa4db80b-a97b-b336-5ff8-1b7812e10e5f.htm">
+      <HelpTOCNode Id="bace9d7e-1938-4381-9c2f-c9fa2fb02b1e" Title="HeifImage Methods" Url="html/fa4db80b-a97b-b336-5ff8-1b7812e10e5f.htm">
         <HelpTOCNode Title="AddPlane Method " Url="html/76e0b9de-c2ab-873b-e201-1a8bf64c7e67.htm" />
         <HelpTOCNode Title="GetPlane Method " Url="html/9c1168f9-4d4f-3dd8-e07f-0bcc9704985d.htm" />
         <HelpTOCNode Title="HasChannel Method " Url="html/cec35b3c-8e89-f911-6f41-57561211fd46.htm" />
         <HelpTOCNode Title="ScaleImage Method " Url="html/b052cead-8fd6-6578-8ebf-4c05bb462276.htm" />
       </HelpTOCNode>
     </HelpTOCNode>
-    <HelpTOCNode Id="1e9a1186-6b6a-43e9-90ad-9c57e4252796" Title="HeifImageHandle Class" Url="html/6e06653c-bfa9-38c9-f5ba-8af87bb08f76.htm">
-      <HelpTOCNode Id="fa01e1ee-e79b-4a38-a1ef-6e70de856c1c" Title="HeifImageHandle Properties" Url="html/0ee63021-45a3-052d-b580-051a03a651ec.htm">
+    <HelpTOCNode Id="702220ed-ae8f-4998-8140-a17cd40a0c5a" Title="HeifImageHandle Class" Url="html/6e06653c-bfa9-38c9-f5ba-8af87bb08f76.htm">
+      <HelpTOCNode Id="5d4a7641-a2bc-43af-9eb6-54541a09a8ac" Title="HeifImageHandle Properties" Url="html/0ee63021-45a3-052d-b580-051a03a651ec.htm">
         <HelpTOCNode Title="AuxiliaryImageType Property " Url="html/05b224ac-bfd2-a6eb-9949-46486d554597.htm" />
         <HelpTOCNode Title="BitDepth Property " Url="html/63762640-2017-9fb0-951d-8e4586474a13.htm" />
         <HelpTOCNode Title="HasAlphaChannel Property " Url="html/1391836a-7289-0f1c-cac1-e4374defeb14.htm" />
         <HelpTOCNode Title="HasDepthImage Property " Url="html/449822b3-a6ec-01a0-5f9c-d1a6b11e99a2.htm" />
         <HelpTOCNode Title="Height Property " Url="html/4f8aeacf-a955-ec23-a302-4491ba955f3e.htm" />
+        <HelpTOCNode Title="IsPremultipliedAlpha Property " Url="html/acbcfedc-d2c3-db95-5fa1-c77fb4661b46.htm" />
         <HelpTOCNode Title="IsPrimaryImage Property " Url="html/1d8af761-6fd6-f869-1c9b-26bdc761a25a.htm" />
         <HelpTOCNode Title="Width Property " Url="html/35b5562f-7740-ca44-1508-3f61d9487e6e.htm" />
       </HelpTOCNode>
-      <HelpTOCNode Id="20776148-6793-4efc-b96d-df2e8f6b43e3" Title="HeifImageHandle Methods" Url="html/744da788-ef2c-b92c-b566-2f2e3d600b08.htm">
+      <HelpTOCNode Id="bf6eb5d8-1fd8-44d0-8658-cb0c0f6c7312" Title="HeifImageHandle Methods" Url="html/744da788-ef2c-b92c-b566-2f2e3d600b08.htm">
         <HelpTOCNode Title="Decode Method " Url="html/b67a23c9-e7b5-971c-c367-ce367bb23f4b.htm" />
         <HelpTOCNode Title="GetAuxiliaryImage Method " Url="html/3dc59391-9b87-58bc-dedc-67163eab3ab4.htm" />
         <HelpTOCNode Title="GetAuxiliaryImageIds Method " Url="html/950db953-d65a-cd00-3f63-9cd4b9f65dd0.htm" />
@@ -180,8 +182,8 @@
         <HelpTOCNode Title="GetXmpMetadata Method " Url="html/0571aba0-2f18-cf7e-bcf0-838b508762ca.htm" />
       </HelpTOCNode>
     </HelpTOCNode>
-    <HelpTOCNode Id="0e6f9388-8f20-4acf-8c12-e48b32f30234" Title="HeifIntegerEncoderParameter Class" Url="html/25a9377f-ae43-4800-192f-dbc0911c488f.htm">
-      <HelpTOCNode Id="0e16d12a-d084-4283-80c0-f97fce753978" Title="HeifIntegerEncoderParameter Properties" Url="html/7b03b013-582b-3c7c-b042-7109b651e4f5.htm">
+    <HelpTOCNode Id="6c3eb5b1-6093-46d0-9a91-5cabea44e7ff" Title="HeifIntegerEncoderParameter Class" Url="html/25a9377f-ae43-4800-192f-dbc0911c488f.htm">
+      <HelpTOCNode Id="0ae57d54-d003-4f8f-aa23-2787b008905c" Title="HeifIntegerEncoderParameter Properties" Url="html/7b03b013-582b-3c7c-b042-7109b651e4f5.htm">
         <HelpTOCNode Title="HasMinimumMaximum Property " Url="html/9b4f1a3c-b592-9ec2-5c33-1875ded1c383.htm" />
         <HelpTOCNode Title="Maximum Property " Url="html/a4d720ab-992f-a32a-20c6-fae3f937efb9.htm" />
         <HelpTOCNode Title="Minimum Property " Url="html/bc9bf16a-6793-510c-74dd-8e7f921e0ef1.htm" />
@@ -190,23 +192,23 @@
       </HelpTOCNode>
       <HelpTOCNode Title="HeifIntegerEncoderParameter Methods" Url="html/78e69b8e-3542-3635-766e-63b8ea92b8b5.htm" />
     </HelpTOCNode>
-    <HelpTOCNode Id="99948419-1f2a-4381-a642-67be87967396" Title="HeifItemId Structure" Url="html/0fb0cc41-d083-13c7-2466-5218391f2b85.htm">
-      <HelpTOCNode Id="623f3d9f-bc0b-4484-ac56-2293ab247e56" Title="HeifItemId Methods" Url="html/a42ad422-a7de-aa2f-a7c1-b45a3cea82be.htm">
-        <HelpTOCNode Id="c80fef07-7ef9-4c12-80bb-a344b8cb566f" Title="Equals Method " Url="html/7b156535-1e31-9308-24c7-74ff7c59dcd9.htm">
-          <HelpTOCNode Title="Equals Method (Object)" Url="html/6c9e8e39-c006-d627-9320-f7af0a47dd73.htm" />
+    <HelpTOCNode Id="3642971f-410d-4024-a8d1-036f1c32a892" Title="HeifItemId Structure" Url="html/0fb0cc41-d083-13c7-2466-5218391f2b85.htm">
+      <HelpTOCNode Id="320dc423-ab53-4062-bd7e-c6560b1957db" Title="HeifItemId Methods" Url="html/a42ad422-a7de-aa2f-a7c1-b45a3cea82be.htm">
+        <HelpTOCNode Id="a1a9af9c-acbe-4e39-9267-04702cae990b" Title="Equals Method " Url="html/7b156535-1e31-9308-24c7-74ff7c59dcd9.htm">
           <HelpTOCNode Title="Equals Method (HeifItemId)" Url="html/4cfe88b5-5cbc-6dc7-4219-95f7155b3ea6.htm" />
+          <HelpTOCNode Title="Equals Method (Object)" Url="html/6c9e8e39-c006-d627-9320-f7af0a47dd73.htm" />
         </HelpTOCNode>
         <HelpTOCNode Title="GetHashCode Method " Url="html/2c3df93f-3225-1092-0983-0545f583efca.htm" />
         <HelpTOCNode Title="ToString Method " Url="html/9d01c8a8-9a4e-06d4-cc27-46e4294a0556.htm" />
       </HelpTOCNode>
-      <HelpTOCNode Id="90714d05-96fe-458d-ab95-507bc24217f2" Title="HeifItemId Operators" Url="html/761cae67-b56b-7b8e-7ef0-00b94bda24de.htm">
+      <HelpTOCNode Id="ffd6ea44-0eb3-4765-b860-dbf9dd45ca57" Title="HeifItemId Operators" Url="html/761cae67-b56b-7b8e-7ef0-00b94bda24de.htm">
         <HelpTOCNode Title="Equality Operator " Url="html/145af868-530b-545c-2899-633d0a0dfe00.htm" />
         <HelpTOCNode Title="Inequality Operator " Url="html/8549ff36-28af-cad0-1e1b-454616fe1617.htm" />
       </HelpTOCNode>
     </HelpTOCNode>
-    <HelpTOCNode Id="6d16c72a-4814-4229-871d-673ccfd3ab74" Title="HeifNclxColorProfile Class" Url="html/3c99a434-e016-a20e-d813-b0b39544f44a.htm">
+    <HelpTOCNode Id="3d966e74-66fc-42d6-917e-14d5c9d94846" Title="HeifNclxColorProfile Class" Url="html/3c99a434-e016-a20e-d813-b0b39544f44a.htm">
       <HelpTOCNode Title="HeifNclxColorProfile Constructor " Url="html/451cc426-9c2f-2fbd-d25f-119655fb1ce8.htm" />
-      <HelpTOCNode Id="0bd19462-03f8-4976-b3fb-b4d4202afae7" Title="HeifNclxColorProfile Properties" Url="html/71ad3b39-0a25-782a-baac-ee51a42f1fa4.htm">
+      <HelpTOCNode Id="9b1be235-1e7e-4c08-a468-88d7de5d2a09" Title="HeifNclxColorProfile Properties" Url="html/71ad3b39-0a25-782a-baac-ee51a42f1fa4.htm">
         <HelpTOCNode Title="ColorPrimaries Property " Url="html/20550e61-803b-f5df-aa56-d861a69d66fb.htm" />
         <HelpTOCNode Title="FullRange Property " Url="html/e8969ea6-362c-529c-1fff-33c94122a944.htm" />
         <HelpTOCNode Title="MatrixCoefficients Property " Url="html/d6f0f4f0-128f-1088-1af5-1341d706c102.htm" />
@@ -214,8 +216,8 @@
       </HelpTOCNode>
       <HelpTOCNode Title="HeifNclxColorProfile Methods" Url="html/36b407a7-eb53-a031-b4a5-72b5331efa66.htm" />
     </HelpTOCNode>
-    <HelpTOCNode Id="051ae285-74ee-4a80-80e0-6b1be595ef81" Title="HeifPlaneData Class" Url="html/bfbd7634-5a55-ed56-613c-08a54ad985fa.htm">
-      <HelpTOCNode Id="8fb27c31-7d1c-459a-bbd6-c7294de6de06" Title="HeifPlaneData Properties" Url="html/bae40177-03f4-761c-e234-17fd1b4d872c.htm">
+    <HelpTOCNode Id="e308da71-c83b-4e09-a1ae-981aa86c88de" Title="HeifPlaneData Class" Url="html/bfbd7634-5a55-ed56-613c-08a54ad985fa.htm">
+      <HelpTOCNode Id="892139fd-dae9-4a97-8016-13fa7f63d975" Title="HeifPlaneData Properties" Url="html/bae40177-03f4-761c-e234-17fd1b4d872c.htm">
         <HelpTOCNode Title="Channel Property " Url="html/24b78b96-34df-5dc4-f7aa-d2b00db28489.htm" />
         <HelpTOCNode Title="Height Property " Url="html/c87cfd94-9077-6673-ba81-37367d464902.htm" />
         <HelpTOCNode Title="Scan0 Property " Url="html/9a90f473-c9d4-35d7-2c88-0ab77e773e12.htm" />
@@ -224,25 +226,25 @@
       </HelpTOCNode>
       <HelpTOCNode Title="HeifPlaneData Methods" Url="html/196a3440-3448-608b-ba92-758fe3111dc8.htm" />
     </HelpTOCNode>
-    <HelpTOCNode Id="5640ec5a-97e6-4a72-9e2b-bb4d322eb8a8" Title="HeifStringEncoderParameter Class" Url="html/895d7127-1847-90cb-9f91-8c3845315d8c.htm">
-      <HelpTOCNode Id="59080b6e-6d1d-4966-9b70-21c0d9aa87a7" Title="HeifStringEncoderParameter Properties" Url="html/85cc40d9-2581-4af5-0f2e-2369d218718c.htm">
+    <HelpTOCNode Id="09533041-e446-4dc7-b846-7ab5ccda6279" Title="HeifStringEncoderParameter Class" Url="html/895d7127-1847-90cb-9f91-8c3845315d8c.htm">
+      <HelpTOCNode Id="f8ef10d1-b91b-424b-b72d-01a21dcda6fc" Title="HeifStringEncoderParameter Properties" Url="html/85cc40d9-2581-4af5-0f2e-2369d218718c.htm">
         <HelpTOCNode Title="ParameterType Property " Url="html/47635fdf-0540-ecf7-7e45-bbe59358809d.htm" />
         <HelpTOCNode Title="ValidValues Property " Url="html/36c8469a-621e-060a-7846-6899d34c84cc.htm" />
       </HelpTOCNode>
       <HelpTOCNode Title="HeifStringEncoderParameter Methods" Url="html/b57b6737-8292-af27-88f8-eb02b325b4ce.htm" />
     </HelpTOCNode>
-    <HelpTOCNode Id="d8b61cc2-7e6d-4639-8012-3d89940d8eb0" Title="IHeifEncoderParameter Interface" Url="html/951982d4-3367-8d91-638a-ac71b49ebadd.htm">
-      <HelpTOCNode Id="eb1f4770-7eee-4b57-93fe-575e77fce127" Title="IHeifEncoderParameter Properties" Url="html/408606b6-fc38-f428-56e9-7810bd0bc754.htm">
+    <HelpTOCNode Id="629b4cc7-42f8-4747-9838-cbcbb4d30f79" Title="IHeifEncoderParameter Interface" Url="html/951982d4-3367-8d91-638a-ac71b49ebadd.htm">
+      <HelpTOCNode Id="46cc101d-831c-4d93-857c-334dc935a2cb" Title="IHeifEncoderParameter Properties" Url="html/408606b6-fc38-f428-56e9-7810bd0bc754.htm">
         <HelpTOCNode Title="Name Property " Url="html/917fb8f2-3fe5-74e7-cbe8-508e4e1b3023.htm" />
         <HelpTOCNode Title="ParameterType Property " Url="html/231e19d9-b1ce-4574-f634-2d087c681aa9.htm" />
       </HelpTOCNode>
     </HelpTOCNode>
-    <HelpTOCNode Id="6a1c9c81-e8b1-4fde-8532-4122f0912177" Title="LibHeifInfo Class" Url="html/4b16baaf-c38a-c562-6e1c-3690bb52d44d.htm">
-      <HelpTOCNode Id="ca6a6d16-bb16-4da1-ae6b-fbb1c9483844" Title="LibHeifInfo Properties" Url="html/e4ff3ea7-fa24-6678-b8c1-707df3ac325c.htm">
+    <HelpTOCNode Id="d47a77ac-447f-4303-b9c4-30b85e23572f" Title="LibHeifInfo Class" Url="html/4b16baaf-c38a-c562-6e1c-3690bb52d44d.htm">
+      <HelpTOCNode Id="f586bf94-2885-487b-bed0-ee57b442b070" Title="LibHeifInfo Properties" Url="html/e4ff3ea7-fa24-6678-b8c1-707df3ac325c.htm">
         <HelpTOCNode Title="CanWriteTwoColorProfiles Property " Url="html/47551f85-2d08-1523-a219-0804e978cca7.htm" />
         <HelpTOCNode Title="Version Property " Url="html/b750db91-e7ac-f3bb-54b6-cb5c10ba91fe.htm" />
       </HelpTOCNode>
-      <HelpTOCNode Id="0106c960-311f-4f95-95a2-0cb9fab30614" Title="LibHeifInfo Methods" Url="html/41796b55-9d66-f3d1-aa25-81906f5d7f58.htm">
+      <HelpTOCNode Id="9ad38557-9758-4aa9-9fe4-5e751b459b04" Title="LibHeifInfo Methods" Url="html/41796b55-9d66-f3d1-aa25-81906f5d7f58.htm">
         <HelpTOCNode Title="HaveDecoder Method " Url="html/7ab8a6d7-9217-9742-3f32-a43268749ae3.htm" />
         <HelpTOCNode Title="HaveEncoder Method " Url="html/e6e2dc3d-9f2f-d1a0-6465-39706535a39d.htm" />
       </HelpTOCNode>
@@ -250,11 +252,11 @@
     <HelpTOCNode Title="MatrixCoefficients Enumeration" Url="html/4ef89399-2b7e-d1eb-aaaf-811dbc9d6342.htm" />
     <HelpTOCNode Title="TransferCharacteristics Enumeration" Url="html/5acefc3e-1ccb-a84b-5420-e51cebd9c2f8.htm" />
   </HelpTOCNode>
-  <HelpTOCNode Id="e39096f8-f6c2-4172-9e45-5becb566bd3d" Title="LibHeifSharp.ResourceManagement" Url="html/52096d4e-4654-ffaf-347a-da1bd740c6ea.htm">
-    <HelpTOCNode Id="ca7e7b06-b621-4d22-b138-aaab9ff8792e" Title="Disposable Class" Url="html/72f9cc42-e6a0-a81b-fc39-76eeb968583a.htm">
+  <HelpTOCNode Id="b164ac69-af83-4907-ad85-1a48db6d9a21" Title="LibHeifSharp.ResourceManagement" Url="html/52096d4e-4654-ffaf-347a-da1bd740c6ea.htm">
+    <HelpTOCNode Id="8c2e4129-9f8c-4072-831d-32f4b722d769" Title="Disposable Class" Url="html/72f9cc42-e6a0-a81b-fc39-76eeb968583a.htm">
       <HelpTOCNode Title="Disposable Constructor " Url="html/1b4c0cbd-84b6-45f2-6b56-b081ec768e55.htm" />
-      <HelpTOCNode Id="774b26ee-db83-48d6-ace5-0769a09b1132" Title="Disposable Methods" Url="html/60f786c7-1182-ca9e-0b13-e8ccabdee1a7.htm">
-        <HelpTOCNode Id="0f11ebf7-b224-40bc-8d3a-f95e3ff470c0" Title="Dispose Method " Url="html/e340e92f-68d2-dfdd-5bfe-2bfede81141b.htm">
+      <HelpTOCNode Id="9fd1b010-24f4-4a15-a86e-3c159dc82a1e" Title="Disposable Methods" Url="html/60f786c7-1182-ca9e-0b13-e8ccabdee1a7.htm">
+        <HelpTOCNode Id="6e36e367-d846-4f86-96f5-c1ded1712f14" Title="Dispose Method " Url="html/e340e92f-68d2-dfdd-5bfe-2bfede81141b.htm">
           <HelpTOCNode Title="Dispose Method " Url="html/10433180-e482-608b-c90b-a9a776528479.htm" />
           <HelpTOCNode Title="Dispose Method (Boolean)" Url="html/2d7517af-a78d-54eb-b8b8-9e70cc065cb4.htm" />
         </HelpTOCNode>

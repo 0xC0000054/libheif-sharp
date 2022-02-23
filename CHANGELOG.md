@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## v2.2.0 - 2022-02-22
+
 ### Added
 
 * An `IsPremultipliedAlpha` property to the `HeifImage` and `HeifImageHandle` classes.

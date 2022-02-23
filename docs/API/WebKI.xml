@@ -246,6 +246,7 @@
   <HelpKINode Title="HeifImage.HeifImage constructor" Url="html/7a1933d3-83cb-d55d-3b18-7046ce9acb1b.htm" />
   <HelpKINode Title="HeifImage.Height property" Url="html/3410c2b7-81b6-c42b-7225-1deefbc5d8ae.htm" />
   <HelpKINode Title="HeifImage.IccColorProfile property" Url="html/71b50f90-0259-a9bd-42ef-118dca2dc51d.htm" />
+  <HelpKINode Title="HeifImage.IsPremultipliedAlpha property" Url="html/0a483bde-a827-ac06-a49e-52f73ddf3e03.htm" />
   <HelpKINode Title="HeifImage.NclxColorProfile property" Url="html/04c0667c-c770-d90b-45fd-2feafc6ee22d.htm" />
   <HelpKINode Title="HeifImage.ScaleImage method" Url="html/b052cead-8fd6-6578-8ebf-4c05bb462276.htm" />
   <HelpKINode Title="HeifImage.Width property" Url="html/41ed3f30-d27e-1ca2-f6b6-3e9b9e5ada14.htm" />
@@ -272,6 +273,7 @@
   <HelpKINode Title="HeifImageHandle.HasAlphaChannel property" Url="html/1391836a-7289-0f1c-cac1-e4374defeb14.htm" />
   <HelpKINode Title="HeifImageHandle.HasDepthImage property" Url="html/449822b3-a6ec-01a0-5f9c-d1a6b11e99a2.htm" />
   <HelpKINode Title="HeifImageHandle.Height property" Url="html/4f8aeacf-a955-ec23-a302-4491ba955f3e.htm" />
+  <HelpKINode Title="HeifImageHandle.IsPremultipliedAlpha property" Url="html/acbcfedc-d2c3-db95-5fa1-c77fb4661b46.htm" />
   <HelpKINode Title="HeifImageHandle.IsPrimaryImage property" Url="html/1d8af761-6fd6-f869-1c9b-26bdc761a25a.htm" />
   <HelpKINode Title="HeifImageHandle.Width property" Url="html/35b5562f-7740-ca44-1508-3f61d9487e6e.htm" />
   <HelpKINode Title="HeifIntegerEncoderParameter class">
@@ -351,6 +353,10 @@
   <HelpKINode Title="InterleavedRgba32 enumeration member" Url="html/f7373115-67d1-70fd-8cb4-02ef708ad6f6.htm" />
   <HelpKINode Title="InterleavedRgba64BE enumeration member" Url="html/f7373115-67d1-70fd-8cb4-02ef708ad6f6.htm" />
   <HelpKINode Title="InterleavedRgba64LE enumeration member" Url="html/f7373115-67d1-70fd-8cb4-02ef708ad6f6.htm" />
+  <HelpKINode Title="IsPremultipliedAlpha property">
+    <HelpKINode Title="HeifImage.IsPremultipliedAlpha Property " Url="html/0a483bde-a827-ac06-a49e-52f73ddf3e03.htm" />
+    <HelpKINode Title="HeifImageHandle.IsPremultipliedAlpha Property " Url="html/acbcfedc-d2c3-db95-5fa1-c77fb4661b46.htm" />
+  </HelpKINode>
   <HelpKINode Title="IsPrimaryImage property" Url="html/1d8af761-6fd6-f869-1c9b-26bdc761a25a.htm" />
   <HelpKINode Title="Jpeg enumeration member" Url="html/924da9ad-87cb-0b7e-93ba-878ee1461032.htm" />
   <HelpKINode Title="LibHeifInfo class">
