@@ -17,9 +17,10 @@ It is built against [.NET Standard 1.3](https://docs.microsoft.com/en-us/dotnet/
     *  Thumbnails
 * Supports reading and writing meta-data
 
-### API Documentation
+### Documentation
 
-The API documentation is hosted on GitHub Pages: https://0xc0000054.github.io/libheif-sharp/API/index.html
+[API Documentation](https://0xc0000054.github.io/libheif-sharp/API/index.html)   
+[Building libheif on Windows with vcpkg](https://0xc0000054.github.io/libheif-sharp/libheif_windows_build_vcpkg.html)
 
 ### Sample Applications
 
