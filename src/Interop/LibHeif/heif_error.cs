@@ -49,11 +49,16 @@ namespace LibHeifSharp.Interop
 
         public bool IsError => this.errorCode != heif_error_code.Ok;
 
+        public string GetMessage()
+        {
+            return Marshal.PtrToStringAnsi(this.message) ?? Properties.Resources.UnspecifiedError;
+        }
+
         public void ThrowIfError()
         {
             if (this.IsError)
             {
-                ExceptionUtil.ThrowHeifException(GetErrorMessage());
+                ExceptionUtil.ThrowHeifException(GetMessage());
             }
         }
 
@@ -67,11 +72,6 @@ namespace LibHeifSharp.Interop
             {
                 return this.errorCode.ToString();
             }
-        }
-
-        private string GetErrorMessage()
-        {
-            return Marshal.PtrToStringAnsi(this.message) ?? Properties.Resources.UnspecifiedError;
         }
     }
 }

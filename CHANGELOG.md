@@ -12,6 +12,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * A `Strict` property to the `HeifDecodingOptions` class.
   * When enabled, it instructs the decoder to return an error for invalid input.
   * Requires LibHeif version 1.13.0 or later, it is ignored on older versions.
+* A `DecodingWarnings` property to the `HeifImage` class.
+  * This property returns a collection of warnings that occurred when decoding the image.
+  * Requires LibHeif version 1.13.0 or later, it returns an empty collection on older versions.
 
 ### Changed
 

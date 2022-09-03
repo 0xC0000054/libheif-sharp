@@ -21,6 +21,7 @@
  */
 
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using LibHeifSharp.Interop;
 using LibHeifSharp.Properties;
@@ -39,6 +40,7 @@ namespace LibHeifSharp
         private HeifIccColorProfile cachedIccColorProfile;
         private HeifNclxColorProfile cachedNclxColorProfile;
         private bool fetchedColorProfilesFromImage;
+        private IReadOnlyList<string> cachedDecodingWarnings;
         private readonly object sync;
 
         /// <summary>
@@ -79,6 +81,7 @@ namespace LibHeifSharp
             this.cachedIccColorProfile = null;
             this.cachedNclxColorProfile = null;
             this.fetchedColorProfilesFromImage = true;
+            this.cachedDecodingWarnings = Array.Empty<string>();
             this.sync = new object();
             this.Width = width;
             this.Height = height;
@@ -334,6 +337,39 @@ namespace LibHeifSharp
         }
 
         /// <summary>
+        /// Gets a collection of warnings that occurred when decoding the image.
+        /// </summary>
+        /// <value>
+        /// A collection of warnings that occurred when decoding the image.
+        /// </value>
+        /// <exception cref="HeifException">A LibHeif error occurred.</exception>
+        /// <exception cref="ObjectDisposedException">The object has been disposed.</exception>
+        /// <remarks>
+        /// This property is supported starting with LibHeif version 1.13.0, it will return an
+        /// empty collection on older versions.
+        /// </remarks>
+        public IReadOnlyList<string> DecodingWarnings
+        {
+            get
+            {
+                VerifyNotDisposed();
+
+                if (this.cachedDecodingWarnings is null)
+                {
+                    lock (this.sync)
+                    {
+                        if (this.cachedDecodingWarnings is null)
+                        {
+                            this.cachedDecodingWarnings = GetDecodingWarningsWhileLocked(this.image);
+                        }
+                    }
+                }
+
+                return this.cachedDecodingWarnings;
+            }
+        }
+
+        /// <summary>
         /// Gets a value indicating whether the image has an alpha channel.
         /// </summary>
         /// <value>
@@ -549,6 +585,48 @@ namespace LibHeifSharp
             }
 
             base.Dispose(disposing);
+        }
+
+        /// <summary>
+        /// Get the decoding warnings while locked.
+        /// </summary>
+        /// <exception cref="HeifException">
+        /// A LibHeif error occurred.
+        /// </exception>
+        private static unsafe IReadOnlyList<string> GetDecodingWarningsWhileLocked(SafeHeifImage image)
+        {
+            string[] items = Array.Empty<string>();
+
+            if (LibHeifVersion.Is1Point13OrLater)
+            {
+                heif_error error;
+
+                int count = LibHeifNative.heif_image_get_decoding_warnings(image, 0, &error, 0);
+
+                if (count > 0)
+                {
+                    var warnings = new heif_error[count];
+
+                    fixed (heif_error* ptr = warnings)
+                    {
+                        int filledCount = LibHeifNative.heif_image_get_decoding_warnings(image, 0, ptr, count);
+
+                        if (filledCount != count)
+                        {
+                            ExceptionUtil.ThrowHeifException(Resources.CannotGetAllDecodingWarnings);
+                        }
+                    }
+
+                    items = new string[count];
+
+                    for (int i = 0; i < count; i++)
+                    {
+                        items[i] = warnings[i].GetMessage();
+                    }
+                }
+            }
+
+            return items;
         }
 
         /// <summary>

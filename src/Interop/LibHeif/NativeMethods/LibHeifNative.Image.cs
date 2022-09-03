@@ -105,5 +105,11 @@ namespace LibHeifSharp.Interop
                                                                  int newWidth,
                                                                  int newHeight,
                                                                  IntPtr options_MustBeZero);
+
+        [DllImport(DllName, CallingConvention = DllCallingConvention)]
+        internal static extern unsafe int heif_image_get_decoding_warnings(SafeHeifImage image,
+                                                                           int firstWarningIndex,
+                                                                           heif_error* outputBuffer,
+                                                                           int maxOutputBufferEntries);
     }
 }
