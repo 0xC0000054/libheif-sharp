@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+* A `Strict` property to the `HeifDecodingOptions` class.
+  * When enabled, it instructs the decoder to return an error for invalid input.
+  * Requires LibHeif version 1.13.0 or later, it is ignored on older versions.
+
 ### Changed
 
 * The libheif initialization and cleanup methods will be called when creating the `HeifContext`.

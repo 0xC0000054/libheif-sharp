@@ -20,7 +20,6 @@
  * along with libheif-sharp.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-using System.Runtime.InteropServices;
 using LibHeifSharp.Interop;
 
 namespace LibHeifSharp
@@ -57,6 +56,17 @@ namespace LibHeifSharp
         /// </value>
         public bool ConvertHdrToEightBit { get; set; }
 
+        /// <summary>
+        /// Gets or sets a value indicating whether an error is returned for invalid input.
+        /// </summary>
+        /// <value>
+        ///   <see langword="true"/> if an error is returned for invalid input; otherwise, <see langword="false"/>.
+        /// </value>
+        /// <remarks>
+        /// This property is supported starting with LibHeif 1.13, it is ignored on earlier versions.
+        /// </remarks>
+        public bool Strict { get; set; }
+
         internal unsafe SafeHeifDecodingOptions CreateDecodingOptions()
         {
             var decodingOptions = LibHeifNative.heif_decoding_options_alloc();
@@ -69,7 +79,14 @@ namespace LibHeifSharp
             var options = (DecodeOptionsVersion1*)decodingOptions.DangerousGetHandle();
             options->ignore_transformations = (byte)(this.IgnoreTransformations ? 1 : 0);
 
-            if (options->version >= 2)
+            if (options->version >= 3)
+            {
+                var optionsVersion3 = (DecodeOptionsVersion3*)decodingOptions.DangerousGetHandle();
+
+                optionsVersion3->convert_hdr_to_8bit = (byte)(this.ConvertHdrToEightBit ? 1 : 0);
+                optionsVersion3->strict_decoding = (byte)(this.Strict ? 1 : 0);
+            }
+            else if (options->version == 2)
             {
                 var optionsVersion2 = (DecodeOptionsVersion2*)decodingOptions.DangerousGetHandle();
 
