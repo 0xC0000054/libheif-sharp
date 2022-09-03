@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+* The libheif initialization and cleanup methods will be called when creating the `HeifContext`.
+  * This applies to libheif version 1.13.0 and later, it will be treated as a no-op on older versions.
+
 ## v2.2.0 - 2022-02-22
 
 ### Added

@@ -61,5 +61,11 @@ namespace LibHeifSharp.Interop
 
         [DllImport(DllName, CallingConvention = DllCallingConvention)]
         internal static extern void heif_depth_representation_info_free(IntPtr handle);
+
+        [DllImport(DllName, CallingConvention = DllCallingConvention)]
+        internal static extern heif_error heif_init(IntPtr heifInitParams_MustBeZero);
+
+        [DllImport(DllName, CallingConvention = DllCallingConvention)]
+        internal static extern void heif_deinit();
     }
 }

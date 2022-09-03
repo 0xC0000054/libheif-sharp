@@ -63,10 +63,23 @@ namespace LibHeifSharp
         /// </returns>
         public static bool HaveDecoder(HeifCompressionFormat format)
         {
+            bool result;
             lock (nativeCallLock)
             {
-                return LibHeifNative.heif_have_decoder_for_format(format);
+                try
+                {
+                    using (var initializationContext = new LibHeifInitializationContext())
+                    {
+                        result = LibHeifNative.heif_have_decoder_for_format(format);
+                    }
+                }
+                catch (HeifException)
+                {
+                    result = false;
+                }
             }
+
+            return result;
         }
 
         /// <summary>
@@ -79,10 +92,23 @@ namespace LibHeifSharp
         /// </returns>
         public static bool HaveEncoder(HeifCompressionFormat format)
         {
+            bool result;
             lock (nativeCallLock)
             {
-                return LibHeifNative.heif_have_encoder_for_format(format);
+                try
+                {
+                    using (var initializationContext = new LibHeifInitializationContext())
+                    {
+                        result = LibHeifNative.heif_have_encoder_for_format(format);
+                    }
+                }
+                catch (HeifException)
+                {
+                    result = false;
+                }
             }
+
+            return result;
         }
 
         private static Version GetLibHeifVersion()

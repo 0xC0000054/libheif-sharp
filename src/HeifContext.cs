@@ -37,6 +37,7 @@ namespace LibHeifSharp
     /// <threadsafety static="true" instance="false"/>
     public sealed class HeifContext : Disposable
     {
+        private LibHeifInitializationContext initializationContext;
         private SafeHeifContext context;
         private HeifReader reader;
 
@@ -54,8 +55,17 @@ namespace LibHeifSharp
         {
             LibHeifVersion.ThrowIfNotSupported();
 
-            this.context = CreateNativeContext();
-            this.reader = null;
+            this.initializationContext = new LibHeifInitializationContext();
+            try
+            {
+                this.context = CreateNativeContext();
+                this.reader = null;
+            }
+            catch
+            {
+                this.initializationContext.Dispose();
+                throw;
+            }
         }
 
         /// <summary>
@@ -88,15 +98,17 @@ namespace LibHeifSharp
             Validate.IsNotNull(path, nameof(path));
             LibHeifVersion.ThrowIfNotSupported();
 
-            this.context = CreateNativeContext();
+            this.initializationContext = new LibHeifInitializationContext();
             try
             {
+                this.context = CreateNativeContext();
                 this.reader = HeifReaderFactory.CreateFromFile(path);
                 InitializeContextFromReader();
             }
             catch
             {
-                this.context.Dispose();
+                this.initializationContext.Dispose();
+                this.context?.Dispose();
                 this.reader?.Dispose();
                 throw;
             }
@@ -124,15 +136,17 @@ namespace LibHeifSharp
             Validate.IsNotNullOrEmptyArray(bytes, nameof(bytes));
             LibHeifVersion.ThrowIfNotSupported();
 
-            this.context = CreateNativeContext();
+            this.initializationContext = new LibHeifInitializationContext();
             try
             {
+                this.context = CreateNativeContext();
                 this.reader = HeifReaderFactory.CreateFromMemory(bytes);
                 InitializeContextFromReader();
             }
             catch
             {
-                this.context.Dispose();
+                this.initializationContext.Dispose();
+                this.context?.Dispose();
                 this.reader?.Dispose();
                 throw;
             }
@@ -168,15 +182,17 @@ namespace LibHeifSharp
                 ExceptionUtil.ThrowArgumentException(Resources.StreamCannotReadAndSeek);
             }
 
-            this.context = CreateNativeContext();
+            this.initializationContext = new LibHeifInitializationContext();
             try
             {
+                this.context = CreateNativeContext();
                 this.reader = HeifReaderFactory.CreateFromStream(stream, !leaveOpen);
                 InitializeContextFromReader();
             }
             catch (Exception ex)
             {
-                this.context.Dispose();
+                this.initializationContext.Dispose();
+                this.context?.Dispose();
                 this.reader?.Dispose();
 
                 if (ex is ArgumentException || ex is HeifException)
@@ -889,6 +905,7 @@ namespace LibHeifSharp
             {
                 DisposableUtil.Free(ref this.context);
                 DisposableUtil.Free(ref this.reader);
+                DisposableUtil.Free(ref this.initializationContext);
             }
 
             base.Dispose(disposing);
