@@ -103,6 +103,14 @@ namespace LibHeifSharp.Interop
 
         No_av1C_box = 131,
 
+        Wrong_tile_image_pixel_depth = 132,
+
+        Unknown_NCLX_color_primaries = 133,
+
+        Unknown_NCLX_transfer_characteristics = 134,
+
+        Unknown_NCLX_matrix_coefficients = 135,
+
         // --- Memory_allocation_error ---
 
         // A security limit preventing unreasonable memory allocations was exceeded by the input file.
