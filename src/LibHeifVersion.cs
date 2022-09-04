@@ -25,34 +25,34 @@ namespace LibHeifSharp
     internal static class LibHeifVersion
     {
         /// <summary>
-        /// Gets a value indicating whether the LibHeif version is at least 1.10.
+        /// Gets a value indicating whether the LibHeif version is at least 1.10.0.
         /// </summary>
         /// <value>
-        ///   <c>true</c> if the LibHeif version is at least 1.10; otherwise, <c>false</c>.
+        ///   <c>true</c> if the LibHeif version is at least 1.10.0; otherwise, <c>false</c>.
         /// </value>
         public static bool Is1Point10OrLater => LibHeifInfo.VersionNumber >= 0x010A0000;
 
         /// <summary>
-        /// Gets a value indicating whether the LibHeif version is at least 1.11.
+        /// Gets a value indicating whether the LibHeif version is at least 1.11.0.
         /// </summary>
         /// <value>
-        ///   <c>true</c> if the LibHeif version is at least 1.11; otherwise, <c>false</c>.
+        ///   <c>true</c> if the LibHeif version is at least 1.11.0; otherwise, <c>false</c>.
         /// </value>
         public static bool Is1Point11OrLater => LibHeifInfo.VersionNumber >= 0x010B0000;
 
         /// <summary>
-        /// Gets a value indicating whether the LibHeif version is at least 1.12.
+        /// Gets a value indicating whether the LibHeif version is at least 1.12.0.
         /// </summary>
         /// <value>
-        ///   <c>true</c> if the LibHeif version is at least 1.12; otherwise, <c>false</c>.
+        ///   <c>true</c> if the LibHeif version is at least 1.12.0; otherwise, <c>false</c>.
         /// </value>
         public static bool Is1Point12OrLater => LibHeifInfo.VersionNumber >= 0x010C0000;
 
         /// <summary>
-        /// Gets a value indicating whether the LibHeif version is at least 1.13.
+        /// Gets a value indicating whether the LibHeif version is at least 1.13.0.
         /// </summary>
         /// <value>
-        ///   <c>true</c> if the LibHeif version is at least 1.13; otherwise, <c>false</c>.
+        ///   <c>true</c> if the LibHeif version is at least 1.13.0; otherwise, <c>false</c>.
         /// </value>
         internal static bool Is1Point13OrLater => LibHeifInfo.VersionNumber >= 0x010D0000;
 

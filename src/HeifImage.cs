@@ -404,7 +404,7 @@ namespace LibHeifSharp
         /// </value>
         /// <exception cref="ObjectDisposedException">The object has been disposed.</exception>
         /// <remarks>
-        /// This property is supported starting with LibHeif 1.12, it is ignored on earlier versions.
+        /// This property is supported starting with LibHeif 1.12.0, it is ignored on earlier versions.
         /// </remarks>
         public bool IsPremultipliedAlpha
         {
@@ -648,7 +648,7 @@ namespace LibHeifSharp
             }
             else
             {
-                // LibHeif version 1.11 and earlier will crash when retrieving the NCLX color
+                // LibHeif version 1.11.0 and earlier will crash when retrieving the NCLX color
                 // profile if the image does not have one.
                 var colorProfileType = LibHeifNative.heif_image_get_color_profile_type(this.image);
 

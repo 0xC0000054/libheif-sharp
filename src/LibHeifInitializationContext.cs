@@ -30,7 +30,7 @@ namespace LibHeifSharp
     /// The LibHeif initialization context.
     /// </summary>
     /// <remarks>
-    /// Used by LibHeif version 1.13 and later to ensure that its internal state gets cleaned up.
+    /// Used by LibHeif version 1.13.0 and later to ensure that its internal state gets cleaned up.
     /// </remarks>
     internal sealed class LibHeifInitializationContext : Disposable
     {

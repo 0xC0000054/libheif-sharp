@@ -185,7 +185,7 @@ namespace LibHeifSharp
         /// </value>
         /// <exception cref="ObjectDisposedException">The object has been disposed.</exception>
         /// <remarks>
-        /// This property is supported starting with LibHeif 1.12, it will return <see langword="false"/>
+        /// This property is supported starting with LibHeif 1.12.0, it will return <see langword="false"/>
         /// on earlier versions.
         /// </remarks>
         public bool IsPremultipliedAlpha
@@ -838,7 +838,7 @@ namespace LibHeifSharp
             }
             else
             {
-                // LibHeif versions prior to 1.10 only support one color profile per image.
+                // LibHeif versions prior to 1.10.0 only support one color profile per image.
                 var colorProfileType = LibHeifNative.heif_image_handle_get_color_profile_type(this.imageHandle);
 
                 switch (colorProfileType)

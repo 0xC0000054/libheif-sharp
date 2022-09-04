@@ -63,7 +63,7 @@ namespace LibHeifSharp
         ///   <see langword="true"/> if an error is returned for invalid input; otherwise, <see langword="false"/>.
         /// </value>
         /// <remarks>
-        /// This property is supported starting with LibHeif 1.13, it is ignored on earlier versions.
+        /// This property is supported starting with LibHeif 1.13.0, it is ignored on earlier versions.
         /// </remarks>
         public bool Strict { get; set; }
 

@@ -62,7 +62,7 @@ namespace LibHeifSharp.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to This method requires LibHeif version 1.11 or later..
+        ///   Looks up a localized string similar to This method requires LibHeif version 1.11.0 or later..
         /// </summary>
         internal static string AuxiliaryImageAPINotSupported {
             get {
