@@ -34,7 +34,9 @@ Requirements:
 The libheif shared library must be named `libheif` in order for it to be found by P/Invoke.
 
 The minimum supported libheif version is 1.9.0.</Description>
-    <PackageProjectUrl>https://github.com/0xC0000054/libheif-sharp</PackageProjectUrl>
+    <PackageProjectUrl>https://0xc0000054.github.io/libheif-sharp/</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/0xC0000054/libheif-sharp.git</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
