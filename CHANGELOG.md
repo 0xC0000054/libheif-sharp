@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## v2.3.0 - 2022-09-03
+
 ### Added
 
 * A `Strict` property to the `HeifDecodingOptions` class.
@@ -20,6 +22,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 * The libheif initialization and cleanup methods will be called when creating the `HeifContext`.
   * This applies to libheif version 1.13.0 and later, it will be treated as a no-op on older versions.
+
+### Fixed
+
+* Various issues with the documentation.
 
 ## v2.2.0 - 2022-02-22
 
