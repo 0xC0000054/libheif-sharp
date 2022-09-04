@@ -71,7 +71,7 @@ namespace LibHeifSharp.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Could not get all of the auxillary images..
+        ///   Looks up a localized string similar to Could not get all of the auxiliary images..
         /// </summary>
         internal static string CannotGetAllAuxillaryImages {
             get {
@@ -269,7 +269,7 @@ namespace LibHeifSharp.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Must be a positve number..
+        ///   Looks up a localized string similar to Must be a positive number..
         /// </summary>
         internal static string ParameterMustBePositive {
             get {

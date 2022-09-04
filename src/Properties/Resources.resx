@@ -121,7 +121,7 @@
     <value>This method requires LibHeif version 1.11.0 or later.</value>
   </data>
   <data name="CannotGetAllAuxillaryImages" xml:space="preserve">
-    <value>Could not get all of the auxillary images.</value>
+    <value>Could not get all of the auxiliary images.</value>
   </data>
   <data name="CannotGetAllDecodingWarnings" xml:space="preserve">
     <value>Could not get all of the decoding warnings.</value>
@@ -191,7 +191,7 @@
     <comment>{0} is the parameter name.</comment>
   </data>
   <data name="ParameterMustBePositive" xml:space="preserve">
-    <value>Must be a positve number.</value>
+    <value>Must be a positive number.</value>
   </data>
   <data name="ParameterStringIsEmptyOrWhitespaceFormat" xml:space="preserve">
     <value>{0} is empty or contains only whitespace characters.</value>
