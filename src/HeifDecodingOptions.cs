@@ -38,6 +38,7 @@ namespace LibHeifSharp
         {
             this.IgnoreTransformations = false;
             this.ConvertHdrToEightBit = false;
+            this.Strict = false;
         }
 
         /// <summary>
