@@ -147,5 +147,8 @@ namespace LibHeifSharp.Interop
 
         [DllImport(DllName, CallingConvention = DllCallingConvention)]
         internal static extern void set_maximum_image_size_limit(SafeHeifContext context, int maxImageSizeLimit);
+
+        [DllImport(DllName, CallingConvention = DllCallingConvention)]
+        internal static extern void heif_context_set_max_decoding_threads(SafeHeifContext context, int maxDecodingThreads);
     }
 }

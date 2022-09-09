@@ -813,6 +813,32 @@ namespace LibHeifSharp
         }
 
         /// <summary>
+        /// Sets the maximum number of threads that LibHeif can use for decoding images.
+        /// </summary>
+        /// <param name="maxDecodingThreads">The maximum number of threads that LibHeif can use for decoding images.</param>
+        /// <exception cref="ArgumentOutOfRangeException"><paramref name="maxDecodingThreads"/> is less than or equal to zero.</exception>
+        /// <exception cref="ObjectDisposedException">The object has been disposed.</exception>
+        /// <remarks>
+        /// <para>
+        /// This method allows callers to limit the number of threads that LibHeif can use when decoding images.
+        /// The value will replace the default limit that LibHeif uses when decoding images in this instance.
+        /// </para>
+        /// <para>
+        /// It is supported starting with LibHeif version 1.13.0, and will be ignored on older versions.
+        /// </para>
+        /// </remarks>
+        public void SetMaximumDecodingThreads(int maxDecodingThreads)
+        {
+            Validate.IsPositive(maxDecodingThreads, nameof(maxDecodingThreads));
+            VerifyNotDisposed();
+
+            if (LibHeifVersion.Is1Point13OrLater)
+            {
+                LibHeifNative.heif_context_set_max_decoding_threads(this.context, maxDecodingThreads);
+            }
+        }
+
+        /// <summary>
         /// Sets the maximum image size limit.
         /// </summary>
         /// <param name="maxImageSizeLimit">The maximum image size limit.</param>
