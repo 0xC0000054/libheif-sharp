@@ -68,7 +68,7 @@ namespace LibHeifSharp
             base.Dispose(disposing);
         }
 
-        protected override void WriteCore(IntPtr data, long count)
+        protected override unsafe void WriteCore(IntPtr data, long count)
         {
             long offset = 0;
             long remaining = count;
@@ -77,7 +77,7 @@ namespace LibHeifSharp
             {
                 int copySize = (int)Math.Min(MaxWriteBufferSize, remaining);
 
-                Marshal.Copy(new IntPtr(data.ToInt64() + offset), this.streamBuffer, 0, copySize);
+                Marshal.Copy(new IntPtr((byte*)data + offset), this.streamBuffer, 0, copySize);
 
                 this.stream.Write(this.streamBuffer, 0, copySize);
 

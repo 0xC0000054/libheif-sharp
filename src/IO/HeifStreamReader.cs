@@ -74,7 +74,7 @@ namespace LibHeifSharp
             return this.stream.Position;
         }
 
-        protected override bool ReadCore(IntPtr data, long count)
+        protected override unsafe bool ReadCore(IntPtr data, long count)
         {
             long totalBytesRead = 0;
             long remaining = count;
@@ -88,7 +88,7 @@ namespace LibHeifSharp
                     break;
                 }
 
-                Marshal.Copy(this.streamBuffer, 0, new IntPtr(data.ToInt64() + totalBytesRead), streamBytesRead);
+                Marshal.Copy(this.streamBuffer, 0, new IntPtr((byte*)data + totalBytesRead), streamBytesRead);
 
                 totalBytesRead += streamBytesRead;
                 remaining -= streamBytesRead;
