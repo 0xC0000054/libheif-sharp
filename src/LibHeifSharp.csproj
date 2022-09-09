@@ -5,8 +5,8 @@
     <RootNamespace>LibHeifSharp</RootNamespace>
     <AssemblyName>LibHeifSharp</AssemblyName>
     <AssemblyVersion>2.0.0.0</AssemblyVersion>
-    <FileVersion>2.3.0.0</FileVersion>
-    <Version>2.3.0</Version>
+    <FileVersion>2.3.1.0</FileVersion>
+    <Version>2.3.1</Version>
     <PackageLicenseExpression>LGPL-3.0-or-later</PackageLicenseExpression>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
