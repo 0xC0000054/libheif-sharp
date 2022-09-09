@@ -365,6 +365,9 @@ namespace LibHeifSharp
         /// To read the depth images use <see cref="GetDepthImageIds"/> to get a list of the depth image item ids and
         /// <see cref="GetDepthImage(HeifItemId)"/> to convert the item id to a <see cref="HeifImageHandle"/>.
         /// </para>
+        /// <para>
+        /// This method is supported starting with LibHeif version 1.11.0, it will return an empty collection on older versions.
+        /// </para>
         /// </remarks>
         /// <seealso cref="GetAuxiliaryImage(HeifItemId)"/>
         /// <seealso cref="GetAuxiliaryType"/>
