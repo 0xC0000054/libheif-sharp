@@ -11,6 +11,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 * A `SetMaximumDecodingThreads` method to the `HeifContext` class.
 
+## Fixed
+
+* The P/Invoke name used by the `SetMaximumImageSizeLimit` method.
+
 ## v2.3.1 - 2022-09-08
 
 ### Fixed

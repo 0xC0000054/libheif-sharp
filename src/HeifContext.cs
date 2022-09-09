@@ -853,7 +853,7 @@ namespace LibHeifSharp
             Validate.IsPositive(maxImageSizeLimit, nameof(maxImageSizeLimit));
             VerifyNotDisposed();
 
-            LibHeifNative.set_maximum_image_size_limit(this.context, maxImageSizeLimit);
+            LibHeifNative.heif_context_set_maximum_image_size_limit(this.context, maxImageSizeLimit);
         }
 
         /// <summary>
