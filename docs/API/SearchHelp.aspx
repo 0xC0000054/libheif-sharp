@@ -6,7 +6,7 @@
 // File    : SearchHelp.aspx
 // Author  : Eric Woodruff  (Eric@EWoodruff.us)
 // Updated : 08/13/2022
-// Note    : Copyright 2007-2022, Eric Woodruff, All rights reserved
+// Note    : Copyright 2007-202, Eric Woodruff, All rights reserved
 //
 // This file contains the code used to search for keywords within the help topics using the full-text index
 // files created by the help file builder.
