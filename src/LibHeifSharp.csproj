@@ -12,7 +12,7 @@
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
     <Authors>Nicholas Hayes</Authors>
     <Company>LibHeifSharp contributors</Company>
-    <Copyright>Copyright © 2022 Nicholas Hayes and contributors</Copyright>
+    <Copyright>Copyright © 2023 Nicholas Hayes and contributors</Copyright>
     <PackageTags>libheif heif heic avif</PackageTags>
     <PackageReleaseNotes></PackageReleaseNotes>
     <Description>Provides .NET bindings for libheif.

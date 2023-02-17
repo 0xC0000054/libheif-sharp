@@ -74,7 +74,7 @@
     <WorkingPath>
     </WorkingPath>
     <CopyrightHref>https://github.com/0xC0000054/libheif-sharp</CopyrightHref>
-    <CopyrightText>Copyright &amp;#169%3b 2022 Nicholas Hayes</CopyrightText>
+    <CopyrightText>Copyright &amp;#169%3b 2023 Nicholas Hayes</CopyrightText>
   </PropertyGroup>
   <!-- There are no properties for these groups.  AnyCPU needs to appear in order for Visual Studio to perform
 			 the build.  The others are optional common platform types that may appear. -->
