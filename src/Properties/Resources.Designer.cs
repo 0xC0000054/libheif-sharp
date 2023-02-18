@@ -10,7 +10,6 @@
 
 namespace LibHeifSharp.Properties {
     using System;
-    using System.Reflection;
     
     
     /// <summary>
@@ -40,7 +39,7 @@ namespace LibHeifSharp.Properties {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("LibHeifSharp.Properties.Resources", typeof(Resources).GetTypeInfo().Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("LibHeifSharp.Properties.Resources", typeof(Resources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -76,6 +75,15 @@ namespace LibHeifSharp.Properties {
         internal static string CannotGetAllAuxillaryImages {
             get {
                 return ResourceManager.GetString("CannotGetAllAuxillaryImages", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Could not get all of the decoder descriptors..
+        /// </summary>
+        internal static string CannotGetAllDecoderDescriptors {
+            get {
+                return ResourceManager.GetString("CannotGetAllDecoderDescriptors", resourceCulture);
             }
         }
         

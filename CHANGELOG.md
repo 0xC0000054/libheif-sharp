@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+## Added
+
+* A `GetDecoderDescriptors` method to the `LibHeifInfo` class.
+  * Requires LibHeif version 1.15.0 or later, it returns an empty collection on older versions.
+
 ## Removed
 
 The .NET Standard 1.3 and .NET Framework 4.6 targets.

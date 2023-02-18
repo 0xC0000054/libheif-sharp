@@ -21,7 +21,9 @@
  */
 
 using System;
+using System.Collections.Generic;
 using LibHeifSharp.Interop;
+using LibHeifSharp.Properties;
 
 namespace LibHeifSharp
 {
@@ -52,6 +54,60 @@ namespace LibHeifSharp
         public static Version Version => libheifVersion.Value;
 
         internal static uint VersionNumber => libheifVersionNumber.Value;
+
+        /// <summary>
+        /// Gets a list of the decoder descriptors.
+        /// </summary>
+        /// <param name="format">The compression format.</param>
+        /// <returns>The decoder descriptors.</returns>
+        /// <exception cref="HeifException">A LibHeif error occurred.</exception>
+        /// <remarks>
+        /// This method is supported starting with LibHeif version 1.15.0, and will return an empty collection on older versions.
+        /// </remarks>
+        public static IReadOnlyList<HeifDecoderDescriptor> GetDecoderDescriptors(HeifCompressionFormat format = HeifCompressionFormat.Undefined)
+        {
+            var decoderDescriptors = Array.Empty<HeifDecoderDescriptor>();
+
+            if (LibHeifVersion.Is1Point15OrLater)
+            {
+                lock (nativeCallLock)
+                {
+                    unsafe
+                    {
+                        using (var initializationContext = new LibHeifInitializationContext())
+                        {
+                            int count = LibHeifNative.heif_get_decoder_descriptors(format, null, 0);
+
+                            if (count > 0)
+                            {
+                                var nativeDecoderDescriptors = new heif_decoder_descriptor[count];
+
+                                fixed (heif_decoder_descriptor* ptr = nativeDecoderDescriptors)
+                                {
+                                    int returnedDecoderCount = LibHeifNative.heif_get_decoder_descriptors(format,
+                                                                                                          ptr,
+                                                                                                          nativeDecoderDescriptors.Length);
+
+                                    if (returnedDecoderCount != count)
+                                    {
+                                        ExceptionUtil.ThrowHeifException(Resources.CannotGetAllDecoderDescriptors);
+                                    }
+                                }
+
+                                decoderDescriptors = new HeifDecoderDescriptor[count];
+
+                                for (int i = 0; i < decoderDescriptors.Length; i++)
+                                {
+                                    decoderDescriptors[i] = new HeifDecoderDescriptor(nativeDecoderDescriptors[i]);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            return decoderDescriptors;
+        }
 
         /// <summary>
         /// Determines whether LibHeif has a decoder for the specified <see cref="HeifCompressionFormat"/>.

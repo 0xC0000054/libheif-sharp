@@ -123,6 +123,9 @@
   <data name="CannotGetAllAuxillaryImages" xml:space="preserve">
     <value>Could not get all of the auxiliary images.</value>
   </data>
+  <data name="CannotGetAllDecoderDescriptors" xml:space="preserve">
+    <value>Could not get all of the decoder descriptors.</value>
+  </data>
   <data name="CannotGetAllDecodingWarnings" xml:space="preserve">
     <value>Could not get all of the decoding warnings.</value>
   </data>

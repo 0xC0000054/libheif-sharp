@@ -67,5 +67,10 @@ namespace LibHeifSharp.Interop
 
         [DllImport(DllName, CallingConvention = DllCallingConvention)]
         internal static extern void heif_deinit();
+
+        [DllImport(DllName, CallingConvention = DllCallingConvention)]
+        internal static extern unsafe int heif_get_decoder_descriptors(HeifCompressionFormat compressionFormat,
+                                                                       heif_decoder_descriptor* items,
+                                                                       int count);
     }
 }
