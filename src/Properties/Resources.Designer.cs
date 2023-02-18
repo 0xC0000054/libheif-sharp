@@ -286,6 +286,15 @@ namespace LibHeifSharp.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0} must be in the range of [{1},{2}]..
+        /// </summary>
+        internal static string ParameterOutOfRangeInclusiveFormat {
+            get {
+                return ResourceManager.GetString("ParameterOutOfRangeInclusiveFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0} is empty or contains only whitespace characters..
         /// </summary>
         internal static string ParameterStringIsEmptyOrWhitespaceFormat {

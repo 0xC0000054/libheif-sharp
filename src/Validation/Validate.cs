@@ -29,6 +29,26 @@ namespace LibHeifSharp
     internal static class Validate
     {
         /// <summary>
+        /// Determines whether the specified parameter is within the required range.
+        /// </summary>
+        /// <param name="param">The parameter.</param>
+        /// <param name="paramName">The name of the parameter.</param>
+        /// <param name="min">The inclusive minimum value.</param>
+        /// <param name="max">The inclusive maximum value.</param>
+        /// <exception cref="ArgumentOutOfRangeException">The parameter is outside of the required range.</exception>
+        public static void IsInRange(int param, string paramName, int min, int max)
+        {
+            if (param < min || param > max)
+            {
+                ExceptionUtil.ThrowArgumentOutOfRangeException(paramName, string.Format(CultureInfo.CurrentCulture,
+                                                                                        Resources.ParameterOutOfRangeInclusiveFormat,
+                                                                                        paramName,
+                                                                                        min,
+                                                                                        max));
+            }
+        }
+
+        /// <summary>
         /// Determines whether the specified parameter is empty or contains only whitespace characters, the parameter can be null.
         /// </summary>
         /// <param name="param">The parameter.</param>

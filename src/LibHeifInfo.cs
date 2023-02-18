@@ -167,6 +167,33 @@ namespace LibHeifSharp
             return result;
         }
 
+        /// <summary>
+        /// Determines whether LibHeif is at least the specified version.
+        /// </summary>
+        /// <param name="major">The major version number.</param>
+        /// <param name="minor">The minor version number.</param>
+        /// <param name="maintenance">The maintenance version number.</param>
+        /// <exception cref="ArgumentOutOfRangeException">
+        /// <paramref name="major"/> is not in the range of [0, 255].
+        /// <paramref name="minor"/> is not in the range of [0, 255].
+        /// <paramref name="maintenance"/> is not in the range of [0, 255].
+        /// </exception>
+        /// <returns>
+        /// <see langword="true" /> if LibHeif is at least the specified version;
+        /// otherwise, <see langword="false" />.
+        /// </returns>
+        public static bool HaveVersion(int major, int minor, int maintenance)
+        {
+            Validate.IsInRange(major, nameof(major), byte.MinValue, byte.MaxValue);
+            Validate.IsInRange(minor, nameof(minor), byte.MinValue, byte.MaxValue);
+            Validate.IsInRange(maintenance, nameof(maintenance), byte.MinValue, byte.MaxValue);
+
+            // The LibHeif version number is encoded using binary-coded decimal.
+            uint encodedVersion = ((uint)major << 24) | ((uint)minor << 16) | ((uint)maintenance << 8);
+
+            return libheifVersionNumber.Value >= encodedVersion;
+        }
+
         private static Version GetLibHeifVersion()
         {
             uint version = libheifVersionNumber.Value;
