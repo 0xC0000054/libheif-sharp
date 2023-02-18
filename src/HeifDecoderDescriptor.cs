@@ -27,6 +27,7 @@ namespace LibHeifSharp
     /// <summary>
     /// Represents a LibHeif decoder descriptor.
     /// </summary>
+    /// <seealso cref="LibHeifInfo.GetDecoderDescriptors(HeifCompressionFormat)"/>
     public sealed class HeifDecoderDescriptor
     {
         internal HeifDecoderDescriptor(heif_decoder_descriptor descriptor)
@@ -49,6 +50,7 @@ namespace LibHeifSharp
         /// <value>
         /// The decoder id name.
         /// </value>
+        /// <seealso cref="HeifDecodingOptions.DecoderId"/>
         public string IdName { get; }
     }
 }

@@ -29,7 +29,7 @@ namespace LibHeifSharp
     /// </summary>
     /// <seealso cref="HeifImageHandle.Decode(HeifColorspace, HeifChroma, HeifDecodingOptions)"/>
     /// <threadsafety static="true" instance="false"/>
-    public sealed class HeifDecodingOptions
+    public sealed partial class HeifDecodingOptions
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="HeifDecodingOptions"/> class.
@@ -68,9 +68,22 @@ namespace LibHeifSharp
         /// </remarks>
         public bool Strict { get; set; }
 
-        internal unsafe SafeHeifDecodingOptions CreateDecodingOptions()
+        /// <summary>
+        /// Gets or sets a value that identifies the decoder to use.
+        /// </summary>
+        /// <value>
+        /// One of the <see cref="HeifDecoderDescriptor.IdName"/> values; otherwise, <see langword="null"/> to use the default decoder.
+        /// </value>
+        /// <remarks>
+        /// This property is supported starting with LibHeif 1.15.0, it is ignored on earlier versions.
+        /// </remarks>
+        /// <seealso cref="LibHeifInfo.GetDecoderDescriptors(HeifCompressionFormat)"/>
+        public string DecoderId { get; set; }
+
+        internal unsafe NativeOptions CreateDecodingOptions()
         {
             var decodingOptions = LibHeifNative.heif_decoding_options_alloc();
+            SafeCoTaskMemHandle safeDecoderId = null;
 
             if (decodingOptions.IsInvalid)
             {
@@ -80,7 +93,21 @@ namespace LibHeifSharp
             var options = (DecodeOptionsVersion1*)decodingOptions.DangerousGetHandle();
             options->ignore_transformations = (byte)(this.IgnoreTransformations ? 1 : 0);
 
-            if (options->version >= 3)
+            if (options->version >= 4)
+            {
+                var optionsVersion4 = (DecodeOptionsVersion4*)decodingOptions.DangerousGetHandle();
+
+                optionsVersion4->convert_hdr_to_8bit = (byte)(this.ConvertHdrToEightBit ? 1 : 0);
+                optionsVersion4->strict_decoding = (byte)(this.Strict ? 1 : 0);
+
+                if (!string.IsNullOrWhiteSpace(this.DecoderId))
+                {
+                    safeDecoderId = SafeCoTaskMemHandle.FromStringAnsi(this.DecoderId);
+
+                    optionsVersion4->decoder_id = safeDecoderId.DangerousGetHandle();
+                }
+            }
+            else if (options->version == 3)
             {
                 var optionsVersion3 = (DecodeOptionsVersion3*)decodingOptions.DangerousGetHandle();
 
@@ -94,7 +121,7 @@ namespace LibHeifSharp
                 optionsVersion2->convert_hdr_to_8bit = (byte)(this.ConvertHdrToEightBit ? 1 : 0);
             }
 
-            return decodingOptions;
+            return new NativeOptions(decodingOptions, safeDecoderId);
         }
     }
 }

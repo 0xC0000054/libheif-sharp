@@ -264,13 +264,13 @@ namespace LibHeifSharp
 
                 if (options != null)
                 {
-                    using (var safeHeifDecodingOptions = options.CreateDecodingOptions())
+                    using (var nativeOptions = options.CreateDecodingOptions())
                     {
                         error = LibHeifNative.heif_decode_image(this.imageHandle,
                                                                 out safeHeifImage,
                                                                 colorspace,
                                                                 chroma,
-                                                                safeHeifDecodingOptions);
+                                                                nativeOptions.DecodingOptions);
                     }
                 }
                 else

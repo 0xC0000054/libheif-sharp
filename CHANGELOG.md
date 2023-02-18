@@ -11,6 +11,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 * A `GetDecoderDescriptors` method to the `LibHeifInfo` class.
   * Requires LibHeif version 1.15.0 or later, it returns an empty collection on older versions.
+* A `DecoderId` property to the `HeifDecodingOptions` class.
+  * This instructs LibHeif to use a specific decoder when reading the image.
+  * Requires LibHeif version 1.15.0 or later, it is ignored on older versions.
 * A `HaveVersion` method to the `LibHeifInfo` class.
   * This simplifies checking that LibHeif is at least the specified minimum version. 
 
