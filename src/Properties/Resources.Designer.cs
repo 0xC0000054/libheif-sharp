@@ -268,7 +268,7 @@ namespace LibHeifSharp.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0} is an empty array..
+        ///   Looks up a localized string similar to &apos;{0}&apos; is an empty array..
         /// </summary>
         internal static string ParameterIsEmptyArrayFormat {
             get {
@@ -286,7 +286,7 @@ namespace LibHeifSharp.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0} must be in the range of [{1},{2}]..
+        ///   Looks up a localized string similar to &apos;{0}&apos; must be in the range of [{1},{2}]..
         /// </summary>
         internal static string ParameterOutOfRangeInclusiveFormat {
             get {
@@ -295,7 +295,7 @@ namespace LibHeifSharp.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0} is empty or contains only whitespace characters..
+        ///   Looks up a localized string similar to &apos;{0}&apos; is empty or contains only whitespace characters..
         /// </summary>
         internal static string ParameterStringIsEmptyOrWhitespaceFormat {
             get {

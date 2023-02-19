@@ -190,18 +190,18 @@
     <value>The file does not have any top-level images.</value>
   </data>
   <data name="ParameterIsEmptyArrayFormat" xml:space="preserve">
-    <value>{0} is an empty array.</value>
+    <value>'{0}' is an empty array.</value>
     <comment>{0} is the parameter name.</comment>
   </data>
   <data name="ParameterMustBePositive" xml:space="preserve">
     <value>Must be a positive number.</value>
   </data>
   <data name="ParameterOutOfRangeInclusiveFormat" xml:space="preserve">
-    <value>{0} must be in the range of [{1},{2}].</value>
+    <value>'{0}' must be in the range of [{1},{2}].</value>
     <comment>{0} is the parameter name.</comment>
   </data>
   <data name="ParameterStringIsEmptyOrWhitespaceFormat" xml:space="preserve">
-    <value>{0} is empty or contains only whitespace characters.</value>
+    <value>'{0}' is empty or contains only whitespace characters.</value>
     <comment>{0} is the parameter name.</comment>
   </data>
   <data name="ReaderNotSet" xml:space="preserve">
