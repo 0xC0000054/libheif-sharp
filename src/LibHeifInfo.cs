@@ -174,9 +174,9 @@ namespace LibHeifSharp
         /// <param name="minor">The minor version number.</param>
         /// <param name="maintenance">The maintenance version number.</param>
         /// <exception cref="ArgumentOutOfRangeException">
-        /// <paramref name="major"/> is not in the range of [0, 255].
-        /// <paramref name="minor"/> is not in the range of [0, 255].
-        /// <paramref name="maintenance"/> is not in the range of [0, 255].
+        /// <paramref name="major"/> must be in the range of [0, 255].
+        /// <paramref name="minor"/> must be in the range of [0, 255].
+        /// <paramref name="maintenance"/> must be in the range of [0, 255].
         /// </exception>
         /// <returns>
         /// <see langword="true" /> if LibHeif is at least the specified version;
