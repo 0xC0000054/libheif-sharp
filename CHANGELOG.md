@@ -16,6 +16,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   * Requires LibHeif version 1.15.0 or later, it is ignored on older versions.
 * A `HaveVersion` method to the `LibHeifInfo` class.
   * This simplifies checking that LibHeif is at least the specified minimum version. 
+* `IccColorProfile` and `NclxColorProfile` properties to the `HeifImageHandle` class.
 
 ## Removed
 

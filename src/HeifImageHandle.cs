@@ -36,8 +36,12 @@ namespace LibHeifSharp
     public sealed class HeifImageHandle : Disposable
     {
         private SafeHeifImageHandle imageHandle;
+        private HeifIccColorProfile iccColorProfile;
+        private HeifNclxColorProfile nclxColorProfile;
+        private bool fetchedColorProfilesFromImageHandle;
         private readonly HeifContext.ImageDecodeErrorDelegate decodeErrorHandler;
         private readonly AuxiliaryImageType auxiliaryImageType;
+        private readonly object sync;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="HeifImageHandle"/> class.
@@ -64,8 +68,12 @@ namespace LibHeifSharp
             Validate.IsNotNull(handle, nameof(handle));
 
             this.imageHandle = handle;
+            this.iccColorProfile = null;
+            this.nclxColorProfile = null;
+            this.fetchedColorProfilesFromImageHandle = false;
             this.decodeErrorHandler = decodeErrorHandler;
             this.auxiliaryImageType = auxiliaryImageType;
+            this.sync = new object();
         }
 
         /// <summary>
@@ -218,6 +226,78 @@ namespace LibHeifSharp
         }
 
         /// <summary>
+        /// Gets the image handle ICC color profile.
+        /// </summary>
+        /// <value>
+        /// The image handle ICC color profile.
+        /// </value>
+        /// <exception cref="HeifException">
+        /// A LibHeif error occurred.
+        ///
+        /// -or-
+        ///
+        /// The color profile type is not supported.
+        /// </exception>
+        /// <exception cref="ObjectDisposedException">The object has been disposed.</exception>
+        public HeifIccColorProfile IccColorProfile
+        {
+            get
+            {
+                VerifyNotDisposed();
+
+                if (!this.fetchedColorProfilesFromImageHandle)
+                {
+                    lock (this.sync)
+                    {
+                        if (!this.fetchedColorProfilesFromImageHandle)
+                        {
+                            CacheColorProfilesWhileLocked();
+                            this.fetchedColorProfilesFromImageHandle = true;
+                        }
+                    }
+                }
+
+                return this.iccColorProfile;
+            }
+        }
+
+        /// <summary>
+        /// Gets the image handle NCLX color profile.
+        /// </summary>
+        /// <value>
+        /// The image handle NCLX color profile.
+        /// </value>
+        /// <exception cref="HeifException">
+        /// A LibHeif error occurred.
+        ///
+        /// -or-
+        ///
+        /// The color profile type is not supported.
+        /// </exception>
+        /// <exception cref="ObjectDisposedException">The object has been disposed.</exception>
+        public HeifNclxColorProfile NclxColorProfile
+        {
+            get
+            {
+                VerifyNotDisposed();
+
+                if (!this.fetchedColorProfilesFromImageHandle)
+                {
+                    lock (this.sync)
+                    {
+                        if (!this.fetchedColorProfilesFromImageHandle)
+                        {
+                            CacheColorProfilesWhileLocked();
+                            this.fetchedColorProfilesFromImageHandle = true;
+                        }
+                    }
+                }
+
+                return this.nclxColorProfile;
+            }
+        }
+
+        /// <summary>
         /// Gets the image handle.
         /// </summary>
         /// <value>
@@ -255,8 +335,6 @@ namespace LibHeifSharp
 
             HeifImage image = null;
             SafeHeifImage safeHeifImage = null;
-
-            var imageHandleColorProfiles = GetImageHandleColorProfiles();
 
             try
             {
@@ -299,8 +377,8 @@ namespace LibHeifSharp
                 image = new HeifImage(safeHeifImage,
                                       this.Width,
                                       this.Height,
-                                      imageHandleColorProfiles.Icc,
-                                      imageHandleColorProfiles.Nclx);
+                                      this.IccColorProfile,
+                                      this.NclxColorProfile);
                 safeHeifImage = null;
             }
             finally
@@ -818,9 +896,8 @@ namespace LibHeifSharp
         }
 
         /// <summary>
-        /// Gets image handle color profiles.
+        /// Caches the image handle color profiles.
         /// </summary>
-        /// <returns>The image handle color profiles.</returns>
         /// <exception cref="HeifException">
         /// The color profile type is not supported.
         ///
@@ -828,15 +905,12 @@ namespace LibHeifSharp
         ///
         /// A LibHeif error occurred.
         /// </exception>
-        private unsafe ImageHandleColorProfiles GetImageHandleColorProfiles()
+        private unsafe void CacheColorProfilesWhileLocked()
         {
-            HeifIccColorProfile iccProfile;
-            HeifNclxColorProfile nclxProfile;
-
             if (LibHeifVersion.Is1Point10OrLater)
             {
-                iccProfile = HeifIccColorProfile.TryCreate(this.imageHandle);
-                nclxProfile = HeifNclxColorProfile.TryCreate(this.imageHandle);
+                this.iccColorProfile = HeifIccColorProfile.TryCreate(this.imageHandle);
+                this.nclxColorProfile = HeifNclxColorProfile.TryCreate(this.imageHandle);
             }
             else
             {
@@ -846,37 +920,22 @@ namespace LibHeifSharp
                 switch (colorProfileType)
                 {
                     case heif_color_profile_type.None:
-                        iccProfile = null;
-                        nclxProfile = null;
+                        this.iccColorProfile = null;
+                        this.nclxColorProfile = null;
                         break;
                     case heif_color_profile_type.Nclx:
-                        iccProfile = null;
-                        nclxProfile = HeifNclxColorProfile.TryCreate(this.imageHandle);
+                        this.iccColorProfile = null;
+                        this.nclxColorProfile = HeifNclxColorProfile.TryCreate(this.imageHandle);
                         break;
                     case heif_color_profile_type.IccProfile:
                     case heif_color_profile_type.RestrictedIcc:
-                        iccProfile = HeifIccColorProfile.TryCreate(this.imageHandle);
-                        nclxProfile = null;
+                        this.iccColorProfile = HeifIccColorProfile.TryCreate(this.imageHandle);
+                        this.nclxColorProfile = null;
                         break;
                     default:
                         throw new HeifException(Resources.ColorProfileTypeNotSupported);
                 }
             }
-
-            return new ImageHandleColorProfiles(iccProfile, nclxProfile);
-        }
-
-        private readonly struct ImageHandleColorProfiles
-        {
-            public ImageHandleColorProfiles(HeifIccColorProfile icc, HeifNclxColorProfile nclx)
-            {
-                this.Icc = icc;
-                this.Nclx = nclx;
-            }
-
-            public HeifIccColorProfile Icc { get; }
-
-            public HeifNclxColorProfile Nclx { get; }
         }
     }
 }
