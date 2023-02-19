@@ -527,7 +527,6 @@ namespace LibHeifSharp
 
             try
             {
-
                 if (LibHeifNative.heif_image_handle_get_depth_image_representation_info(this.imageHandle,
                                                                                         id,
                                                                                         out safeDepthRepresentationInfo))
