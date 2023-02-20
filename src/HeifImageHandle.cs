@@ -724,6 +724,71 @@ namespace LibHeifSharp
         }
 
         /// <summary>
+        /// Gets the meta-data bytes.
+        /// </summary>
+        /// <param name="info">The meta-data block information.</param>
+        /// <returns>The meta-data bytes.</returns>
+        /// <exception cref="ArgumentNullException"><paramref name="info"/> is <see langword="null"/>.</exception>
+        /// <exception cref="HeifException">A LibHeif error occurred.</exception>
+        /// <exception cref="ObjectDisposedException">The object has been disposed.</exception>
+        /// <seealso cref="GetMetadataBlockInfo(HeifItemId)"/>
+        public byte[] GetMetadata(HeifMetadataBlockInfo info)
+        {
+            Validate.IsNotNull(info, nameof(info));
+            VerifyNotDisposed();
+
+            byte[] metadata = null;
+            int size = info.Size;
+
+            if (size > 0)
+            {
+                metadata = new byte[size];
+                unsafe
+                {
+                    fixed (byte* ptr = metadata)
+                    {
+                        var error = LibHeifNative.heif_image_handle_get_metadata(this.imageHandle,
+                                                                                 info.Id,
+                                                                                 ptr);
+                        error.ThrowIfError();
+                    }
+                }
+            }
+
+            return metadata;
+        }
+
+        /// <summary>
+        /// Gets the meta-data information.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <returns>The meta-data information.</returns>
+        /// <exception cref="HeifException">
+        /// A LibHeif error occurred.
+        ///
+        /// -or-
+        ///
+        /// The meta-data block is larger than 2 GB.
+        /// </exception>
+        /// <exception cref="ObjectDisposedException">The object has been disposed.</exception>
+        /// <seealso cref="GetMetadataBlockIds(string, string)"/>
+        public HeifMetadataBlockInfo GetMetadataBlockInfo(HeifItemId id)
+        {
+            VerifyNotDisposed();
+
+            string itemType = LibHeifNative.heif_image_handle_get_metadata_type(this.imageHandle, id).GetStringValue();
+            string contentType = LibHeifNative.heif_image_handle_get_metadata_content_type(this.imageHandle, id).GetStringValue();
+            ulong size = LibHeifNative.heif_image_handle_get_metadata_size(this.imageHandle, id).ToUInt64();
+
+            if (size > int.MaxValue)
+            {
+                ExceptionUtil.ThrowHeifException(Resources.MetadataBlockLargerThan2Gb);
+            }
+
+            return new HeifMetadataBlockInfo(id, itemType, contentType, (int)size);
+        }
+
+        /// <summary>
         /// Gets a list of the meta-data block ids.
         /// </summary>
         /// <param name="type">The meta-data block type.</param>
@@ -732,6 +797,7 @@ namespace LibHeifSharp
         /// <exception cref="HeifException">Could not get all of the meta-data block ids.</exception>
         /// <exception cref="ObjectDisposedException">The object has been disposed.</exception>
         /// <seealso cref="GetMetadata(HeifItemId)"/>
+        /// <seealso cref="GetMetadataBlockInfo(HeifItemId)"/>
         public IReadOnlyList<HeifItemId> GetMetadataBlockIds(string type = null, string contentType = null)
         {
             VerifyNotDisposed();

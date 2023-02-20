@@ -89,6 +89,9 @@ namespace LibHeifSharp.Interop
                                                                                            int idArrayCount);
 
         [DllImport(DllName, CallingConvention = DllCallingConvention)]
+        internal static extern LibHeifOwnedString heif_image_handle_get_metadata_type(SafeHeifImageHandle handle, HeifItemId id);
+
+        [DllImport(DllName, CallingConvention = DllCallingConvention)]
         internal static extern LibHeifOwnedString heif_image_handle_get_metadata_content_type(SafeHeifImageHandle handle, HeifItemId id);
 
         [DllImport(DllName, CallingConvention = DllCallingConvention)]
