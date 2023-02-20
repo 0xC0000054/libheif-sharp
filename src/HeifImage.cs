@@ -41,6 +41,8 @@ namespace LibHeifSharp
         private HeifNclxColorProfile cachedNclxColorProfile;
         private bool fetchedColorProfilesFromImage;
         private IReadOnlyList<string> cachedDecodingWarnings;
+        private HeifContentLightLevel cachedContentLightLevel;
+        private bool fetchedContentLightLevelFromImage;
         private readonly object sync;
 
         /// <summary>
@@ -370,6 +372,58 @@ namespace LibHeifSharp
         }
 
         /// <summary>
+        /// Gets or sets the image HDR content light level.
+        /// </summary>
+        /// <value>
+        /// The HDR content light level.
+        /// </value>
+        /// <exception cref="ArgumentNullException">Value is null.</exception>
+        /// <exception cref="HeifException">A LibHeif error occurred.</exception>
+        /// <exception cref="ObjectDisposedException">The object has been disposed.</exception>
+        /// <remarks>
+        /// This property is supported starting with LibHeif version 1.15.0, it will return
+        /// <see langword="null"/> on older versions.
+        /// </remarks>
+        public HeifContentLightLevel ContentLightLevel
+        {
+            get
+            {
+                VerifyNotDisposed();
+
+                if (!this.fetchedContentLightLevelFromImage)
+                {
+                    lock (this.sync)
+                    {
+                        if (!this.fetchedContentLightLevelFromImage)
+                        {
+                            UpdateCachedContentLightLevelWhileLocked();
+                            this.fetchedContentLightLevelFromImage = true;
+                        }
+                    }
+                }
+
+                return this.cachedContentLightLevel;
+            }
+            set
+            {
+                Validate.IsNotNull(value, nameof(value));
+                VerifyNotDisposed();
+
+                if (this.cachedContentLightLevel != value)
+                {
+                    lock (this.sync)
+                    {
+                        if (this.cachedContentLightLevel != value)
+                        {
+                            this.cachedContentLightLevel = value;
+                            this.cachedContentLightLevel.SetImageContentLightLevel(this.image);
+                        }
+                    }
+                }
+            }
+        }
+
+        /// <summary>
         /// Gets a value indicating whether the image has an alpha channel.
         /// </summary>
         /// <value>
@@ -670,6 +724,20 @@ namespace LibHeifSharp
                     default:
                         throw new HeifException(Resources.ColorProfileTypeNotSupported);
                 }
+            }
+        }
+
+        private void UpdateCachedContentLightLevelWhileLocked()
+        {
+            if (LibHeifVersion.Is1Point15OrLater && LibHeifNative.heif_image_has_content_light_level(this.image))
+            {
+                LibHeifNative.heif_image_get_content_light_level(this.image, out var contentLightLevel);
+
+                this.cachedContentLightLevel = new HeifContentLightLevel(contentLightLevel);
+            }
+            else
+            {
+                this.cachedContentLightLevel = null;
             }
         }
     }

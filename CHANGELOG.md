@@ -18,6 +18,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   * This simplifies checking that LibHeif is at least the specified minimum version. 
 * `IccColorProfile` and `NclxColorProfile` properties to the `HeifImageHandle` class.
 * A `GetMetadataBlockInfo` method to the `HeifImageHandle` class.
+* A `ContentLightLevel` property to the `HeifImage` class.
+  * The content light level data is used for HDR rendering.
+  * Requires LibHeif version 1.15.0 or later.
 
 ## Removed
 
