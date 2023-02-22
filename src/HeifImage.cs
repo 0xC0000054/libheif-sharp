@@ -411,6 +411,11 @@ namespace LibHeifSharp
                 Validate.IsNotNull(value, nameof(value));
                 VerifyNotDisposed();
 
+                if (!LibHeifVersion.Is1Point15OrLater)
+                {
+                    ExceptionUtil.ThrowHeifException(Resources.PropertySetterRequiresLibHeif1Point15);
+                }
+
                 if (this.cachedContentLightLevel != value)
                 {
                     lock (this.sync)
