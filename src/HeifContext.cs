@@ -772,7 +772,7 @@ namespace LibHeifSharp
         /// The access requested is not permitted by the operating system for the specified path.
         /// </exception>
         [EditorBrowsable(EditorBrowsableState.Never)]
-        [Obsolete("Please use the HeifContext(string) constructor overload instead.")]
+        [Obsolete("Please use the HeifContext(string) constructor overload instead.", error: true)]
         public void ReadFromFile(string path)
         {
             Validate.IsNotNull(path, nameof(path));
@@ -797,7 +797,7 @@ namespace LibHeifSharp
         /// <exception cref="InvalidOperationException">This HeifContext already has an associated reader.</exception>
         /// <exception cref="ObjectDisposedException">The object has been disposed.</exception>
         [EditorBrowsable(EditorBrowsableState.Never)]
-        [Obsolete("Please use the HeifContext(byte[]) constructor overload instead.")]
+        [Obsolete("Please use the HeifContext(byte[]) constructor overload instead.", error: true)]
         public void ReadFromMemory(byte[] bytes)
         {
             Validate.IsNotNullOrEmptyArray(bytes, nameof(bytes));

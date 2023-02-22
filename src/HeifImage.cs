@@ -168,7 +168,7 @@ namespace LibHeifSharp
         /// </exception>
         /// <exception cref="ObjectDisposedException">The object has been disposed.</exception>
         [EditorBrowsable(EditorBrowsableState.Never)]
-        [Obsolete("Use the IccColorProfile and NclxColorProfile properties instead.")]
+        [Obsolete("Use the IccColorProfile and NclxColorProfile properties instead.", error: true)]
         public HeifColorProfile ColorProfile
         {
             get

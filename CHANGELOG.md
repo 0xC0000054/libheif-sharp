@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+## Breaking
+
+* All obsolete members will produce a compiler error.
+* Removed the .NET Standard 1.3 and .NET Framework 4.6 targets.
+
 ## Added
 
 * A `GetDecoderDescriptors` method to the `LibHeifInfo` class.
@@ -26,10 +31,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   * Requires LibHeif version 1.15.0 or later.
 * A `PixelAspectRatio` property to the `HeifImage` class.
   * Requires LibHeif version 1.15.0 or later.
-
-## Removed
-
-The .NET Standard 1.3 and .NET Framework 4.6 targets.
 
 ## v2.4.0 - 2022-09-10
 
