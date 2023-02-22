@@ -21,6 +21,7 @@
  */
 
 using System;
+using System.Collections.Generic;
 using System.Globalization;
 using LibHeifSharp.Properties;
 
@@ -37,6 +38,26 @@ namespace LibHeifSharp
         /// <param name="max">The inclusive maximum value.</param>
         /// <exception cref="ArgumentOutOfRangeException">The parameter is outside of the required range.</exception>
         public static void IsInRange(int param, string paramName, int min, int max)
+        {
+            if (param < min || param > max)
+            {
+                ExceptionUtil.ThrowArgumentOutOfRangeException(paramName, string.Format(CultureInfo.CurrentCulture,
+                                                                                        Resources.ParameterOutOfRangeInclusiveFormat,
+                                                                                        paramName,
+                                                                                        min,
+                                                                                        max));
+            }
+        }
+
+        /// <summary>
+        /// Determines whether the specified parameter is within the required range.
+        /// </summary>
+        /// <param name="param">The parameter.</param>
+        /// <param name="paramName">The name of the parameter.</param>
+        /// <param name="min">The inclusive minimum value.</param>
+        /// <param name="max">The inclusive maximum value.</param>
+        /// <exception cref="ArgumentOutOfRangeException">The parameter is outside of the required range.</exception>
+        public static void IsInRange(long param, string paramName, long min, long max)
         {
             if (param < min || param > max)
             {
@@ -97,6 +118,29 @@ namespace LibHeifSharp
                 ExceptionUtil.ThrowArgumentException(string.Format(CultureInfo.CurrentCulture,
                                                                    Resources.ParameterIsEmptyArrayFormat,
                                                                    paramName));
+            }
+        }
+
+        /// <summary>
+        /// Determines whether the specified collection is null or does not have the required length.
+        /// </summary>
+        /// <param name="param">The parameter.</param>
+        /// <param name="paramName">The name of the parameter.</param>
+        /// <param name="requiredSize">The required size of the collection.</param>
+        /// <exception cref="ArgumentNullException">The parameter is null.</exception>
+        /// <exception cref="ArgumentException">The parameter does not have the required size.</exception>
+        public static void HasSizeEqualTo<T>(IReadOnlyList<T> param, string paramName, int requiredSize)
+        {
+            if (param is null)
+            {
+                ExceptionUtil.ThrowArgumentNullException(paramName);
+            }
+            else if (param.Count != requiredSize)
+            {
+                ExceptionUtil.ThrowArgumentException(string.Format(CultureInfo.CurrentCulture,
+                                                                   Resources.ParameterRequiredCollectionSizeFormat,
+                                                                   paramName,
+                                                                   requiredSize));
             }
         }
 

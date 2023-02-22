@@ -295,11 +295,29 @@ namespace LibHeifSharp.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to &apos;{0}&apos; must have {1} items..
+        /// </summary>
+        internal static string ParameterRequiredCollectionSizeFormat {
+            get {
+                return ResourceManager.GetString("ParameterRequiredCollectionSizeFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to &apos;{0}&apos; is empty or contains only whitespace characters..
         /// </summary>
         internal static string ParameterStringIsEmptyOrWhitespaceFormat {
             get {
                 return ResourceManager.GetString("ParameterStringIsEmptyOrWhitespaceFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This property requires LibHeif version 1.15.0 or later..
+        /// </summary>
+        internal static string PropertySetterRequiresLibHeif1Point15 {
+            get {
+                return ResourceManager.GetString("PropertySetterRequiresLibHeif1Point15", resourceCulture);
             }
         }
         

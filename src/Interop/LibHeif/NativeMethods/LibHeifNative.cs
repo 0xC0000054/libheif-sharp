@@ -72,5 +72,9 @@ namespace LibHeifSharp.Interop
         internal static extern unsafe int heif_get_decoder_descriptors(HeifCompressionFormat compressionFormat,
                                                                        heif_decoder_descriptor* items,
                                                                        int count);
+
+        [DllImport(DllName, CallingConvention = DllCallingConvention)]
+        internal static extern unsafe heif_error heif_mastering_display_colour_volume_decode(heif_mastering_display_colour_volume input,
+                                                                                             heif_decoded_mastering_display_colour_volume* output);
     }
 }

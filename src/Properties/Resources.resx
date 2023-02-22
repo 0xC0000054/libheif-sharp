@@ -200,9 +200,16 @@
     <value>'{0}' must be in the range of [{1},{2}].</value>
     <comment>{0} is the parameter name.</comment>
   </data>
+  <data name="ParameterRequiredCollectionSizeFormat" xml:space="preserve">
+    <value>'{0}' must have {1} items.</value>
+    <comment>{0} is the parameter name.</comment>
+  </data>
   <data name="ParameterStringIsEmptyOrWhitespaceFormat" xml:space="preserve">
     <value>'{0}' is empty or contains only whitespace characters.</value>
     <comment>{0} is the parameter name.</comment>
+  </data>
+  <data name="PropertySetterRequiresLibHeif1Point15" xml:space="preserve">
+    <value>This property requires LibHeif version 1.15.0 or later.</value>
   </data>
   <data name="ReaderNotSet" xml:space="preserve">
     <value>A reader must be set before calling before this method.</value>

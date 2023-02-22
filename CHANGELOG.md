@@ -21,6 +21,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * A `ContentLightLevel` property to the `HeifImage` class.
   * The content light level data is used for HDR rendering.
   * Requires LibHeif version 1.15.0 or later.
+* A `MasteringDisplayColourVolume` property to the `HeifImage` class.
+  * The mastering display color volume data is used for HDR rendering.
+  * Requires LibHeif version 1.15.0 or later.
 
 ## Removed
 

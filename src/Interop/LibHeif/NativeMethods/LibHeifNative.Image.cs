@@ -121,5 +121,15 @@ namespace LibHeifSharp.Interop
 
         [DllImport(DllName, CallingConvention = DllCallingConvention)]
         internal static extern unsafe void heif_image_set_content_light_level(SafeHeifImage image, heif_content_light_level* value);
+
+        [DllImport(DllName, CallingConvention = DllCallingConvention)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        internal static extern bool heif_image_has_mastering_display_colour_volume(SafeHeifImage image);
+
+        [DllImport(DllName, CallingConvention = DllCallingConvention)]
+        internal static extern void heif_image_get_mastering_display_colour_volume(SafeHeifImage image, out heif_mastering_display_colour_volume value);
+
+        [DllImport(DllName, CallingConvention = DllCallingConvention)]
+        internal static extern unsafe void heif_image_set_mastering_display_colour_volume(SafeHeifImage image, heif_mastering_display_colour_volume* value);
     }
 }

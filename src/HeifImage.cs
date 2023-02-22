@@ -43,6 +43,8 @@ namespace LibHeifSharp
         private IReadOnlyList<string> cachedDecodingWarnings;
         private HeifContentLightLevel cachedContentLightLevel;
         private bool fetchedContentLightLevelFromImage;
+        private HeifMasteringDisplayColourVolume cachedMasteringDisplayColourVolume;
+        private bool fetchedMasteringDisplayColourVolumeFromImage;
         private readonly object sync;
 
         /// <summary>
@@ -424,6 +426,63 @@ namespace LibHeifSharp
         }
 
         /// <summary>
+        /// Gets or sets the image HDR mastering display color volume.
+        /// </summary>
+        /// <value>
+        /// The HDR mastering display color volume.
+        /// </value>
+        /// <exception cref="ArgumentNullException">Value is null.</exception>
+        /// <exception cref="HeifException">A LibHeif error occurred.</exception>
+        /// <exception cref="ObjectDisposedException">The object has been disposed.</exception>
+        /// <remarks>
+        /// This property is supported starting with LibHeif version 1.15.0, it will return
+        /// <see langword="null"/> on older versions.
+        /// </remarks>
+        public HeifMasteringDisplayColourVolume MasteringDisplayColourVolume
+        {
+            get
+            {
+                VerifyNotDisposed();
+
+                if (!this.fetchedMasteringDisplayColourVolumeFromImage)
+                {
+                    lock (this.sync)
+                    {
+                        if (!this.fetchedMasteringDisplayColourVolumeFromImage)
+                        {
+                            UpdateCachedMasteringDisplayColourVolumeWhileLocked();
+                            this.fetchedMasteringDisplayColourVolumeFromImage = true;
+                        }
+                    }
+                }
+
+                return this.cachedMasteringDisplayColourVolume;
+            }
+            set
+            {
+                Validate.IsNotNull(value, nameof(value));
+                VerifyNotDisposed();
+
+                if (!LibHeifVersion.Is1Point15OrLater)
+                {
+                    ExceptionUtil.ThrowHeifException(Resources.PropertySetterRequiresLibHeif1Point15);
+                }
+
+                if (this.cachedMasteringDisplayColourVolume != value)
+                {
+                    lock (this.sync)
+                    {
+                        if (this.cachedMasteringDisplayColourVolume != value)
+                        {
+                            this.cachedMasteringDisplayColourVolume = value;
+                            this.cachedMasteringDisplayColourVolume.SetImageMasteringDisplayColourVolume(this.image);
+                        }
+                    }
+                }
+            }
+        }
+
+        /// <summary>
         /// Gets a value indicating whether the image has an alpha channel.
         /// </summary>
         /// <value>
@@ -738,6 +797,20 @@ namespace LibHeifSharp
             else
             {
                 this.cachedContentLightLevel = null;
+            }
+        }
+
+        private void UpdateCachedMasteringDisplayColourVolumeWhileLocked()
+        {
+            if (LibHeifVersion.Is1Point15OrLater && LibHeifNative.heif_image_has_mastering_display_colour_volume(this.image))
+            {
+                LibHeifNative.heif_image_get_mastering_display_colour_volume(this.image, out var native);
+
+                this.cachedMasteringDisplayColourVolume = new HeifMasteringDisplayColourVolume(native);
+            }
+            else
+            {
+                this.cachedMasteringDisplayColourVolume = null;
             }
         }
     }
