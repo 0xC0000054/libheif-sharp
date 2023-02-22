@@ -488,6 +488,48 @@ namespace LibHeifSharp
         }
 
         /// <summary>
+        /// Gets or sets the image pixel aspect ratio.
+        /// </summary>
+        /// <value>
+        /// The pixel aspect ratio.
+        /// </value>
+        /// <exception cref="HeifException">A LibHeif error occurred.</exception>
+        /// <exception cref="ObjectDisposedException">The object has been disposed.</exception>
+        /// <remarks>
+        /// This property is supported starting with LibHeif version 1.15.0, it will throw an
+        /// exception on older versions.
+        /// </remarks>
+        public HeifPixelAspectRatio PixelAspectRatio
+        {
+            get
+            {
+                VerifyNotDisposed();
+
+                if (!LibHeifVersion.Is1Point15OrLater)
+                {
+                    ExceptionUtil.ThrowHeifException(Resources.PropertySetterRequiresLibHeif1Point15);
+                }
+
+                LibHeifNative.heif_image_get_pixel_aspect_ratio(this.image, out uint aspectH, out uint aspectV);
+
+                return new HeifPixelAspectRatio(aspectH, aspectV);
+            }
+            set
+            {
+                VerifyNotDisposed();
+
+                if (!LibHeifVersion.Is1Point15OrLater)
+                {
+                    ExceptionUtil.ThrowHeifException(Resources.PropertySetterRequiresLibHeif1Point15);
+                }
+
+                LibHeifNative.heif_image_set_pixel_aspect_ratio(this.image,
+                                                                (uint)value.HorizontalSpacing,
+                                                                (uint)value.VerticalSpacing);
+            }
+        }
+
+        /// <summary>
         /// Gets a value indicating whether the image has an alpha channel.
         /// </summary>
         /// <value>

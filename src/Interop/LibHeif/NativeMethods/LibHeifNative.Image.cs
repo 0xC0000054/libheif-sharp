@@ -131,5 +131,11 @@ namespace LibHeifSharp.Interop
 
         [DllImport(DllName, CallingConvention = DllCallingConvention)]
         internal static extern unsafe void heif_image_set_mastering_display_colour_volume(SafeHeifImage image, heif_mastering_display_colour_volume* value);
+
+        [DllImport(DllName, CallingConvention = DllCallingConvention)]
+        internal static extern void heif_image_get_pixel_aspect_ratio(SafeHeifImage image, out uint aspectH, out uint aspectV);
+
+        [DllImport(DllName, CallingConvention = DllCallingConvention)]
+        internal static extern void heif_image_set_pixel_aspect_ratio(SafeHeifImage image, uint aspectH, uint aspectV);
     }
 }
