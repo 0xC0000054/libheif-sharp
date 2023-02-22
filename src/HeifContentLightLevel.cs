@@ -23,6 +23,7 @@
 using System;
 using System.Collections.Generic;
 using LibHeifSharp.Interop;
+using LibHeifSharp.Properties;
 
 namespace LibHeifSharp
 {
@@ -43,6 +44,9 @@ namespace LibHeifSharp
         /// The maximum picture average light level in candelas per square meter.
         /// A value of 0 indicates that the value is undefined.
         /// </param>
+        /// <exception cref="ArgumentException">
+        /// Both <paramref name="maxContentLightLevel"/> and <paramref name="maxPictureAverageLightLevel"/> are zero.
+        /// </exception>
         /// <exception cref="ArgumentOutOfRangeException">
         /// <paramref name="maxContentLightLevel"/> must be in the range of [0, 65535].
         /// <paramref name="maxPictureAverageLightLevel"/> must be in the range of [0, 65535].
@@ -57,6 +61,11 @@ namespace LibHeifSharp
                                nameof(maxPictureAverageLightLevel),
                                ushort.MinValue,
                                ushort.MaxValue);
+
+            if (maxContentLightLevel == 0 && maxPictureAverageLightLevel == 0)
+            {
+                ExceptionUtil.ThrowArgumentException(Resources.AtLeastOneParameterMustBePositive);
+            }
 
             this.MaxContentLightLevel = maxContentLightLevel;
             this.MaxPictureAverageLightLevel = maxPictureAverageLightLevel;

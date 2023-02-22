@@ -61,6 +61,15 @@ namespace LibHeifSharp.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to At least one parameter must be a positive number..
+        /// </summary>
+        internal static string AtLeastOneParameterMustBePositive {
+            get {
+                return ResourceManager.GetString("AtLeastOneParameterMustBePositive", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to This method requires LibHeif version 1.11.0 or later..
         /// </summary>
         internal static string AuxiliaryImageAPINotSupported {
