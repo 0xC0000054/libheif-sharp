@@ -55,6 +55,9 @@ namespace LibHeifSharp.Interop
         Encoding_error = 9,
 
         // Application has asked for a color profile type that does not exist
-        Color_profile_does_not_exist = 10
+        Color_profile_does_not_exist = 10,
+
+        // Error loading a dynamic plugin
+        Plugin_loading_error = 11,
     }
 }

@@ -163,5 +163,11 @@ namespace LibHeifSharp.Interop
         // --- Encoding_error ---
 
         Cannot_write_output_data = 5000,
+
+        // --- Plugin loading error ---
+
+        Plugin_loading_error = 6000,         // a specific plugin file cannot be loaded
+        Plugin_is_not_loaded = 6001,         // trying to remove a plugin that is not loaded
+        Cannot_read_plugin_directory = 6002, // error while scanning the directory for plugins
     }
 }
