@@ -173,21 +173,12 @@ namespace LibHeifSharp
         /// <param name="major">The major version number.</param>
         /// <param name="minor">The minor version number.</param>
         /// <param name="maintenance">The maintenance version number.</param>
-        /// <exception cref="ArgumentOutOfRangeException">
-        /// <paramref name="major"/> must be in the range of [0, 255].
-        /// <paramref name="minor"/> must be in the range of [0, 255].
-        /// <paramref name="maintenance"/> must be in the range of [0, 255].
-        /// </exception>
         /// <returns>
         /// <see langword="true" /> if LibHeif is at least the specified version;
         /// otherwise, <see langword="false" />.
         /// </returns>
-        public static bool HaveVersion(int major, int minor, int maintenance)
+        public static bool HaveVersion(byte major, byte minor, byte maintenance)
         {
-            Validate.IsInRange(major, nameof(major), byte.MinValue, byte.MaxValue);
-            Validate.IsInRange(minor, nameof(minor), byte.MinValue, byte.MaxValue);
-            Validate.IsInRange(maintenance, nameof(maintenance), byte.MinValue, byte.MaxValue);
-
             // The LibHeif version number is encoded using binary-coded decimal.
             uint encodedVersion = ((uint)major << 24) | ((uint)minor << 16) | ((uint)maintenance << 8);
 
