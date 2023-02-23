@@ -160,6 +160,15 @@ namespace LibHeifSharp.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The non-linear representation model is larger than 2 GB..
+        /// </summary>
+        internal static string DepthNonlinearRepresentationModelLargerThan2GB {
+            get {
+                return ResourceManager.GetString("DepthNonlinearRepresentationModelLargerThan2GB", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The device does not support seeking..
         /// </summary>
         internal static string FileStreamDoesNotSupportSeeking {

@@ -594,7 +594,13 @@ namespace LibHeifSharp
         /// </summary>
         /// <param name="id">The depth image id.</param>
         /// <returns>The depth representation information.</returns>
-        /// <exception cref="HeifException">A LibHeif error occurred.</exception>
+        /// <exception cref="HeifException">
+        /// A LibHeif error occurred.
+        ///
+        /// -or-
+        ///
+        /// The non-linear representation model is larger than 2 GB.
+        /// </exception>
         /// <exception cref="ObjectDisposedException">The object has been disposed.</exception>
         public HeifDepthRepresentationInfo GetDepthRepresentationInfo(HeifItemId id)
         {

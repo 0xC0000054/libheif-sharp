@@ -152,6 +152,9 @@
   <data name="ColorProfileTypeNotSupported" xml:space="preserve">
     <value>The color profile type is not supported.</value>
   </data>
+  <data name="DepthRepresentationLargerThan2GB" xml:space="preserve">
+    <value>The non-linear representation model is larger than 2 GB.</value>
+  </data>
   <data name="FileStreamDoesNotSupportSeeking" xml:space="preserve">
     <value>The device does not support seeking.</value>
   </data>

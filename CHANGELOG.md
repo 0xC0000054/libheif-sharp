@@ -31,6 +31,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   * Requires LibHeif version 1.15.0 or later.
 * A `PixelAspectRatio` property to the `HeifImage` class.
   * Requires LibHeif version 1.15.0 or later.
+  
+## Changed
+
+* `GetDepthRepresentationInfo` throws an exception when the nonlinear representation model is larger than 2GB.
+  * Previous versions of this library would silently ignore a nonlinear representation model that is larger than 2GB.
 
 ## v2.4.0 - 2022-09-10
 

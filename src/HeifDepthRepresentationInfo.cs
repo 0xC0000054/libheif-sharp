@@ -24,6 +24,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Runtime.InteropServices;
+using LibHeifSharp.Properties;
 
 namespace LibHeifSharp
 {
@@ -60,6 +61,13 @@ namespace LibHeifSharp
     {
         private readonly ReadOnlyCollection<byte> nonlinearRepresentationModel;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="HeifDepthRepresentationInfo"/> class.
+        /// </summary>
+        /// <param name="info">The depth representation information.</param>
+        /// <exception cref="HeifException">
+        /// The non-linear representation model is larger than 2 GB.
+        /// </exception>
         internal unsafe HeifDepthRepresentationInfo(Interop.heif_depth_representation_info* info)
         {
             this.ZNear = info->has_z_near != 0 ? info->z_near : (double?)null;
@@ -69,9 +77,13 @@ namespace LibHeifSharp
             this.DepthRepresentationType = info->depth_representation_type;
             this.DisparityReferenceView = info->disparity_reference_view;
 
-            if (info->depth_nonlinear_representation_model_size > 0
-                && info->depth_nonlinear_representation_model_size <= int.MaxValue)
+            if (info->depth_nonlinear_representation_model_size > 0)
             {
+                if (info->depth_nonlinear_representation_model_size > int.MaxValue)
+                {
+                    ExceptionUtil.ThrowHeifException(Resources.DepthNonlinearRepresentationModelLargerThan2GB);
+                }
+
                 byte[] bytes = new byte[info->depth_nonlinear_representation_model_size];
 
                 Marshal.Copy(info->depth_nonlinear_representation_model, bytes, 0, bytes.Length);
