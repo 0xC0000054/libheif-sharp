@@ -31,6 +31,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   * Requires LibHeif version 1.15.0 or later.
 * A `PixelAspectRatio` property to the `HeifImage` class.
   * Requires LibHeif version 1.15.0 or later.
+* An `ImageOrientation` property to the `HeifEncodingOptions` class.
+  * This property allows the encoder to convert the EXIF Orientation values into the equivalent HEIF image transformations.
+  * Requires LibHeif version 1.14.0 or later.
   
 ## Changed
 

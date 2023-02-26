@@ -20,6 +20,7 @@
  * along with libheif-sharp.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+using System.ComponentModel;
 using LibHeifSharp.Interop;
 
 namespace LibHeifSharp
@@ -31,6 +32,7 @@ namespace LibHeifSharp
     {
         private bool writeTwoColorProfiles;
         private bool writeNclxColorProfile;
+        private HeifOrientation imageOrientation;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="HeifEncodingOptions"/> class.
@@ -42,6 +44,7 @@ namespace LibHeifSharp
             this.CropWithImageGrid = true;
             this.WriteTwoColorProfiles = false;
             this.WriteNclxColorProfile = false;
+            this.ImageOrientation = HeifOrientation.Normal;
         }
 
         /// <summary>
@@ -120,6 +123,34 @@ namespace LibHeifSharp
         }
 
         /// <summary>
+        /// Gets or sets a value describing the transformations that will be applied
+        /// to the decoded image before it is displayed.
+        /// </summary>
+        /// <value>
+        /// The transformations that will be applied to the decoded image before it is displayed.
+        /// </value>
+        /// <exception cref="InvalidEnumArgumentException">
+        /// Image orientation cannot be set because it does not use a valid value, as defined in
+        /// the <see cref="HeifOrientation"/> enumeration.
+        /// </exception>
+        /// <remarks>
+        /// This value was added in LibHeif version 1.14.0, it will be ignored on older versions.
+        /// </remarks>
+        public HeifOrientation ImageOrientation
+        {
+            get => this.imageOrientation;
+            set
+            {
+                if (value < HeifOrientation.Normal || value > HeifOrientation.Rotate270Clockwise)
+                {
+                    throw new InvalidEnumArgumentException(nameof(value), (int)value, typeof(HeifOrientation));
+                }
+
+                this.imageOrientation = value;
+            }
+        }
+
+        /// <summary>
         /// Creates the encoding options.
         /// </summary>
         /// <returns>The encoding options.</returns>
@@ -137,7 +168,16 @@ namespace LibHeifSharp
 
             options->save_alpha_channel = (byte)(this.SaveAlphaChannel ? 1 : 0);
 
-            if (options->version >= 4)
+            if (options->version >= 5)
+            {
+                var optionsVersion5 = (EncodingOptionsVersion5*)encodingOptions.DangerousGetHandle();
+
+                optionsVersion5->macOS_compatibility_workaround = (byte)(this.CropWithImageGrid ? 1 : 0);
+                optionsVersion5->save_two_colr_boxes_when_ICC_and_nclx_available = (byte)(this.WriteTwoColorProfiles ? 1 : 0);
+                optionsVersion5->macOS_compatibility_workaround_no_nclx_profile = (byte)(this.WriteNclxColorProfile ? 0 : 1);
+                optionsVersion5->image_orientation = this.ImageOrientation;
+            }
+            else if (options->version == 4)
             {
                 var optionsVersion4 = (EncodingOptionsVersion4*)encodingOptions.DangerousGetHandle();
 
