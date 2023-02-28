@@ -14,6 +14,7 @@
     <Company>LibHeifSharp contributors</Company>
     <Copyright>Copyright © 2023 Nicholas Hayes and contributors</Copyright>
     <PackageTags>libheif heif heic avif</PackageTags>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
     <PackageReleaseNotes></PackageReleaseNotes>
     <Description>Provides .NET bindings for libheif.
 
@@ -37,6 +38,9 @@ The minimum supported libheif version is 1.9.0.</Description>
     <PackageProjectUrl>https://0xc0000054.github.io/libheif-sharp/</PackageProjectUrl>
     <RepositoryUrl>https://github.com/0xC0000054/libheif-sharp.git</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
+    <IncludeSymbols>true</IncludeSymbols>
+    <EmbedUntrackedSources>true</EmbedUntrackedSources>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
@@ -59,6 +63,15 @@ The minimum supported libheif version is 1.9.0.</Description>
   <ItemGroup>
     <None Remove="LibHeifSharp.sln.licenseheader" />
     <None Remove="LibHeifSharp.xml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\NuGet-README.md" Pack="true" PackagePath="\README.md" />
+    <SourceRoot Include="$(MSBuildThisFileDirectory)/"/>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All"/>
   </ItemGroup>
 
   <ItemGroup>
