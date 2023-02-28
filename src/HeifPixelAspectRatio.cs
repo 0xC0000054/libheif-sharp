@@ -108,13 +108,27 @@ namespace LibHeifSharp
             return hashCode;
         }
 
-        /// <inheritdoc/>
+        /// <summary>
+        /// Implements the operator ==.
+        /// </summary>
+        /// <param name="left">The left.</param>
+        /// <param name="right">The right.</param>
+        /// <returns>
+        /// The result of the operator.
+        /// </returns>
         public static bool operator ==(HeifPixelAspectRatio left, HeifPixelAspectRatio right)
         {
             return EqualityComparer<HeifPixelAspectRatio>.Default.Equals(left, right);
         }
 
-        /// <inheritdoc/>
+        /// <summary>
+        /// Implements the operator !=.
+        /// </summary>
+        /// <param name="left">The left.</param>
+        /// <param name="right">The right.</param>
+        /// <returns>
+        /// The result of the operator.
+        /// </returns>
         public static bool operator !=(HeifPixelAspectRatio left, HeifPixelAspectRatio right)
         {
             return !(left == right);

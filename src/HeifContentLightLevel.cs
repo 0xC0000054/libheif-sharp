@@ -135,13 +135,27 @@ namespace LibHeifSharp
             LibHeifNative.heif_image_set_content_light_level(image, &nativeContentLightLevel);
         }
 
-        /// <inheritdoc/>
+        /// <summary>
+        /// Implements the operator ==.
+        /// </summary>
+        /// <param name="left">The left.</param>
+        /// <param name="right">The right.</param>
+        /// <returns>
+        /// The result of the operator.
+        /// </returns>
         public static bool operator ==(HeifContentLightLevel left, HeifContentLightLevel right)
         {
             return EqualityComparer<HeifContentLightLevel>.Default.Equals(left, right);
         }
 
-        /// <inheritdoc/>
+        /// <summary>
+        /// Implements the operator !=.
+        /// </summary>
+        /// <param name="left">The left.</param>
+        /// <param name="right">The right.</param>
+        /// <returns>
+        /// The result of the operator.
+        /// </returns>
         public static bool operator !=(HeifContentLightLevel left, HeifContentLightLevel right)
         {
             return !(left == right);
