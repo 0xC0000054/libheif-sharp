@@ -2,8 +2,14 @@
             Represents a Boolean encoder parameter.
             </td></tr><tr><td><a href="4452b034-1e83-9c6b-acb8-741967b1dc30.htm">HeifColorProfile</a></td><td>
             The base class for a HEIF image color profile.
+            </td></tr><tr><td><a href="fc301299-99e8-5b7e-895a-0d2b22957ae5.htm">HeifContentLightLevel</a></td><td>
+            Represents the Content Light Level values used by HDR images.
             </td></tr><tr><td><a href="a41bfbec-0ae9-7c30-ba8e-312d2dc88c95.htm">HeifContext</a></td><td>
             The LibHeif context.
+            </td></tr><tr><td><a href="ce40aacc-0573-90bb-fba4-841255808204.htm">HeifDecodedMasteringDisplayColourVolume</a></td><td>
+            Represents the decoded HDR mastering display color volume.
+            </td></tr><tr><td><a href="323aa00c-2404-6101-ffe3-ec8af63e1164.htm">HeifDecoderDescriptor</a></td><td>
+            Represents a LibHeif decoder descriptor.
             </td></tr><tr><td><a href="d0da3881-e891-fa9c-1f26-73b3a2ec31fa.htm">HeifDecodingOptions</a></td><td>
             The options that can be set when decoding an image.
             </td></tr><tr><td><a href="7e241979-98fa-9868-5b2a-caf6e26277d4.htm">HeifDepthRepresentationInfo</a></td><td>
@@ -26,6 +32,10 @@
             Represents a LibHeif image handle.
             </td></tr><tr><td><a href="25a9377f-ae43-4800-192f-dbc0911c488f.htm">HeifIntegerEncoderParameter</a></td><td>
             Represents an Integer LibHeif encoder parameter
+            </td></tr><tr><td><a href="00d4fed3-eb11-7651-b1c6-f36fd655517a.htm">HeifMasteringDisplayColourVolume</a></td><td>
+            Represents the HDR mastering display color volume.
+            </td></tr><tr><td><a href="0d371e3e-b035-47bb-13f5-251605b32c73.htm">HeifMetadataBlockInfo</a></td><td>
+            Represents the type information of a meta-data item.
             </td></tr><tr><td><a href="3c99a434-e016-a20e-d813-b0b39544f44a.htm">HeifNclxColorProfile</a></td><td>
             Represents a NCLX color profile.
             </td></tr><tr><td><a href="bfbd7634-5a55-ed56-613c-08a54ad985fa.htm">HeifPlaneData</a></td><td>
@@ -34,8 +44,10 @@
             Represents a string LibHeif encoder parameter
             </td></tr><tr><td><a href="4b16baaf-c38a-c562-6e1c-3690bb52d44d.htm">LibHeifInfo</a></td><td>
             Provides information about LibHeif.
-            </td></tr></table></div><h2 class="quickLinkHeader"><span class="icon toggleSection" tabindex="0"><i class="fa fa-angle-down"></i></span>Structures</h2><div id="ID3CASection"><table id="structureList" class="table is-hoverable"><tr><td><a href="0fb0cc41-d083-13c7-2466-5218391f2b85.htm">HeifItemId</a></td><td>
+            </td></tr></table></div><h2 class="quickLinkHeader"><span class="icon toggleSection" tabindex="0"><i class="fa fa-angle-down"></i></span>Structures</h2><div id="ID6CASection"><table id="structureList" class="table is-hoverable"><tr><td><a href="0fb0cc41-d083-13c7-2466-5218391f2b85.htm">HeifItemId</a></td><td>
             Represents a LibHeif item id.
+            </td></tr><tr><td><a href="c074a4bb-5438-cbf8-31ae-64a296e25acb.htm">HeifPixelAspectRatio</a></td><td>
+            Represents the pixel aspect ratio of an image
             </td></tr></table></div><h2 class="quickLinkHeader"><span class="icon toggleSection" tabindex="0"><i class="fa fa-angle-down"></i></span>Interfaces</h2><div id="IDNCASection"><table id="interfaceList" class="table is-hoverable"><tr><td><a href="951982d4-3367-8d91-638a-ac71b49ebadd.htm">IHeifEncoderParameter</a></td><td>
             The interface that all LibHeif encoder parameters implement
             </td></tr></table></div><h2 class="quickLinkHeader"><span class="icon toggleSection" tabindex="0"><i class="fa fa-angle-down"></i></span>Enumerations</h2><div id="IDACASection"><table id="enumerationList" class="table is-hoverable"><tr><td><a href="678320a9-e43b-4387-1a59-6121fd1b4ce7.htm">AuxiliaryImageType</a></td><td>
@@ -56,11 +68,13 @@
             The depth representation type.
             </td></tr><tr><td><a href="7abe386c-2304-b4e4-64fd-007f9b925c62.htm">HeifEncoderParameterType</a></td><td>
             The type of the encoder parameter.
+            </td></tr><tr><td><a href="de52d642-db35-fb5f-b7ef-5769aef553ec.htm">HeifOrientation</a></td><td>
+            Specifies how the decoder should transform the image before it is displayed.
             </td></tr><tr><td><a href="4ef89399-2b7e-d1eb-aaaf-811dbc9d6342.htm">MatrixCoefficients</a></td><td>
             The NCLX matrix coefficients
             </td></tr><tr><td><a href="5acefc3e-1ccb-a84b-5420-e51cebd9c2f8.htm">TransferCharacteristics</a></td><td>
             The NCLX transfer characteristics
-            </td></tr></table></div></div><div id="InThisArticleColumn" class="column is-hidden-mobile"><nav class="menu sticky is-hidden"><p class="menu-label"><strong>In This Article</strong></p><ul id="InThisArticleMenu" class="menu-list"><li><a class="quickLink">Classes</a></li><li><a class="quickLink">Structures</a></li><li><a class="quickLink">Interfaces</a></li><li><a class="quickLink">Enumerations</a></li></ul></nav></div></div></div><footer id="PageFooter" class="footer border-top py-3 fixedFooter"><div class="columns"><div class="column"><p><a href="https://github.com/0xC0000054/libheif-sharp" target="_blank" rel="noopener noreferrer">Copyright © 2022 Nicholas Hayes</a></p> 
+            </td></tr></table></div></div><div id="InThisArticleColumn" class="column is-hidden-mobile"><nav class="menu sticky is-hidden"><p class="menu-label"><strong>In This Article</strong></p><ul id="InThisArticleMenu" class="menu-list"><li><a class="quickLink">Classes</a></li><li><a class="quickLink">Structures</a></li><li><a class="quickLink">Interfaces</a></li><li><a class="quickLink">Enumerations</a></li></ul></nav></div></div></div><footer id="PageFooter" class="footer border-top py-3 fixedFooter"><div class="columns"><div class="column"><p><a href="https://github.com/0xC0000054/libheif-sharp" target="_blank" rel="noopener noreferrer">Copyright © 2023 Nicholas Hayes</a></p> 
 				</div><div class="column"> 
 				</div></div></footer></div><script>$(function(){
 SetDefaultLanguage("cs");

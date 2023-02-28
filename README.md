@@ -24,7 +24,7 @@ It is built against [.NET Standard 2.0](https://docs.microsoft.com/en-us/dotnet/
 
 ### Sample Applications
 
-The [libheif-sharp-samples](https://github.com/0xC0000054/libheif-sharp-samples) repository contains decoder and encoder samples that demonstrate the use of the library.
+The [libheif-sharp-samples](https://github.com/0xC0000054/libheif-sharp-samples) repository contains sample applications that demonstrate the use of the library.
 
 ### Requirements
 
