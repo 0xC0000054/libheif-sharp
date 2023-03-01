@@ -28,6 +28,7 @@ namespace LibHeifSharp
     /// <remarks>
     /// These values match the EXIF Orientation tag.
     /// </remarks>
+    /// <seealso cref="HeifEncodingOptions.ImageOrientation"/>
     public enum HeifOrientation
     {
         /// <summary>

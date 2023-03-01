@@ -30,6 +30,7 @@ namespace LibHeifSharp
     /// <summary>
     /// Represents the Content Light Level values used by HDR images.
     /// </summary>
+    /// <seealso cref="HeifImage.ContentLightLevel"/>
     /// <seealso cref="IEquatable{T}" />
     public sealed class HeifContentLightLevel : IEquatable<HeifContentLightLevel>
     {

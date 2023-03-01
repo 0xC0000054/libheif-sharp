@@ -29,6 +29,7 @@ namespace LibHeifSharp
     /// <summary>
     /// Represents the HDR mastering display color volume.
     /// </summary>
+    /// <seealso cref="HeifImage.MasteringDisplayColourVolume"/>
     public sealed class HeifMasteringDisplayColourVolume
     {
         /// <summary>
