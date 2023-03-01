@@ -141,12 +141,15 @@ namespace LibHeifSharp
             get => this.imageOrientation;
             set
             {
-                if (value < HeifOrientation.Normal || value > HeifOrientation.Rotate270Clockwise)
+                if (this.imageOrientation != value)
                 {
-                    throw new InvalidEnumArgumentException(nameof(value), (int)value, typeof(HeifOrientation));
-                }
+                    if (value < HeifOrientation.Normal || value > HeifOrientation.Rotate270Clockwise)
+                    {
+                        throw new InvalidEnumArgumentException(nameof(value), (int)value, typeof(HeifOrientation));
+                    }
 
-                this.imageOrientation = value;
+                    this.imageOrientation = value;
+                }
             }
         }
 
