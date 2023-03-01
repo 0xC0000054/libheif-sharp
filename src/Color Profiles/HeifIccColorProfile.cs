@@ -29,8 +29,8 @@ namespace LibHeifSharp
     /// <summary>
     /// Represents an International Color Consortium (ICC) color profile.
     /// </summary>
-    /// <seealso cref="HeifImage.IccColorProfile"/>
-    /// <seealso cref="HeifImageHandle.IccColorProfile"/>
+    /// <seealso cref="HeifImage.IccColorProfile" qualifyHint="true"/>
+    /// <seealso cref="HeifImageHandle.IccColorProfile" qualifyHint="true"/>
     /// <seealso cref="HeifColorProfile" />
     public sealed class HeifIccColorProfile : HeifColorProfile
     {

@@ -27,8 +27,8 @@ namespace LibHeifSharp
     /// <summary>
     /// Represents a NCLX color profile.
     /// </summary>
-    /// <seealso cref="HeifImage.NclxColorProfile"/>
-    /// <seealso cref="HeifImageHandle.NclxColorProfile"/>
+    /// <seealso cref="HeifImage.NclxColorProfile" qualifyHint="true"/>
+    /// <seealso cref="HeifImageHandle.NclxColorProfile" qualifyHint="true"/>
     /// <seealso cref="HeifColorProfile" />
     public sealed class HeifNclxColorProfile : HeifColorProfile
     {
