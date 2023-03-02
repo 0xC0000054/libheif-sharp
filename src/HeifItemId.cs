@@ -28,6 +28,7 @@ namespace LibHeifSharp
     /// <summary>
     /// Represents a LibHeif item id.
     /// </summary>
+    /// <threadsafety static="true" instance="true"/>
     [DebuggerDisplay("{" + nameof(ToString) + "(),nq}")]
     public readonly struct HeifItemId : IEquatable<HeifItemId>
     {

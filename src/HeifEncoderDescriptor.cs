@@ -30,6 +30,7 @@ namespace LibHeifSharp
     /// </summary>
     /// <seealso cref="HeifContext.GetEncoderDescriptors(HeifCompressionFormat, string)"/>
     /// <seealso cref="HeifContext.GetEncoder(HeifEncoderDescriptor)"/>
+    /// <threadsafety static="true" instance="true"/>
     [DebuggerDisplay("{" + nameof(Name) + ",nq}")]
     public sealed class HeifEncoderDescriptor
     {

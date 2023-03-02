@@ -27,6 +27,7 @@ namespace LibHeifSharp
     /// <summary>
     /// The data for an image plane.
     /// </summary>
+    /// <threadsafety static="true" instance="true"/>
     public sealed class HeifPlaneData
     {
         /// <summary>

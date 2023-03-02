@@ -28,6 +28,7 @@ namespace LibHeifSharp
     /// <summary>
     /// The options that can be set when encoding an image.
     /// </summary>
+    /// <threadsafety static="true" instance="false"/>
     public sealed class HeifEncodingOptions
     {
         private bool writeTwoColorProfiles;

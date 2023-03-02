@@ -32,6 +32,7 @@ namespace LibHeifSharp
     /// </summary>
     /// <seealso cref="HeifImage.ContentLightLevel"/>
     /// <seealso cref="IEquatable{T}" />
+    /// <threadsafety static="true" instance="false"/>
     public sealed class HeifContentLightLevel : IEquatable<HeifContentLightLevel>
     {
         /// <summary>

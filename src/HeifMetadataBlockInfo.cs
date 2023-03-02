@@ -25,7 +25,8 @@ namespace LibHeifSharp
     /// <summary>
     /// Represents the type information of a meta-data item.
     /// </summary>
-    /// <see cref="HeifImageHandle.GetMetadataBlockInfo(HeifItemId)"/>
+    /// <seealso cref="HeifImageHandle.GetMetadataBlockInfo(HeifItemId)"/>
+    /// <threadsafety static="true" instance="true"/>
     public sealed class HeifMetadataBlockInfo
     {
         /// <summary>

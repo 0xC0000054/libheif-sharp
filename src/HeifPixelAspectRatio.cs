@@ -30,6 +30,7 @@ namespace LibHeifSharp
     /// Represents the pixel aspect ratio of an image
     /// </summary>
     /// <seealso cref="HeifImage.PixelAspectRatio"/>
+    /// <threadsafety static="true" instance="false"/>
     [DebuggerDisplay("{" + nameof(ToString) + "(),nq}")]
     public readonly struct HeifPixelAspectRatio : IEquatable<HeifPixelAspectRatio>
     {

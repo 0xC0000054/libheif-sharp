@@ -57,6 +57,7 @@ namespace LibHeifSharp
     /// <summary>
     /// The depth representation information.
     /// </summary>
+    /// <threadsafety static="true" instance="false"/>
     public sealed class HeifDepthRepresentationInfo
     {
         private readonly ReadOnlyCollection<byte> nonlinearRepresentationModel;

@@ -29,6 +29,7 @@ namespace LibHeifSharp
     /// Represents a LibHeif decoder descriptor.
     /// </summary>
     /// <seealso cref="LibHeifInfo.GetDecoderDescriptors(HeifCompressionFormat)"/>
+    /// <threadsafety static="true" instance="true"/>
     [DebuggerDisplay("{" + nameof(Name) + ",nq}")]
     public sealed class HeifDecoderDescriptor
     {
