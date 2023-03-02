@@ -786,7 +786,7 @@ namespace LibHeifSharp
                 }
             }
 
-            return items;
+            return Array.AsReadOnly(items);
         }
 
         /// <summary>
