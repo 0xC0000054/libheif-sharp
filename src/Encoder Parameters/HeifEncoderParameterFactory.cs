@@ -21,7 +21,7 @@
  */
 
 using System;
-using System.Collections.Generic;
+using System.Runtime.InteropServices;
 using LibHeifSharp.Interop;
 
 namespace LibHeifSharp
@@ -71,10 +71,10 @@ namespace LibHeifSharp
             return new HeifBooleanEncoderParameter(name, hasDefaultValue, defaultValue);
         }
 
-        private static unsafe HeifIntegerEncoderParameter CreateIntegerParameter(SafeHeifEncoder encoder,
-                                                                                 heif_encoder_parameter nativeParameter,
-                                                                                 string name,
-                                                                                 bool hasDefaultValue)
+        private static HeifIntegerEncoderParameter CreateIntegerParameter(SafeHeifEncoder encoder,
+                                                                          heif_encoder_parameter nativeParameter,
+                                                                          string name,
+                                                                          bool hasDefaultValue)
         {
             int defaultValue = 0;
 
@@ -88,7 +88,7 @@ namespace LibHeifSharp
             bool haveMinimumMaximum;
             int minimum = 0;
             int maximum = 0;
-            var validValues = new List<int>();
+            int[] validValues = Array.Empty<int>();
 
             if (LibHeifVersion.Is1Point10OrLater)
             {
@@ -105,14 +105,9 @@ namespace LibHeifSharp
 
                 if (numValidValues > 0 && validValuesArray != IntPtr.Zero)
                 {
-                    validValues.Capacity = numValidValues;
+                    validValues = new int[numValidValues];
 
-                    int* integerArray = (int*)validValuesArray;
-
-                    for (int i = 0; i < numValidValues; i++)
-                    {
-                        validValues.Add(integerArray[i]);
-                    }
+                    Marshal.Copy(validValuesArray, validValues, 0, numValidValues);
                 }
             }
             else
@@ -130,7 +125,7 @@ namespace LibHeifSharp
                                                    haveMinimumMaximum,
                                                    minimum,
                                                    maximum,
-                                                   validValues.AsReadOnly());
+                                                   Array.AsReadOnly(validValues));
         }
 
         private static unsafe HeifStringEncoderParameter CreateStringParameter(SafeHeifEncoder encoder,
