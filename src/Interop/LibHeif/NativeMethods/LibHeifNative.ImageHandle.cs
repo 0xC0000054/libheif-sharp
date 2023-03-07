@@ -89,10 +89,12 @@ namespace LibHeifSharp.Interop
                                                                                            int idArrayCount);
 
         [DllImport(DllName, CallingConvention = DllCallingConvention)]
-        internal static extern LibHeifOwnedString heif_image_handle_get_metadata_type(SafeHeifImageHandle handle, HeifItemId id);
+        [return: MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(LibHeifOwnedStringMarshaler))]
+        internal static extern string heif_image_handle_get_metadata_type(SafeHeifImageHandle handle, HeifItemId id);
 
         [DllImport(DllName, CallingConvention = DllCallingConvention)]
-        internal static extern LibHeifOwnedString heif_image_handle_get_metadata_content_type(SafeHeifImageHandle handle, HeifItemId id);
+        [return: MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(LibHeifOwnedStringMarshaler))]
+        internal static extern string heif_image_handle_get_metadata_content_type(SafeHeifImageHandle handle, HeifItemId id);
 
         [DllImport(DllName, CallingConvention = DllCallingConvention)]
         internal static extern UIntPtr heif_image_handle_get_metadata_size(SafeHeifImageHandle handle, HeifItemId id);

@@ -40,8 +40,8 @@ namespace LibHeifSharp
         /// <param name="descriptor">The descriptor.</param>
         internal HeifEncoderDescriptor(heif_encoder_descriptor descriptor)
         {
-            this.Name = LibHeifNative.heif_encoder_descriptor_get_name(descriptor).GetStringValue();
-            this.IdName = LibHeifNative.heif_encoder_descriptor_get_id_name(descriptor).GetStringValue();
+            this.Name = LibHeifNative.heif_encoder_descriptor_get_name(descriptor);
+            this.IdName = LibHeifNative.heif_encoder_descriptor_get_id_name(descriptor);
             this.CompressionFormat = LibHeifNative.heif_encoder_descriptor_get_compression_format(descriptor);
             this.SupportsLossyCompression = LibHeifNative.heif_encoder_descriptor_supports_lossy_compression(descriptor);
             this.SupportsLosslessCompression = LibHeifNative.heif_encoder_descriptor_supports_lossless_compression(descriptor);

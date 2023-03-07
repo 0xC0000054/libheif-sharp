@@ -35,8 +35,8 @@ namespace LibHeifSharp
     {
         internal HeifDecoderDescriptor(heif_decoder_descriptor descriptor)
         {
-            this.Name = LibHeifNative.heif_decoder_descriptor_get_name(descriptor).GetStringValue();
-            this.IdName = LibHeifNative.heif_decoder_descriptor_get_id_name(descriptor).GetStringValue();
+            this.Name = LibHeifNative.heif_decoder_descriptor_get_name(descriptor);
+            this.IdName = LibHeifNative.heif_decoder_descriptor_get_id_name(descriptor);
         }
 
         /// <summary>

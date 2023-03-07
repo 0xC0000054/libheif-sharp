@@ -37,7 +37,7 @@ namespace LibHeifSharp
         /// <exception cref="HeifException">An error occurred when creating the encoder parameter.</exception>
         public static unsafe IHeifEncoderParameter Create(SafeHeifEncoder encoder, heif_encoder_parameter nativeParameter)
         {
-            string name = LibHeifNative.heif_encoder_parameter_get_name(nativeParameter).GetStringValue();
+            string name = LibHeifNative.heif_encoder_parameter_get_name(nativeParameter);
             var type = LibHeifNative.heif_encoder_parameter_get_type(nativeParameter);
 
             bool hasDefaultValue = LibHeifNative.heif_encoder_has_default(encoder, name);

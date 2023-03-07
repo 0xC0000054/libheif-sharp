@@ -25,15 +25,42 @@ using System.Runtime.InteropServices;
 
 namespace LibHeifSharp.Interop
 {
-    [StructLayout(LayoutKind.Sequential)]
-    internal readonly struct LibHeifOwnedString
+    internal sealed class LibHeifOwnedStringMarshaler : ICustomMarshaler
     {
-        // A pointer to a const char* string that is owned by LibHeif.
-        private readonly IntPtr value;
+        private static readonly LibHeifOwnedStringMarshaler instance = new LibHeifOwnedStringMarshaler();
 
-        public string GetStringValue()
+        private LibHeifOwnedStringMarshaler()
         {
-            return Marshal.PtrToStringAnsi(this.value);
+        }
+
+        public static ICustomMarshaler GetInstance(string cookie)
+        {
+            return instance;
+        }
+
+        public void CleanUpManagedData(object ManagedObj)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void CleanUpNativeData(IntPtr pNativeData)
+        {
+            // Nothing to do, the native pointer is owned by LibHeif.
+        }
+
+        public int GetNativeDataSize()
+        {
+            throw new NotImplementedException();
+        }
+
+        public IntPtr MarshalManagedToNative(object ManagedObj)
+        {
+            throw new NotImplementedException();
+        }
+
+        public object MarshalNativeToManaged(IntPtr pNativeData)
+        {
+            return Marshal.PtrToStringAnsi(pNativeData);
         }
     }
 }

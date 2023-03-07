@@ -34,7 +34,8 @@ namespace LibHeifSharp.Interop
         internal static extern heif_encoder_parameter_list heif_encoder_list_parameters(SafeHeifEncoder encoder);
 
         [DllImport(DllName, CallingConvention = DllCallingConvention)]
-        internal static extern unsafe LibHeifOwnedString heif_encoder_parameter_get_name(heif_encoder_parameter parameter);
+        [return: MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(LibHeifOwnedStringMarshaler))]
+        internal static extern string heif_encoder_parameter_get_name(heif_encoder_parameter parameter);
 
         [DllImport(DllName, CallingConvention = DllCallingConvention)]
         internal static extern unsafe heif_encoder_parameter_type heif_encoder_parameter_get_type(heif_encoder_parameter parameter);

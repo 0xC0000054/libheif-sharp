@@ -27,10 +27,12 @@ namespace LibHeifSharp.Interop
     internal static partial class LibHeifNative
     {
         [DllImport(DllName, CallingConvention = DllCallingConvention)]
-        internal static extern LibHeifOwnedString heif_encoder_descriptor_get_name(heif_encoder_descriptor descriptor);
+        [return: MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(LibHeifOwnedStringMarshaler))]
+        internal static extern string heif_encoder_descriptor_get_name(heif_encoder_descriptor descriptor);
 
         [DllImport(DllName, CallingConvention = DllCallingConvention)]
-        internal static extern LibHeifOwnedString heif_encoder_descriptor_get_id_name(heif_encoder_descriptor descriptor);
+        [return: MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(LibHeifOwnedStringMarshaler))]
+        internal static extern string heif_encoder_descriptor_get_id_name(heif_encoder_descriptor descriptor);
 
         [DllImport(DllName, CallingConvention = DllCallingConvention)]
         internal static extern HeifCompressionFormat heif_encoder_descriptor_get_compression_format(heif_encoder_descriptor descriptor);

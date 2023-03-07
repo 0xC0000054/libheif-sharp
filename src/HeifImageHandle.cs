@@ -782,8 +782,8 @@ namespace LibHeifSharp
         {
             VerifyNotDisposed();
 
-            string itemType = LibHeifNative.heif_image_handle_get_metadata_type(this.imageHandle, id).GetStringValue();
-            string contentType = LibHeifNative.heif_image_handle_get_metadata_content_type(this.imageHandle, id).GetStringValue();
+            string itemType = LibHeifNative.heif_image_handle_get_metadata_type(this.imageHandle, id);
+            string contentType = LibHeifNative.heif_image_handle_get_metadata_content_type(this.imageHandle, id);
             ulong size = LibHeifNative.heif_image_handle_get_metadata_size(this.imageHandle, id).ToUInt64();
 
             if (size > int.MaxValue)
@@ -840,9 +840,9 @@ namespace LibHeifSharp
                 for (int i = 0; i < ids.Length; i++)
                 {
                     var id = ids[i];
-                    var metadataContentType = LibHeifNative.heif_image_handle_get_metadata_content_type(this.imageHandle, id);
+                    string metadataContentType = LibHeifNative.heif_image_handle_get_metadata_content_type(this.imageHandle, id);
 
-                    if (contentType.Equals(metadataContentType.GetStringValue(), StringComparison.Ordinal))
+                    if (contentType.Equals(metadataContentType, StringComparison.Ordinal))
                     {
                         matchingItems.Add(id);
                     }
