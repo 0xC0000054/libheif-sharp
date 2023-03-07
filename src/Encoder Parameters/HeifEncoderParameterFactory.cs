@@ -160,12 +160,10 @@ namespace LibHeifSharp
                 defaultValue = System.Text.Encoding.ASCII.GetString(bytes, count);
             }
 
-            var error = LibHeifNative.heif_encoder_parameter_get_valid_string_values(nativeParameter, out var stringArray);
+            var error = LibHeifNative.heif_encoder_parameter_get_valid_string_values(nativeParameter, out string[] validItems);
             error.ThrowIfError();
 
-            var validItems = stringArray.ToReadOnlyCollection();
-
-            return new HeifStringEncoderParameter(name, hasDefaultValue, defaultValue, validItems);
+            return new HeifStringEncoderParameter(name, hasDefaultValue, defaultValue, Array.AsReadOnly(validItems));
         }
     }
 }

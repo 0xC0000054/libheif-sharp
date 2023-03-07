@@ -56,8 +56,9 @@ namespace LibHeifSharp.Interop
                                                                                                  out IntPtr validValuesArray);
 
         [DllImport(DllName, CallingConvention = DllCallingConvention)]
-        internal static extern unsafe heif_error heif_encoder_parameter_get_valid_string_values(heif_encoder_parameter parameter,
-                                                                                                out OutputStringArray array);
+        internal static extern heif_error heif_encoder_parameter_get_valid_string_values(heif_encoder_parameter parameter,
+                                                                                         [MarshalAs(UnmanagedType.CustomMarshaler,
+                                                                                          MarshalTypeRef = typeof(LibHeifOwnedStringArrayMarshaler))] out string[] array);
 
         [DllImport(DllName, CallingConvention = DllCallingConvention)]
         internal static extern heif_error heif_encoder_set_lossy_quality(SafeHeifEncoder encoder, int quality);
