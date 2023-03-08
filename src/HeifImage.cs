@@ -523,9 +523,15 @@ namespace LibHeifSharp
                     ExceptionUtil.ThrowHeifException(Resources.PropertySetterRequiresLibHeif1Point15);
                 }
 
-                LibHeifNative.heif_image_set_pixel_aspect_ratio(this.image,
-                                                                (uint)value.HorizontalSpacing,
-                                                                (uint)value.VerticalSpacing);
+                // If the HeifPixelAspectRatio structure was initialized by the default constructor the
+                // HorizontalSpacing and VerticalSpacing properties will be zero.
+                // ISO/IEC 14496-12:2015 requires both values to be a positive number.
+                if (value.HorizontalSpacing > 0 && value.VerticalSpacing > 0)
+                {
+                    LibHeifNative.heif_image_set_pixel_aspect_ratio(this.image,
+                                                                    (uint)value.HorizontalSpacing,
+                                                                    (uint)value.VerticalSpacing);
+                }
             }
         }
 
