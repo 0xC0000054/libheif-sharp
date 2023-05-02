@@ -53,6 +53,26 @@ namespace LibHeifSharp
         /// <summary>
         /// The compression format is AV1.
         /// </summary>
-        Av1 = 4
+        Av1 = 4,
+
+        /// <summary>
+        /// The compression format is VVC.
+        /// </summary>
+        Vvc = 5,
+
+        /// <summary>
+        /// The compression format is EVC.
+        /// </summary>
+        Evc = 6,
+
+        /// <summary>
+        /// The compression format is JPEG 2000.
+        /// </summary>
+        Jpeg2000 = 7,
+
+        /// <summary>
+        /// The compression format is uncompressed.
+        /// </summary>
+        Uncompressed = 8,
     }
 }
