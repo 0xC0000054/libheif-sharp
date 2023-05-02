@@ -91,14 +91,14 @@ namespace LibHeifSharp
             }
 
             var options = (DecodeOptionsVersion1*)decodingOptions.DangerousGetHandle();
-            options->ignore_transformations = (byte)(this.IgnoreTransformations ? 1 : 0);
+            options->ignore_transformations = this.IgnoreTransformations.ToByte();
 
             if (options->version >= 4)
             {
                 var optionsVersion4 = (DecodeOptionsVersion4*)decodingOptions.DangerousGetHandle();
 
-                optionsVersion4->convert_hdr_to_8bit = (byte)(this.ConvertHdrToEightBit ? 1 : 0);
-                optionsVersion4->strict_decoding = (byte)(this.Strict ? 1 : 0);
+                optionsVersion4->convert_hdr_to_8bit = this.ConvertHdrToEightBit.ToByte();
+                optionsVersion4->strict_decoding = this.Strict.ToByte();
 
                 if (!string.IsNullOrWhiteSpace(this.DecoderId))
                 {
@@ -111,14 +111,14 @@ namespace LibHeifSharp
             {
                 var optionsVersion3 = (DecodeOptionsVersion3*)decodingOptions.DangerousGetHandle();
 
-                optionsVersion3->convert_hdr_to_8bit = (byte)(this.ConvertHdrToEightBit ? 1 : 0);
-                optionsVersion3->strict_decoding = (byte)(this.Strict ? 1 : 0);
+                optionsVersion3->convert_hdr_to_8bit = this.ConvertHdrToEightBit.ToByte();
+                optionsVersion3->strict_decoding = this.Strict.ToByte();
             }
             else if (options->version == 2)
             {
                 var optionsVersion2 = (DecodeOptionsVersion2*)decodingOptions.DangerousGetHandle();
 
-                optionsVersion2->convert_hdr_to_8bit = (byte)(this.ConvertHdrToEightBit ? 1 : 0);
+                optionsVersion2->convert_hdr_to_8bit = this.ConvertHdrToEightBit.ToByte();
             }
 
             return new NativeOptions(decodingOptions, safeDecoderId);

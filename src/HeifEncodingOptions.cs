@@ -170,37 +170,37 @@ namespace LibHeifSharp
 
             var options = (EncodingOptionsVersion1*)encodingOptions.DangerousGetHandle();
 
-            options->save_alpha_channel = (byte)(this.SaveAlphaChannel ? 1 : 0);
+            options->save_alpha_channel = this.SaveAlphaChannel.ToByte();
 
             if (options->version >= 5)
             {
                 var optionsVersion5 = (EncodingOptionsVersion5*)encodingOptions.DangerousGetHandle();
 
-                optionsVersion5->macOS_compatibility_workaround = (byte)(this.CropWithImageGrid ? 1 : 0);
-                optionsVersion5->save_two_colr_boxes_when_ICC_and_nclx_available = (byte)(this.WriteTwoColorProfiles ? 1 : 0);
-                optionsVersion5->macOS_compatibility_workaround_no_nclx_profile = (byte)(this.WriteNclxColorProfile ? 0 : 1);
+                optionsVersion5->macOS_compatibility_workaround = this.CropWithImageGrid.ToByte();
+                optionsVersion5->save_two_colr_boxes_when_ICC_and_nclx_available = this.WriteTwoColorProfiles.ToByte();
+                optionsVersion5->macOS_compatibility_workaround_no_nclx_profile = BooleanExtensions.ToByte(!this.WriteNclxColorProfile);
                 optionsVersion5->image_orientation = this.ImageOrientation;
             }
             else if (options->version == 4)
             {
                 var optionsVersion4 = (EncodingOptionsVersion4*)encodingOptions.DangerousGetHandle();
 
-                optionsVersion4->macOS_compatibility_workaround = (byte)(this.CropWithImageGrid ? 1 : 0);
-                optionsVersion4->save_two_colr_boxes_when_ICC_and_nclx_available = (byte)(this.WriteTwoColorProfiles ? 1 : 0);
-                optionsVersion4->macOS_compatibility_workaround_no_nclx_profile = (byte)(this.WriteNclxColorProfile ? 0 : 1);
+                optionsVersion4->macOS_compatibility_workaround = this.CropWithImageGrid.ToByte();
+                optionsVersion4->save_two_colr_boxes_when_ICC_and_nclx_available = this.WriteTwoColorProfiles.ToByte();
+                optionsVersion4->macOS_compatibility_workaround_no_nclx_profile = BooleanExtensions.ToByte(!this.WriteNclxColorProfile);
             }
             else if (options->version == 3)
             {
                 var optionsVersion3 = (EncodingOptionsVersion3*)encodingOptions.DangerousGetHandle();
 
-                optionsVersion3->macOS_compatibility_workaround = (byte)(this.CropWithImageGrid ? 1 : 0);
-                optionsVersion3->save_two_colr_boxes_when_ICC_and_nclx_available = (byte)(this.WriteTwoColorProfiles ? 1 : 0);
+                optionsVersion3->macOS_compatibility_workaround = this.CropWithImageGrid.ToByte();
+                optionsVersion3->save_two_colr_boxes_when_ICC_and_nclx_available = this.WriteTwoColorProfiles.ToByte();
             }
             else if (options->version == 2)
             {
                 var optionsVersion2 = (EncodingOptionsVersion2*)encodingOptions.DangerousGetHandle();
 
-                optionsVersion2->macOS_compatibility_workaround = (byte)(this.CropWithImageGrid ? 1 : 0);
+                optionsVersion2->macOS_compatibility_workaround = this.CropWithImageGrid.ToByte();
             }
 
             return encodingOptions;
