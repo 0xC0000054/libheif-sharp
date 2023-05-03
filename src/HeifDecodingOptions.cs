@@ -21,6 +21,7 @@
  */
 
 using LibHeifSharp.Interop;
+using System;
 
 namespace LibHeifSharp
 {
@@ -31,6 +32,8 @@ namespace LibHeifSharp
     /// <threadsafety static="true" instance="false"/>
     public sealed partial class HeifDecodingOptions
     {
+        private HeifColorConversionOptions colorConversionOptions;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="HeifDecodingOptions"/> class.
         /// </summary>
@@ -39,6 +42,8 @@ namespace LibHeifSharp
             this.IgnoreTransformations = false;
             this.ConvertHdrToEightBit = false;
             this.Strict = false;
+            this.DecoderId = null;
+            this.colorConversionOptions = new HeifColorConversionOptions();
         }
 
         /// <summary>
@@ -80,6 +85,28 @@ namespace LibHeifSharp
         /// <seealso cref="LibHeifInfo.GetDecoderDescriptors(HeifCompressionFormat)"/>
         public string DecoderId { get; set; }
 
+        /// <summary>
+        /// Gets or sets the color conversion options.
+        /// </summary>
+        /// <value>
+        /// The color conversion options.
+        /// </value>
+        /// <exception cref="ArgumentNullException">Value is <see langword="null"/>.</exception>
+        /// <remarks>
+        /// This property is supported starting with LibHeif 1.16.0, it is ignored on earlier versions.
+        /// </remarks>
+        /// <seealso cref="HeifColorConversionOptions"/>
+        public HeifColorConversionOptions ColorConversionOptions
+        {
+            get => this.colorConversionOptions;
+            set
+            {
+                Validate.IsNotNull(value, nameof(value));
+
+                this.colorConversionOptions = value;
+            }
+        }
+
         internal unsafe NativeOptions CreateDecodingOptions()
         {
             var decodingOptions = LibHeifNative.heif_decoding_options_alloc();
@@ -93,7 +120,25 @@ namespace LibHeifSharp
             var options = (DecodeOptionsVersion1*)decodingOptions.DangerousGetHandle();
             options->ignore_transformations = this.IgnoreTransformations.ToByte();
 
-            if (options->version >= 4)
+            if (options->version >= 5)
+            {
+                var optionsVersion5 = (DecodeOptionsVersion5*)decodingOptions.DangerousGetHandle();
+
+                optionsVersion5->convert_hdr_to_8bit = this.ConvertHdrToEightBit.ToByte();
+                optionsVersion5->strict_decoding = this.Strict.ToByte();
+
+                if (!string.IsNullOrWhiteSpace(this.DecoderId))
+                {
+                    safeDecoderId = SafeCoTaskMemHandle.FromStringAnsi(this.DecoderId);
+
+                    optionsVersion5->decoder_id = safeDecoderId.DangerousGetHandle();
+                }
+
+                optionsVersion5->color_conversion_options.preferred_chroma_downsampling_algorithm = this.colorConversionOptions.PreferredChromaDownsamplingAlgorithm;
+                optionsVersion5->color_conversion_options.preferred_chroma_upsampling_algorithm = this.colorConversionOptions.PreferredChromaUpsamplingAlgorithm;
+                optionsVersion5->color_conversion_options.only_use_preferred_chroma_algorithm = this.colorConversionOptions.UseOnlyPreferredChromaAlgorithm.ToByte();
+            }
+            else if (options->version == 4)
             {
                 var optionsVersion4 = (DecodeOptionsVersion4*)decodingOptions.DangerousGetHandle();
 
