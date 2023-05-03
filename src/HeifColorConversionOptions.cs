@@ -26,6 +26,7 @@ namespace LibHeifSharp
     /// The LibHeif color conversion options.
     /// </summary>
     /// <seealso cref="HeifDecodingOptions.ColorConversionOptions"/>
+    /// <threadsafety static="true" instance="false"/>
     public sealed class HeifColorConversionOptions
     {
         /// <summary>
