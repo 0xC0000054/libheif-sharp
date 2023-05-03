@@ -20,6 +20,7 @@
  * along with libheif-sharp.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+using System;
 using System.ComponentModel;
 using LibHeifSharp.Interop;
 
@@ -34,6 +35,7 @@ namespace LibHeifSharp
         private bool writeTwoColorProfiles;
         private bool writeNclxColorProfile;
         private HeifOrientation imageOrientation;
+        private HeifColorConversionOptions colorConversionOptions;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="HeifEncodingOptions"/> class.
@@ -46,6 +48,7 @@ namespace LibHeifSharp
             this.WriteTwoColorProfiles = false;
             this.WriteNclxColorProfile = false;
             this.ImageOrientation = HeifOrientation.Normal;
+            this.colorConversionOptions = new HeifColorConversionOptions();
         }
 
         /// <summary>
@@ -155,6 +158,28 @@ namespace LibHeifSharp
         }
 
         /// <summary>
+        /// Gets or sets the color conversion options.
+        /// </summary>
+        /// <value>
+        /// The color conversion options.
+        /// </value>
+        /// <exception cref="ArgumentNullException">Value is <see langword="null"/>.</exception>
+        /// <remarks>
+        /// This property is supported starting with LibHeif 1.16.0, it is ignored on earlier versions.
+        /// </remarks>
+        /// <seealso cref="HeifColorConversionOptions"/>
+        public HeifColorConversionOptions ColorConversionOptions
+        {
+            get => this.colorConversionOptions;
+            set
+            {
+                Validate.IsNotNull(value, nameof(value));
+
+                this.colorConversionOptions = value;
+            }
+        }
+
+        /// <summary>
         /// Creates the encoding options.
         /// </summary>
         /// <returns>The encoding options.</returns>
@@ -172,7 +197,19 @@ namespace LibHeifSharp
 
             options->save_alpha_channel = this.SaveAlphaChannel.ToByte();
 
-            if (options->version >= 5)
+            if (options->version >= 6)
+            {
+                var optionsVersion6 = (EncodingOptionsVersion6*)encodingOptions.DangerousGetHandle();
+
+                optionsVersion6->macOS_compatibility_workaround = this.CropWithImageGrid.ToByte();
+                optionsVersion6->save_two_colr_boxes_when_ICC_and_nclx_available = this.WriteTwoColorProfiles.ToByte();
+                optionsVersion6->macOS_compatibility_workaround_no_nclx_profile = BooleanExtensions.ToByte(!this.WriteNclxColorProfile);
+                optionsVersion6->image_orientation = this.ImageOrientation;
+                optionsVersion6->color_conversion_options.preferred_chroma_downsampling_algorithm = this.colorConversionOptions.PreferredChromaDownsamplingAlgorithm;
+                optionsVersion6->color_conversion_options.preferred_chroma_upsampling_algorithm = this.colorConversionOptions.PreferredChromaUpsamplingAlgorithm;
+                optionsVersion6->color_conversion_options.only_use_preferred_chroma_algorithm = this.colorConversionOptions.UseOnlyPreferredChromaAlgorithm.ToByte();
+            }
+            else if (options->version == 5)
             {
                 var optionsVersion5 = (EncodingOptionsVersion5*)encodingOptions.DangerousGetHandle();
 

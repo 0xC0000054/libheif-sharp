@@ -11,6 +11,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 * A `ColorConversionOptions` property to the `HeifDecodingOptions` class.
   * Requires LibHeif 1.16.0 or later, it will be ignored on older versions.
+* A `ColorConversionOptions` property to the `HeifEncodingOptions` class.
+  * Requires LibHeif 1.16.0 or later, it will be ignored on older versions.
 
 ## Fixed
 
