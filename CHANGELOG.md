@@ -13,6 +13,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   * Requires LibHeif 1.16.0 or later, it will be ignored on older versions.
 * A `ColorConversionOptions` property to the `HeifEncodingOptions` class.
   * Requires LibHeif 1.16.0 or later, it will be ignored on older versions.
+* Support for the LibHeif region APIs.
+  * A `GetRegionItem` method to the `HeifContext` class.
+  * `AddRegion` and `GetRegionItemIds` methods to the `HeifImageHandle` class.
+  * These methods require LibHeif 1.16.0 or later.
 
 ## Fixed
 

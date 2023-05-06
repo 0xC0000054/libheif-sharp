@@ -115,6 +115,24 @@ namespace LibHeifSharp.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Could not get all of the region item ids..
+        /// </summary>
+        internal static string CannotGetAllRegionItemIds {
+            get {
+                return ResourceManager.GetString("CannotGetAllRegionItemIds", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Could not get all of the region items..
+        /// </summary>
+        internal static string CannotGetAllRegionItems {
+            get {
+                return ResourceManager.GetString("CannotGetAllRegionItems", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Could not get all of the thumbnail ids..
         /// </summary>
         internal static string CannotGetAllThumbnailIds {
@@ -345,6 +363,15 @@ namespace LibHeifSharp.Properties {
         internal static string ReaderNotSet {
             get {
                 return ResourceManager.GetString("ReaderNotSet", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This method requires LibHeif version 1.16.0 or later..
+        /// </summary>
+        internal static string RegionAPINotSupported {
+            get {
+                return ResourceManager.GetString("RegionAPINotSupported", resourceCulture);
             }
         }
         

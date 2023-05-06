@@ -160,5 +160,20 @@ namespace LibHeifSharp.Interop
         [DllImport(DllName, CallingConvention = DllCallingConvention)]
         internal static extern unsafe void heif_image_handle_free_auxiliary_types(SafeHeifImageHandle handle,
                                                                                   ref AuxiliaryType outType);
+        [DllImport(DllName, CallingConvention = DllCallingConvention)]
+        internal static extern int heif_image_handle_get_number_of_region_items(SafeHeifImageHandle handle);
+
+        [DllImport(DllName, CallingConvention = DllCallingConvention)]
+        internal static extern unsafe int heif_image_handle_get_list_of_region_item_ids(SafeHeifImageHandle handle,
+                                                                                        HeifItemId* idArrayPtr,
+                                                                                        int idArrayCount);
+        [DllImport(DllName, CallingConvention = DllCallingConvention)]
+        internal static extern HeifItemId heif_image_handle_get_item_id(SafeHeifImageHandle handle);
+
+        [DllImport(DllName, CallingConvention = DllCallingConvention)]
+        internal static extern heif_error heif_image_handle_add_region_item(SafeHeifImageHandle handle,
+                                                                            uint referenceWidth,
+                                                                            uint referenceHeight,
+                                                                            out SafeHeifRegionItem item);
     }
 }

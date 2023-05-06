@@ -315,6 +315,46 @@ namespace LibHeifSharp
         }
 
         /// <summary>
+        /// Adds a region to the image handle.
+        /// </summary>
+        /// <param name="referenceWidth">The reference width.</param>
+        /// <param name="referenceHeight">The reference height.</param>
+        /// <returns>
+        /// The region item.
+        /// </returns>
+        /// <exception cref="ArgumentOutOfRangeException">
+        /// <paramref name="referenceWidth"/> must be in the range of [0, 4294967295].
+        /// -or-
+        /// <paramref name="referenceHeight"/> must be in the range of [0, 4294967295].
+        /// </exception>
+        /// <exception cref="HeifException">A LibHeif error occurred.</exception>
+        /// <exception cref="ObjectDisposedException">The object has been disposed.</exception>
+        public HeifRegionItem AddRegion(long referenceWidth, long referenceHeight)
+        {
+            Validate.IsInRange(referenceWidth, nameof(referenceWidth), uint.MinValue, uint.MaxValue);
+            Validate.IsInRange(referenceHeight, nameof(referenceHeight), uint.MinValue, uint.MaxValue);
+
+            VerifyNotDisposed();
+
+            if (LibHeifVersion.Is1Point16OrLater)
+            {
+                var error = LibHeifNative.heif_image_handle_add_region_item(this.imageHandle,
+                                                                                (uint)referenceWidth,
+                                                                                (uint)referenceHeight,
+                                                                                out var regionItem);
+                error.ThrowIfError();
+
+                var imageHandleId = LibHeifNative.heif_image_handle_get_item_id(this.imageHandle);
+
+                return new HeifRegionItem(regionItem, imageHandleId, referenceWidth, referenceHeight);
+            }
+            else
+            {
+                throw new HeifException(Resources.RegionAPINotSupported);
+            }
+        }
+
+        /// <summary>
         /// Decodes this instance to a <see cref="HeifImage"/>.
         /// </summary>
         /// <param name="colorspace">The destination image color space.</param>
@@ -854,6 +894,59 @@ namespace LibHeifSharp
             {
                 return ids;
             }
+        }
+
+        /// <summary>
+        /// Gets a list of the region item ids.
+        /// </summary>
+        /// <returns>A list of the region item ids.</returns>
+        /// <exception cref="HeifException">Could not get all of the region item ids.</exception>
+        /// <exception cref="ObjectDisposedException">The object has been disposed.</exception>
+        /// <remarks>
+        /// This method is supported starting with LibHeif version 1.16.0, it will return an empty collection on older versions.
+        /// </remarks>
+        /// <seealso cref="HeifContext.GetRegionItem(HeifRegionItemId)"/>
+        public IReadOnlyList<HeifRegionItemId> GetRegionItemIds()
+        {
+            VerifyNotDisposed();
+
+            var ids = Array.Empty<HeifRegionItemId>();
+
+            if (LibHeifVersion.Is1Point16OrLater)
+            {
+                int count = LibHeifNative.heif_image_handle_get_number_of_region_items(this.imageHandle);
+
+                if (count > 0)
+                {
+                    var regionItemIds = new HeifItemId[count];
+
+                    unsafe
+                    {
+                        fixed (HeifItemId* ptr = regionItemIds)
+                        {
+                            int filledCount = LibHeifNative.heif_image_handle_get_list_of_region_item_ids(this.imageHandle,
+                                                                                                          ptr,
+                                                                                                          count);
+
+                            if (filledCount != count)
+                            {
+                                ExceptionUtil.ThrowHeifException(Resources.CannotGetAllRegionItemIds);
+                            }
+                        }
+                    }
+
+                    var imageHandleId = LibHeifNative.heif_image_handle_get_item_id(this.imageHandle);
+
+                    ids = new HeifRegionItemId[count];
+
+                    for (int i = 0; i < ids.Length; i++)
+                    {
+                        ids[i] = new HeifRegionItemId(imageHandleId, regionItemIds[i]);
+                    }
+                }
+            }
+
+            return ids;
         }
 
         /// <summary>

@@ -150,5 +150,10 @@ namespace LibHeifSharp.Interop
 
         [DllImport(DllName, CallingConvention = DllCallingConvention)]
         internal static extern void heif_context_set_max_decoding_threads(SafeHeifContext context, int maxDecodingThreads);
+
+        [DllImport(DllName, CallingConvention = DllCallingConvention)]
+        internal static extern heif_error heif_context_get_region_item(SafeHeifContext context,
+                                                                       HeifItemId id,
+                                                                       out SafeHeifRegionItem item);
     }
 }

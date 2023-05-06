@@ -135,6 +135,12 @@
   <data name="CannotGetAllMetadataBlockIds" xml:space="preserve">
     <value>Could not get all of the meta-data block ids.</value>
   </data>
+  <data name="CannotGetAllRegionItemIds" xml:space="preserve">
+    <value>Could not get all of the region item ids.</value>
+  </data>
+  <data name="CannotGetAllRegionItems" xml:space="preserve">
+    <value>Could not get all of the region items.</value>
+  </data>
   <data name="CannotGetAllThumbnailIds" xml:space="preserve">
     <value>Could not get all of the thumbnail ids.</value>
   </data>
@@ -219,6 +225,9 @@
   </data>
   <data name="ReaderNotSet" xml:space="preserve">
     <value>A reader must be set before calling before this method.</value>
+  </data>
+  <data name="RegionAPINotSupported" xml:space="preserve">
+    <value>This method requires LibHeif version 1.16.0 or later.</value>
   </data>
   <data name="StreamCannotReadAndSeek" xml:space="preserve">
     <value>The stream must support reading and seeking.</value>

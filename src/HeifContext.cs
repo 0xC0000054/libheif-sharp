@@ -711,6 +711,33 @@ namespace LibHeifSharp
         }
 
         /// <summary>
+        /// Gets the region item.
+        /// </summary>
+        /// <param name="id">The region item identifier.</param>
+        /// <returns>The region item.</returns>
+        /// <exception cref="HeifException">A LibHeif error occurred.</exception>
+        /// <exception cref="ObjectDisposedException">The object has been disposed.</exception>
+        /// <seealso cref="HeifImageHandle.GetRegionItemIds"/>
+        public HeifRegionItem GetRegionItem(HeifRegionItemId id)
+        {
+            VerifyNotDisposed();
+
+            if (LibHeifVersion.Is1Point16OrLater)
+            {
+                var error = LibHeifNative.heif_context_get_region_item(this.context,
+                                                                       id.RegionItemId,
+                                                                       out var regionItem);
+                error.ThrowIfError();
+
+                return new HeifRegionItem(regionItem, id);
+            }
+            else
+            {
+                throw new HeifException(Resources.RegionAPINotSupported);
+            }
+        }
+
+        /// <summary>
         /// Gets a list of the top-level image ids.
         /// </summary>
         /// <returns>A list of the top-level image ids.</returns>
