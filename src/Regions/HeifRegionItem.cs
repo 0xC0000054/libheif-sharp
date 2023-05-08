@@ -57,6 +57,7 @@ namespace LibHeifSharp
         {
             this.regionItem = regionItem;
             this.imageHandleId = imageHandleId;
+            this.Id = LibHeifNative.heif_region_item_get_id(regionItem);
             this.ReferenceWidth = referenceWidth;
             this.ReferenceHeight = referenceHeight;
         }

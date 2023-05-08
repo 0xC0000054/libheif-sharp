@@ -43,6 +43,9 @@ namespace LibHeifSharp.Interop
                                                                         int count);
 
         [DllImport(DllName, CallingConvention = DllCallingConvention)]
+        internal static extern HeifItemId heif_region_item_get_id(SafeHeifRegionItem handle);
+
+        [DllImport(DllName, CallingConvention = DllCallingConvention)]
         internal static extern void heif_region_release_many([In, Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] heif_region[] regions,
                                                              int count);
 
