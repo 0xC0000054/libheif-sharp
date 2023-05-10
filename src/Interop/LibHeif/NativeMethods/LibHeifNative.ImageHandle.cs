@@ -175,5 +175,11 @@ namespace LibHeifSharp.Interop
                                                                             uint referenceWidth,
                                                                             uint referenceHeight,
                                                                             out SafeHeifRegionItem item);
+
+        [DllImport(DllName, CallingConvention = DllCallingConvention)]
+        internal static extern int heif_image_handle_get_ispe_width(SafeHeifImageHandle handle);
+
+        [DllImport(DllName, CallingConvention = DllCallingConvention)]
+        internal static extern int heif_image_handle_get_ispe_height(SafeHeifImageHandle handle);
     }
 }

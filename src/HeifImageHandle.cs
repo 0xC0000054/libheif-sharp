@@ -315,6 +315,56 @@ namespace LibHeifSharp
         }
 
         /// <summary>
+        /// Gets the height of the image before transformations have been applied.
+        /// </summary>
+        /// <value>
+        /// The height of the image before transformations have been applied.
+        /// </value>
+        /// <exception cref="HeifException">The ISPE height is undefined.</exception>
+        /// <exception cref="ObjectDisposedException">The object has been disposed.</exception>
+        internal int UntransformedHeight
+        {
+            get
+            {
+                VerifyNotDisposed();
+
+                int height = LibHeifNative.heif_image_handle_get_ispe_height(this.imageHandle);
+
+                if (height == 0)
+                {
+                    ExceptionUtil.ThrowHeifException(Resources.ImageUndefinedIspeHeight);
+                }
+
+                return height;
+            }
+        }
+
+        /// <summary>
+        /// Gets the width of the image before transformations have been applied.
+        /// </summary>
+        /// <value>
+        /// The width of the image before transformations have been applied.
+        /// </value>
+        /// <exception cref="HeifException">The ISPE width is undefined.</exception>
+        /// <exception cref="ObjectDisposedException">The object has been disposed.</exception>
+        internal int UntransformedWidth
+        {
+            get
+            {
+                VerifyNotDisposed();
+
+                int width = LibHeifNative.heif_image_handle_get_ispe_width(this.imageHandle);
+
+                if (width == 0)
+                {
+                    ExceptionUtil.ThrowHeifException(Resources.ImageUndefinedIspeWidth);
+                }
+
+                return width;
+            }
+        }
+
+        /// <summary>
         /// Adds a region to the image handle.
         /// </summary>
         /// <param name="referenceWidth">The reference width.</param>
@@ -1044,6 +1094,24 @@ namespace LibHeifSharp
             }
 
             return GetMetadata(xmpBlockIds[0]);
+        }
+
+        /// <summary>
+        /// Gets the item identifier.
+        /// </summary>
+        /// <returns>The item identifier.</returns>
+        /// <exception cref="HeifException">This method requires LibHeif version 1.16.0 or later.</exception>
+        /// <exception cref="ObjectDisposedException">The object has been disposed.</exception>
+        internal HeifItemId GetItemId()
+        {
+            VerifyNotDisposed();
+
+            if (!LibHeifVersion.Is1Point16OrLater)
+            {
+                ExceptionUtil.ThrowHeifException(Resources.PropertyAPIsNotSupported);
+            }
+
+            return LibHeifNative.heif_image_handle_get_item_id(this.imageHandle);
         }
 
         /// <summary>

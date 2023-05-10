@@ -331,6 +331,92 @@ namespace LibHeifSharp
         }
 
         /// <summary>
+        /// Adds an user description property to the specified item.
+        /// </summary>
+        /// <param name="itemId">The item identifier.</param>
+        /// <param name="userDescription">The user description property.</param>
+        /// <exception cref="ArgumentNullException">
+        /// <paramref name="userDescription"/> is <see langword="null"/>.
+        /// </exception>
+        /// <exception cref="HeifException">A LibHeif error occurred.</exception>
+        /// <exception cref="ObjectDisposedException">The object has been disposed.</exception>
+        /// <remarks>
+        /// This method is supported starting with LibHeif version 1.16.0, it will throw an
+        /// exception on older versions.
+        /// </remarks>
+        public void AddUserDescriptionProperty(HeifItemId itemId, UserDescriptionProperty userDescription)
+        {
+            Validate.IsNotNull(userDescription, nameof(userDescription));
+
+            if (!LibHeifVersion.Is1Point16OrLater)
+            {
+                ExceptionUtil.ThrowHeifException(Resources.PropertyAPIsNotSupported);
+            }
+
+            VerifyNotDisposed();
+
+            using (var data = userDescription.ToNative())
+            {
+                var nativeProperty = data.CreateNativeStructure();
+
+                unsafe
+                {
+                    var error = LibHeifNative.heif_item_add_property_user_description(this.context,
+                                                                                      itemId,
+                                                                                      &nativeProperty,
+                                                                                      IntPtr.Zero);
+                    error.ThrowIfError();
+                }
+            }
+        }
+
+        /// <summary>
+        /// Adds an user description property to the specified image.
+        /// </summary>
+        /// <param name="imageHandle">The image handle.</param>
+        /// <param name="userDescription">The user description.</param>
+        /// <exception cref="ArgumentNullException">
+        /// <paramref name="imageHandle"/> is <see langword="null"/>.
+        /// -or-
+        /// <paramref name="userDescription"/> is <see langword="null"/>.
+        /// </exception>
+        /// <exception cref="HeifException">A LibHeif error occurred.</exception>
+        /// <exception cref="ObjectDisposedException">The object has been disposed.</exception>
+        /// <remarks>
+        /// This method is supported starting with LibHeif version 1.16.0, it will throw an
+        /// exception on older versions.
+        /// </remarks>
+        public void AddUserDescriptionProperty(HeifImageHandle imageHandle, UserDescriptionProperty userDescription)
+        {
+            Validate.IsNotNull(imageHandle, nameof(imageHandle));
+
+            AddUserDescriptionProperty(imageHandle.GetItemId(), userDescription);
+        }
+
+        /// <summary>
+        /// Adds an user description property to the specified region item.
+        /// </summary>
+        /// <param name="regionItem">The region item.</param>
+        /// <param name="userDescription">The user description.</param>
+        /// <exception cref="ArgumentNullException">
+        /// <paramref name="regionItem"/> is <see langword="null"/>.
+        /// -or-
+        /// <paramref name="userDescription"/> is <see langword="null"/>.
+        /// </exception>
+        /// <exception cref="HeifException">A LibHeif error occurred.</exception>
+        /// <exception cref="ObjectDisposedException">The object has been disposed.</exception>
+        /// <remarks>
+        /// This method is supported starting with LibHeif version 1.16.0, it will throw an
+        /// exception on older versions.
+        /// </remarks>
+        public void AddUserDescriptionProperty(HeifRegionItem regionItem, UserDescriptionProperty userDescription)
+        {
+            Validate.IsNotNull(regionItem, nameof(regionItem));
+
+            AddUserDescriptionProperty(regionItem.Id, userDescription);
+        }
+
+        /// <summary>
         /// Adds XMP meta-data to the image.
         /// </summary>
         /// <param name="imageHandle">The image handle.</param>
@@ -782,6 +868,196 @@ namespace LibHeifSharp
         }
 
         /// <summary>
+        /// Gets the transformation properties that should be applied to the specified image.
+        /// </summary>
+        /// <param name="imageHandle">The image handle.</param>
+        /// <returns>The transformation properties that should be applied to the specified image.</returns>
+        /// <exception cref="ArgumentNullException">
+        /// <paramref name="imageHandle"/> is <see langword="null"/>.
+        /// </exception>
+        /// <exception cref="HeifException">A LibHeif error occurred.</exception>
+        /// <exception cref="ObjectDisposedException">The object has been disposed.</exception>
+        /// <remarks>
+        /// This method is supported starting with LibHeif version 1.16.0, it will throw an
+        /// exception on older versions.
+        /// </remarks>
+        public IReadOnlyList<TransformationProperty> GetTransformationProperties(HeifImageHandle imageHandle)
+        {
+            Validate.IsNotNull(imageHandle, nameof(imageHandle));
+
+            VerifyNotDisposed();
+
+            if (!LibHeifVersion.Is1Point16OrLater)
+            {
+                ExceptionUtil.ThrowHeifException(Resources.PropertyAPIsNotSupported);
+            }
+
+            var properties = Array.Empty<TransformationProperty>();
+
+            var itemId = imageHandle.GetItemId();
+
+            var transformationProperties = GetTransformationPropertyIds(itemId);
+
+            if (transformationProperties.Length > 0)
+            {
+                properties = new TransformationProperty[transformationProperties.Length];
+
+                int imageWidth = imageHandle.UntransformedWidth;
+                int imageHeight = imageHandle.UntransformedHeight;
+
+                for (int i = 0; i < properties.Length; i++)
+                {
+                    var propertyId = transformationProperties[i];
+
+                    var type = LibHeifNative.heif_item_get_property_type(this.context, itemId, propertyId);
+
+                    if (type == heif_item_property_type.TransformMirror)
+                    {
+                        var direction = LibHeifNative.heif_item_get_property_transform_mirror(this.context,
+                                                                                              itemId,
+                                                                                              propertyId);
+                        properties[i] = new MirrorTransformationProperty(direction);
+                    }
+                    else if (type == heif_item_property_type.TransformRotation)
+                    {
+                        int rotationAngle = LibHeifNative.heif_item_get_property_transform_rotation_ccw(this.context,
+                                                                                                        itemId,
+                                                                                                        propertyId);
+                        if (rotationAngle == 90 || rotationAngle == 270)
+                        {
+                            // Swap the image width and height so that the size is correct when cropping.
+                            (imageHeight, imageWidth) = (imageWidth, imageHeight);
+                        }
+
+                        properties[i] = new RotationTransformationProperty(rotationAngle);
+                    }
+                    else if (type == heif_item_property_type.TransformCrop)
+                    {
+                        LibHeifNative.heif_item_get_property_transform_crop_borders(this.context,
+                                                                                    itemId,
+                                                                                    propertyId,
+                                                                                    imageWidth,
+                                                                                    imageHeight,
+                                                                                    out int left,
+                                                                                    out int top,
+                                                                                    out int right,
+                                                                                    out int bottom);
+                        properties[i] = new CropTransformationProperty(left, top, right, bottom);
+                    }
+                    else
+                    {
+                        throw new HeifException($"Unsupported item property type: {type}.");
+                    }
+                }
+            }
+
+            return properties;
+        }
+
+        /// <summary>
+        /// Gets the user description properties that are associated with the specified item.
+        /// </summary>
+        /// <param name="itemId">The item identifier.</param>
+        /// <returns>
+        /// A list of the user description properties that are associated with the specified item.
+        /// </returns>
+        /// <exception cref="HeifException">A LibHeif error occurred.</exception>
+        /// <exception cref="ObjectDisposedException">The object has been disposed.</exception>
+        /// <remarks>
+        /// This method is supported starting with LibHeif version 1.16.0, it will throw an
+        /// exception on older versions.
+        /// </remarks>
+        public IReadOnlyList<UserDescriptionProperty> GetUserDescriptionProperties(HeifItemId itemId)
+        {
+            VerifyNotDisposed();
+
+            if (!LibHeifVersion.Is1Point16OrLater)
+            {
+                ExceptionUtil.ThrowHeifException(Resources.PropertyAPIsNotSupported);
+            }
+
+            var userDescriptions = Array.Empty<UserDescriptionProperty>();
+
+            var propertyIds = GetPropertyIds(itemId, heif_item_property_type.UserDescription);
+
+            if (propertyIds.Length > 0)
+            {
+                userDescriptions = new UserDescriptionProperty[propertyIds.Length];
+
+                for (int i = 0; i < propertyIds.Length; i++)
+                {
+                    var error = LibHeifNative.heif_item_get_property_user_description(this.context,
+                                                                                      itemId,
+                                                                                      propertyIds[i],
+                                                                                      out var native);
+                    error.ThrowIfError();
+
+                    try
+                    {
+                        unsafe
+                        {
+                            var nativeUserDescription = (heif_property_user_description*)native.DangerousGetHandle();
+
+                            userDescriptions[i] = new UserDescriptionProperty(nativeUserDescription);
+                        }
+                    }
+                    finally
+                    {
+                        native.Dispose();
+                    }
+                }
+            }
+
+            return userDescriptions;
+        }
+
+        /// <summary>
+        /// Gets the user description properties that are associated with the specified item.
+        /// </summary>
+        /// <param name="imageHandle">The image handle.</param>
+        /// <returns>
+        /// A list of the user description properties that are associated with the specified item.
+        /// </returns>
+        /// <exception cref="ArgumentNullException">
+        /// <paramref name="imageHandle"/> is <see langword="null"/>.
+        /// </exception>
+        /// <exception cref="HeifException">A LibHeif error occurred.</exception>
+        /// <exception cref="ObjectDisposedException">The object has been disposed.</exception>
+        /// <remarks>
+        /// This method is supported starting with LibHeif version 1.16.0, it will throw an
+        /// exception on older versions.
+        /// </remarks>
+        public IReadOnlyList<UserDescriptionProperty> GetUserDescriptionProperties(HeifImageHandle imageHandle)
+        {
+            Validate.IsNotNull(imageHandle, nameof(imageHandle));
+
+            return GetUserDescriptionProperties(imageHandle.GetItemId());
+        }
+
+        /// <summary>
+        /// Gets the user description properties that are associated with the specified item.
+        /// </summary>
+        /// <param name="regionItem">The region item.</param>
+        /// <returns>
+        /// A list of the user description properties that are associated with the specified item.
+        /// </returns>
+        /// <exception cref="ArgumentNullException">
+        /// <paramref name="regionItem"/> is <see langword="null"/>.
+        /// </exception>
+        /// <exception cref="HeifException">A LibHeif error occurred.</exception>
+        /// <exception cref="ObjectDisposedException">The object has been disposed.</exception>
+        /// <remarks>
+        /// This method is supported starting with LibHeif version 1.16.0, it will throw an
+        /// exception on older versions.
+        /// </remarks>
+        public IReadOnlyList<UserDescriptionProperty> GetUserDescriptionProperties(HeifRegionItem regionItem)
+        {
+            Validate.IsNotNull(regionItem, nameof(regionItem));
+
+            return GetUserDescriptionProperties(regionItem.Id);
+        }
+
+        /// <summary>
         /// Reads the specified file into this instance.
         /// </summary>
         /// <param name="path">The file path.</param>
@@ -982,18 +1258,6 @@ namespace LibHeifSharp
         }
 
         /// <summary>
-        /// Ensures that the reader has been set.
-        /// </summary>
-        /// <exception cref="InvalidOperationException">The reader has not been set.</exception>
-        private void EnsureReaderSet()
-        {
-            if (this.reader is null)
-            {
-                ExceptionUtil.ThrowInvalidOperationException(Resources.ReaderNotSet);
-            }
-        }
-
-        /// <summary>
         /// Handles the file IO error.
         /// </summary>
         /// <param name="heifIOError">The IO error.</param>
@@ -1026,6 +1290,127 @@ namespace LibHeifSharp
                     error.ThrowIfError();
                 }
             }
+        }
+
+        /// <summary>
+        /// Ensures that the reader has been set.
+        /// </summary>
+        /// <exception cref="InvalidOperationException">The reader has not been set.</exception>
+        private void EnsureReaderSet()
+        {
+            if (this.reader is null)
+            {
+                ExceptionUtil.ThrowInvalidOperationException(Resources.ReaderNotSet);
+            }
+        }
+
+        private unsafe HeifPropertyId[] GetPropertyIds(HeifItemId itemId, heif_item_property_type type)
+        {
+            var ids = Array.Empty<HeifPropertyId>();
+
+            if (LibHeifVersion.Is1Point16Point2OrLater)
+            {
+                int propertyCount = LibHeifNative.heif_item_get_properties_of_type(this.context,
+                                                                                   itemId,
+                                                                                   type,
+                                                                                   null,
+                                                                                   0);
+                if (propertyCount > 0)
+                {
+                    ids = new HeifPropertyId[propertyCount];
+
+                    fixed (HeifPropertyId* ptr = ids)
+                    {
+                        int filledCount = LibHeifNative.heif_item_get_properties_of_type(this.context,
+                                                                                         itemId,
+                                                                                         type,
+                                                                                         ptr,
+                                                                                         propertyCount);
+                        if (filledCount != propertyCount)
+                        {
+                            ExceptionUtil.ThrowHeifException(Resources.CannotGetAllPropertyIds);
+                        }
+                    }
+                }
+            }
+            else
+            {
+                // LibHeif 1.16.1 and earlier do not allow callers to query the number of properties.
+                // We assume that the item has no more than 50 properties of the requested type.
+                const int MaxProperties = 50;
+
+                var propertyIds = stackalloc HeifPropertyId[MaxProperties];
+
+                int propertyCount = LibHeifNative.heif_item_get_properties_of_type(this.context,
+                                                                                   itemId,
+                                                                                   type,
+                                                                                   propertyIds,
+                                                                                   MaxProperties);
+                if (propertyCount > 0)
+                {
+                    ids = new HeifPropertyId[propertyCount];
+
+                    for (int i = 0; i < ids.Length; i++)
+                    {
+                        ids[i] = propertyIds[i];
+                    }
+                }
+            }
+
+            return ids;
+        }
+
+        private unsafe HeifPropertyId[] GetTransformationPropertyIds(HeifItemId itemId)
+        {
+            var ids = Array.Empty<HeifPropertyId>();
+
+            if (LibHeifVersion.Is1Point16Point2OrLater)
+            {
+                int propertyCount = LibHeifNative.heif_item_get_transformation_properties(this.context,
+                                                                                          itemId,
+                                                                                          null,
+                                                                                          0);
+                if (propertyCount > 0)
+                {
+                    ids = new HeifPropertyId[propertyCount];
+
+                    fixed (HeifPropertyId* ptr = ids)
+                    {
+                        int filledCount = LibHeifNative.heif_item_get_transformation_properties(this.context,
+                                                                                                itemId,
+                                                                                                ptr,
+                                                                                                propertyCount);
+                        if (filledCount != propertyCount)
+                        {
+                            ExceptionUtil.ThrowHeifException(Resources.CannotGetAllPropertyIds);
+                        }
+                    }
+                }
+            }
+            else
+            {
+                // LibHeif 1.16.1 and earlier do not allow callers to query the number of properties.
+                // We assume that the item has no more than 50 properties.
+                const int MaxProperties = 50;
+
+                var propertyIds = stackalloc HeifPropertyId[MaxProperties];
+
+                int propertyCount = LibHeifNative.heif_item_get_transformation_properties(this.context,
+                                                                                          itemId,
+                                                                                          propertyIds,
+                                                                                          MaxProperties);
+                if (propertyCount > 0)
+                {
+                    ids = new HeifPropertyId[propertyCount];
+
+                    for (int i = 0; i < ids.Length; i++)
+                    {
+                        ids[i] = propertyIds[i];
+                    }
+                }
+            }
+
+            return ids;
         }
 
         /// <summary>

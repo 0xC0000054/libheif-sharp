@@ -22,6 +22,7 @@
 
 using System;
 using System.Runtime.InteropServices;
+using System.Text;
 
 namespace LibHeifSharp.Interop
 {
@@ -64,6 +65,47 @@ namespace LibHeifSharp.Interop
             try
             {
                 memory = Marshal.StringToCoTaskMemAnsi(s);
+
+                handle = new SafeCoTaskMemHandle(memory, true);
+
+                memory = IntPtr.Zero;
+            }
+            finally
+            {
+                if (memory != IntPtr.Zero)
+                {
+                    Marshal.FreeCoTaskMem(memory);
+                }
+            }
+
+            return handle;
+        }
+
+        public static SafeCoTaskMemHandle FromStringUtf8(string s)
+        {
+            SafeCoTaskMemHandle handle;
+
+            var memory = IntPtr.Zero;
+            try
+            {
+                int lengthInBytes = string.IsNullOrEmpty(s) ? 0 : Encoding.UTF8.GetByteCount(s);
+
+                if (lengthInBytes > 0)
+                {
+                    memory = Marshal.AllocCoTaskMem(checked(lengthInBytes + 1));
+
+                    unsafe
+                    {
+                        byte* nativeString = (byte*)memory;
+
+                        fixed (char* chars = s)
+                        {
+                            Encoding.UTF8.GetBytes(chars, s.Length, nativeString, lengthInBytes);
+                        }
+                        // add the terminator
+                        nativeString[lengthInBytes] = 0;
+                    }
+                }
 
                 handle = new SafeCoTaskMemHandle(memory, true);
 

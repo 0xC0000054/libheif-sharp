@@ -17,6 +17,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   * A `GetRegionItem` method to the `HeifContext` class.
   * `AddRegion` and `GetRegionItemIds` methods to the `HeifImageHandle` class.
   * These methods require LibHeif 1.16.0 or later.
+* Support for the LibHeif item property APIs.
+  * `AddUserDescriptionProperty`, `GetTransformationProperties` and `GetUserDescriptionProperties` methods to the `HeifContext` class.
+  * These methods require LibHeif 1.16.0 or later.
 
 ## Fixed
 

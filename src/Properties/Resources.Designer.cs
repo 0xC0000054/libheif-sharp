@@ -115,6 +115,15 @@ namespace LibHeifSharp.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Could not get all of the property ids..
+        /// </summary>
+        internal static string CannotGetAllPropertyIds {
+            get {
+                return ResourceManager.GetString("CannotGetAllPropertyIds", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Could not get all of the region item ids..
         /// </summary>
         internal static string CannotGetAllRegionItemIds {
@@ -147,6 +156,15 @@ namespace LibHeifSharp.Properties {
         internal static string CannotGetAllTopLevelImageIds {
             get {
                 return ResourceManager.GetString("CannotGetAllTopLevelImageIds", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Could not get all of the transformation property ids..
+        /// </summary>
+        internal static string CannotGetAllTransformationPropertyIds {
+            get {
+                return ResourceManager.GetString("CannotGetAllTransformationPropertyIds", resourceCulture);
             }
         }
         
@@ -268,6 +286,24 @@ namespace LibHeifSharp.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The image has an undefined height..
+        /// </summary>
+        internal static string ImageUndefinedIspeHeight {
+            get {
+                return ResourceManager.GetString("ImageUndefinedIspeHeight", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The image has an undefined width..
+        /// </summary>
+        internal static string ImageUndefinedIspeWidth {
+            get {
+                return ResourceManager.GetString("ImageUndefinedIspeWidth", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to LibHeif must be version {0}.{1}.{2} or later..
         /// </summary>
         internal static string LibHeifVersionNotSupportedFormat {
@@ -349,6 +385,15 @@ namespace LibHeifSharp.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to This method requires LibHeif version 1.16.0 or later..
+        /// </summary>
+        internal static string PropertyAPIsNotSupported {
+            get {
+                return ResourceManager.GetString("PropertyAPIsNotSupported", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to This property requires LibHeif version 1.15.0 or later..
         /// </summary>
         internal static string PropertySetterRequiresLibHeif1Point15 {
@@ -399,6 +444,24 @@ namespace LibHeifSharp.Properties {
         internal static string UnspecifiedError {
             get {
                 return ResourceManager.GetString("UnspecifiedError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Failed to increment the refrence count on the native string handles..
+        /// </summary>
+        internal static string UserDescriptionAddRefFailed {
+            get {
+                return ResourceManager.GetString("UserDescriptionAddRefFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The user description string is too long..
+        /// </summary>
+        internal static string UserDescriptionStringTooLong {
+            get {
+                return ResourceManager.GetString("UserDescriptionStringTooLong", resourceCulture);
             }
         }
     }
