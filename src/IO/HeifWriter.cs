@@ -86,7 +86,7 @@ namespace LibHeifSharp
             return writerHandle;
         }
 
-        private heif_error Write(IntPtr ctx, IntPtr data, UIntPtr size, IntPtr userData)
+        private heif_error Write(IntPtr context, IntPtr data, UIntPtr size, IntPtr userData)
         {
             ulong count = size.ToUInt64();
 
