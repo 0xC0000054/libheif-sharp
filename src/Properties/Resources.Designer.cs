@@ -448,15 +448,6 @@ namespace LibHeifSharp.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Failed to increment the refrence count on the native string handles..
-        /// </summary>
-        internal static string UserDescriptionAddRefFailed {
-            get {
-                return ResourceManager.GetString("UserDescriptionAddRefFailed", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to The user description string is too long..
         /// </summary>
         internal static string UserDescriptionStringTooLong {

@@ -22,7 +22,6 @@
 
 using System;
 using LibHeifSharp.Interop;
-using LibHeifSharp.Properties;
 using LibHeifSharp.ResourceManagement;
 
 namespace LibHeifSharp
@@ -36,11 +35,6 @@ namespace LibHeifSharp
             private SafeCoTaskMemHandle name;
             private SafeCoTaskMemHandle tags;
 
-            private readonly bool descriptionHandleNeedsRelease;
-            private readonly bool languageHandleNeedsRelease;
-            private readonly bool nameHandleNeedsRelease;
-            private readonly bool tagsHandleNeedsRelease;
-
             public NativeData(ref SafeCoTaskMemHandle descriptionStringHandle,
                               ref SafeCoTaskMemHandle languageStringHandle,
                               ref SafeCoTaskMemHandle nameStringHandle,
@@ -50,11 +44,6 @@ namespace LibHeifSharp
                 this.language = languageStringHandle;
                 this.name = nameStringHandle;
                 this.tags = tagsStringHandle;
-
-                this.description.DangerousAddRef(ref this.descriptionHandleNeedsRelease);
-                this.language.DangerousAddRef(ref this.languageHandleNeedsRelease);
-                this.name.DangerousAddRef(ref this.nameHandleNeedsRelease);
-                this.tags.DangerousAddRef(ref this.tagsHandleNeedsRelease);
 
                 // Inform the caller that this class has taken ownership of the handles.
                 descriptionStringHandle = null;
@@ -67,58 +56,25 @@ namespace LibHeifSharp
             /// Creates the native structure.
             /// </summary>
             /// <returns>The native structure.</returns>
-            /// <exception cref="HeifException">
-            /// Failed to increment the reference count on the native string data.
-            /// </exception>
             /// <exception cref="ObjectDisposedException">The object has been disposed.</exception>
             public heif_property_user_description CreateNativeStructure()
             {
                 VerifyNotDisposed();
 
-                if (this.descriptionHandleNeedsRelease
-                    && this.languageHandleNeedsRelease
-                    && this.nameHandleNeedsRelease
-                    && this.tagsHandleNeedsRelease)
+                return new heif_property_user_description()
                 {
-                    return new heif_property_user_description()
-                    {
-                        version = 1,
-                        description = this.description.DangerousGetHandle(),
-                        language = this.language.DangerousGetHandle(),
-                        name = this.name.DangerousGetHandle(),
-                        tags = this.tags.DangerousGetHandle(),
-                    };
-                }
-                else
-                {
-                    throw new HeifException(Resources.UserDescriptionAddRefFailed);
-                }
+                    version = 1,
+                    description = this.description.DangerousGetHandle(),
+                    language = this.language.DangerousGetHandle(),
+                    name = this.name.DangerousGetHandle(),
+                    tags = this.tags.DangerousGetHandle(),
+                };
             }
 
             protected override void Dispose(bool disposing)
             {
                 if (disposing)
                 {
-                    if (this.descriptionHandleNeedsRelease)
-                    {
-                        this.description.DangerousRelease();
-                    }
-
-                    if (this.languageHandleNeedsRelease)
-                    {
-                        this.language.DangerousRelease();
-                    }
-
-                    if (this.nameHandleNeedsRelease)
-                    {
-                        this.name.DangerousRelease();
-                    }
-
-                    if (this.tagsHandleNeedsRelease)
-                    {
-                        this.tags.DangerousRelease();
-                    }
-
                     DisposableUtil.Free(ref this.description);
                     DisposableUtil.Free(ref this.language);
                     DisposableUtil.Free(ref this.name);

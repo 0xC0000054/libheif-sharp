@@ -253,9 +253,6 @@
   <data name="UnspecifiedError" xml:space="preserve">
     <value>An unspecified error occurred.</value>
   </data>
-  <data name="UserDescriptionAddRefFailed" xml:space="preserve">
-    <value>Failed to increment the refrence count on the native string handles.</value>
-  </data>
   <data name="UserDescriptionStringTooLong" xml:space="preserve">
     <value>The user description string is too long.</value>
   </data>
