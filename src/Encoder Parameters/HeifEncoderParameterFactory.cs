@@ -97,17 +97,17 @@ namespace LibHeifSharp
                                                                                           out bool haveMaximum,
                                                                                           ref minimum,
                                                                                           ref maximum,
-                                                                                          out int numValidValues,
+                                                                                          out int numberOfValidValues,
                                                                                           out var validValuesArray);
                 error.ThrowIfError();
 
                 haveMinimumMaximum = haveMinimum && haveMaximum;
 
-                if (numValidValues > 0 && validValuesArray != IntPtr.Zero)
+                if (numberOfValidValues > 0 && validValuesArray != IntPtr.Zero)
                 {
-                    validValues = new int[numValidValues];
+                    validValues = new int[numberOfValidValues];
 
-                    Marshal.Copy(validValuesArray, validValues, 0, numValidValues);
+                    Marshal.Copy(validValuesArray, validValues, 0, numberOfValidValues);
                 }
             }
             else
