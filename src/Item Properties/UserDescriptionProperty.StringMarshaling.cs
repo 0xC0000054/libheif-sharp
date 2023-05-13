@@ -32,7 +32,7 @@ namespace LibHeifSharp
         private static class StringMarshaling
         {
             private static readonly UTF8Encoding encoding = new UTF8Encoding(encoderShouldEmitUTF8Identifier: false,
-                                                                 throwOnInvalidBytes: true);
+                                                                             throwOnInvalidBytes: true);
 
             /// <summary>
             /// Create a managed string from the specified unmanaged string pointer.
