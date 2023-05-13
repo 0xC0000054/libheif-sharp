@@ -81,14 +81,19 @@ namespace LibHeifSharp.Interop
             return handle;
         }
 
-        public static SafeCoTaskMemHandle FromStringUtf8(string s)
+        public static SafeCoTaskMemHandle FromStringUtf8(string s, UTF8Encoding encoding = null)
         {
+            if (encoding is null)
+            {
+                encoding = new UTF8Encoding(encoderShouldEmitUTF8Identifier: false, throwOnInvalidBytes: true);
+            }
+
             SafeCoTaskMemHandle handle;
 
             var memory = IntPtr.Zero;
             try
             {
-                int lengthInBytes = string.IsNullOrEmpty(s) ? 0 : Encoding.UTF8.GetByteCount(s);
+                int lengthInBytes = string.IsNullOrEmpty(s) ? 0 : encoding.GetByteCount(s);
 
                 if (lengthInBytes > 0)
                 {
@@ -100,7 +105,7 @@ namespace LibHeifSharp.Interop
 
                         fixed (char* chars = s)
                         {
-                            Encoding.UTF8.GetBytes(chars, s.Length, nativeString, lengthInBytes);
+                            encoding.GetBytes(chars, s.Length, nativeString, lengthInBytes);
                         }
                         // add the terminator
                         nativeString[lengthInBytes] = 0;

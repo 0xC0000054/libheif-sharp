@@ -29,6 +29,8 @@ namespace LibHeifSharp
 {
     public sealed partial class UserDescriptionProperty
     {
+        private static readonly UTF8Encoding encoding = new UTF8Encoding(encoderShouldEmitUTF8Identifier: false);
+
         private static class StringMarshaling
         {
             public static unsafe string FromNative(IntPtr nativeString)
@@ -49,7 +51,8 @@ namespace LibHeifSharp
                 return result;
             }
 
-            public static SafeCoTaskMemHandle ToNative(string value) => SafeCoTaskMemHandle.FromStringUtf8(value);
+            public static SafeCoTaskMemHandle ToNative(string value)
+                => SafeCoTaskMemHandle.FromStringUtf8(value, encoding);
 
             private static unsafe int GetNativeStringLength(IntPtr nativeString)
             {
