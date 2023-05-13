@@ -29,10 +29,19 @@ namespace LibHeifSharp
 {
     public sealed partial class UserDescriptionProperty
     {
-        private static readonly UTF8Encoding encoding = new UTF8Encoding(encoderShouldEmitUTF8Identifier: false);
+        private static readonly UTF8Encoding encoding = new UTF8Encoding(encoderShouldEmitUTF8Identifier: false,
+                                                                         throwOnInvalidBytes: true);
 
         private static class StringMarshaling
         {
+            /// <summary>
+            /// Create a managed string from the specified unmanaged string pointer.
+            /// </summary>
+            /// <param name="nativeString">The native string.</param>
+            /// <returns>The converted string.</returns>
+            /// <exception cref="HeifException">
+            /// The string contains characters that are not valid for the encoding.
+            /// </exception>
             public static unsafe string FromNative(IntPtr nativeString)
             {
                 int length = GetNativeStringLength(nativeString);
@@ -45,14 +54,40 @@ namespace LibHeifSharp
                 }
                 else
                 {
-                    result = Encoding.UTF8.GetString((byte*)nativeString, length);
+                    try
+                    {
+                        result = encoding.GetString((byte*)nativeString, length);
+                    }
+                    catch (ArgumentException ex)
+                    {
+                        // The string contains invalid UTF-8 sequences.
+                        throw new HeifException(ex.Message, ex);
+                    }
                 }
 
                 return result;
             }
 
+            /// <summary>
+            /// Converts the string to its unmanaged format.
+            /// </summary>
+            /// <param name="value">The string to convert.</param>
+            /// <returns>A <see cref="SafeCoTaskMemHandle"/> containing the unmanaged memory.</returns>
+            /// <exception cref="HeifException">
+            /// The string contains characters that are not valid for the encoding.
+            /// </exception>
             public static SafeCoTaskMemHandle ToNative(string value)
-                => SafeCoTaskMemHandle.FromStringUtf8(value, encoding);
+            {
+                try
+                {
+                    return SafeCoTaskMemHandle.FromStringUtf8(value, encoding);
+                }
+                catch (ArgumentException ex)
+                {
+                    // The string contains invalid UTF-8 sequences.
+                    throw new HeifException(ex.Message, ex);
+                }
+            }
 
             private static unsafe int GetNativeStringLength(IntPtr nativeString)
             {

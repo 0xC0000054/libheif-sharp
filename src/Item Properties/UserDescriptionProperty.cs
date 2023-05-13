@@ -54,6 +54,13 @@ namespace LibHeifSharp
             this.Tags = tags ?? string.Empty;
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="UserDescriptionProperty"/> class.
+        /// </summary>
+        /// <param name="native">The native structure.</param>
+        /// <exception cref="HeifException">
+        /// The string contains characters that are not valid for the encoding.
+        /// </exception>
         internal unsafe UserDescriptionProperty(heif_property_user_description* native)
         {
             this.Description = StringMarshaling.FromNative(native->description);
@@ -94,6 +101,13 @@ namespace LibHeifSharp
         /// </value>
         public string Tags { get; }
 
+        /// <summary>
+        /// Converts the data to its native format.
+        /// </summary>
+        /// <returns>A class containing the converted data.</returns>
+        /// <exception cref="HeifException">
+        /// The string contains characters that are not valid for the encoding.
+        /// </exception>
         internal NativeData ToNative()
         {
             NativeData nativeData;
