@@ -89,6 +89,16 @@ namespace LibHeifSharp
                 }
             }
 
+            /// <summary>
+            /// Gets the length in bytes of the native string.
+            /// </summary>
+            /// <param name="nativeString">The native string.</param>
+            /// <returns>
+            /// The length in bytes of the native string, or 0 if <paramref name="nativeString"/> is null.
+            /// </returns>
+            /// <exception cref="HeifException">
+            /// The string is not null-terminated or is longer than 2147483647 bytes.
+            /// </exception>
             private static unsafe int GetNativeStringLength(IntPtr nativeString)
             {
                 int length;
