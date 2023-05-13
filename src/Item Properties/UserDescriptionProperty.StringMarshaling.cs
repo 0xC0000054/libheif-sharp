@@ -29,11 +29,11 @@ namespace LibHeifSharp
 {
     public sealed partial class UserDescriptionProperty
     {
-        private static readonly UTF8Encoding encoding = new UTF8Encoding(encoderShouldEmitUTF8Identifier: false,
-                                                                         throwOnInvalidBytes: true);
-
         private static class StringMarshaling
         {
+            private static readonly UTF8Encoding encoding = new UTF8Encoding(encoderShouldEmitUTF8Identifier: false,
+                                                                 throwOnInvalidBytes: true);
+
             /// <summary>
             /// Create a managed string from the specified unmanaged string pointer.
             /// </summary>
