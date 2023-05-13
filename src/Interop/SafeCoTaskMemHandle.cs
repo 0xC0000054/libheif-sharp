@@ -81,52 +81,6 @@ namespace LibHeifSharp.Interop
             return handle;
         }
 
-        public static SafeCoTaskMemHandle FromStringUtf8(string s, UTF8Encoding encoding = null)
-        {
-            if (encoding is null)
-            {
-                encoding = new UTF8Encoding(encoderShouldEmitUTF8Identifier: false, throwOnInvalidBytes: true);
-            }
-
-            SafeCoTaskMemHandle handle;
-
-            var memory = IntPtr.Zero;
-            try
-            {
-                int lengthInBytes = string.IsNullOrEmpty(s) ? 0 : encoding.GetByteCount(s);
-
-                if (lengthInBytes > 0)
-                {
-                    memory = Marshal.AllocCoTaskMem(checked(lengthInBytes + 1));
-
-                    unsafe
-                    {
-                        byte* nativeString = (byte*)memory;
-
-                        fixed (char* chars = s)
-                        {
-                            encoding.GetBytes(chars, s.Length, nativeString, lengthInBytes);
-                        }
-                        // add the terminator
-                        nativeString[lengthInBytes] = 0;
-                    }
-                }
-
-                handle = new SafeCoTaskMemHandle(memory, true);
-
-                memory = IntPtr.Zero;
-            }
-            finally
-            {
-                if (memory != IntPtr.Zero)
-                {
-                    Marshal.FreeCoTaskMem(memory);
-                }
-            }
-
-            return handle;
-        }
-
         protected override bool ReleaseHandle()
         {
             Marshal.FreeCoTaskMem(this.handle);

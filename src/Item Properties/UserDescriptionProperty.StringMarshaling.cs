@@ -21,6 +21,7 @@
  */
 
 using System;
+using System.Runtime.InteropServices;
 using System.Text;
 using LibHeifSharp.Interop;
 using LibHeifSharp.Properties;
@@ -80,7 +81,43 @@ namespace LibHeifSharp
             {
                 try
                 {
-                    return SafeCoTaskMemHandle.FromStringUtf8(value, encoding);
+                    SafeCoTaskMemHandle handle;
+
+                    var memory = IntPtr.Zero;
+                    try
+                    {
+                        int lengthInBytes = string.IsNullOrEmpty(value) ? 0 : encoding.GetByteCount(value);
+
+                        if (lengthInBytes > 0)
+                        {
+                            memory = Marshal.AllocCoTaskMem(checked(lengthInBytes + 1));
+
+                            unsafe
+                            {
+                                byte* nativeString = (byte*)memory;
+
+                                fixed (char* chars = value)
+                                {
+                                    encoding.GetBytes(chars, value.Length, nativeString, lengthInBytes);
+                                }
+                                // add the terminator
+                                nativeString[lengthInBytes] = 0;
+                            }
+                        }
+
+                        handle = new SafeCoTaskMemHandle(memory, true);
+
+                        memory = IntPtr.Zero;
+                    }
+                    finally
+                    {
+                        if (memory != IntPtr.Zero)
+                        {
+                            Marshal.FreeCoTaskMem(memory);
+                        }
+                    }
+
+                    return handle;
                 }
                 catch (ArgumentException ex)
                 {
