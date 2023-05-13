@@ -64,11 +64,11 @@ namespace LibHeifSharp.Interop
 
             if (pNativeData != IntPtr.Zero)
             {
-                var stringMemoryAdddress = (IntPtr*)pNativeData;
+                var stringMemoryAddress = (IntPtr*)pNativeData;
 
                 int count = 0;
 
-                while (*stringMemoryAdddress != IntPtr.Zero)
+                while (*stringMemoryAddress != IntPtr.Zero)
                 {
                     if (count == items.Length)
                     {
@@ -83,8 +83,8 @@ namespace LibHeifSharp.Interop
                         }
                     }
 
-                    items[count++] = Marshal.PtrToStringAnsi(*stringMemoryAdddress);
-                    stringMemoryAdddress++;
+                    items[count++] = Marshal.PtrToStringAnsi(*stringMemoryAddress);
+                    stringMemoryAddress++;
                 }
 
                 if (items.Length > count)
