@@ -630,32 +630,62 @@ namespace LibHeifSharp
         {
             VerifyNotDisposed();
 
-            // LibHeif only has 5 built-in encoders as of version 1.9.0, we use 10 in case more
-            // built-in encoders are added in future versions.
-            var nativeEncoderDescriptors = new heif_encoder_descriptor[10];
-            int returnedEncoderCount;
+            var nativeEncoderDescriptors = Array.Empty<heif_encoder_descriptor>();
+            int encoderCount;
 
             unsafe
             {
-                fixed (heif_encoder_descriptor* ptr = nativeEncoderDescriptors)
+                if (LibHeifVersion.Is1Point16Point2OrLater)
                 {
-                    returnedEncoderCount = LibHeifNative.heif_context_get_encoder_descriptors(this.context,
+                    encoderCount = LibHeifNative.heif_context_get_encoder_descriptors(this.context,
+                                                                                      format,
+                                                                                      nameFilter,
+                                                                                      null,
+                                                                                      0);
+                    if (encoderCount > 0)
+                    {
+                        nativeEncoderDescriptors = new heif_encoder_descriptor[encoderCount];
+
+                        fixed (heif_encoder_descriptor* ptr = nativeEncoderDescriptors)
+                        {
+                            // The returned encoder count should match the number of encoders we allocated.
+                            // Normally we would throw an exception if the two counts are different, but that would be a
+                            // breaking change because this method is not documented to throw anything other than
+                            // ObjectDisposedException.
+                            encoderCount = LibHeifNative.heif_context_get_encoder_descriptors(this.context,
                                                                                               format,
                                                                                               nameFilter,
                                                                                               ptr,
                                                                                               nativeEncoderDescriptors.Length);
+                        }
+                    }
+                }
+                else
+                {
+                    // LibHeif only has 5 built-in encoders as of version 1.9.0, we use 10 in case more
+                    // built-in encoders are added in future versions.
+                    nativeEncoderDescriptors = new heif_encoder_descriptor[10];
+
+                    fixed (heif_encoder_descriptor* ptr = nativeEncoderDescriptors)
+                    {
+                        encoderCount = LibHeifNative.heif_context_get_encoder_descriptors(this.context,
+                                                                                          format,
+                                                                                          nameFilter,
+                                                                                          ptr,
+                                                                                          nativeEncoderDescriptors.Length);
+                    }
                 }
             }
 
-            if (returnedEncoderCount == 0)
+            if (encoderCount == 0)
             {
                 return Array.Empty<HeifEncoderDescriptor>();
             }
             else
             {
-                var encoderDescriptors = new HeifEncoderDescriptor[returnedEncoderCount];
+                var encoderDescriptors = new HeifEncoderDescriptor[encoderCount];
 
-                for (int i = 0; i < returnedEncoderCount; i++)
+                for (int i = 0; i < encoderCount; i++)
                 {
                     encoderDescriptors[i] = new HeifEncoderDescriptor(nativeEncoderDescriptors[i]);
                 }
