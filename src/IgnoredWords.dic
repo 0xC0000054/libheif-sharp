@@ -1,9 +1,13 @@
 colorspace
 Exif
 Farin
+ftyp
 Heif
 imir
 Interop
+ipco
+ipma
+iref
 irot
 ispe
 LibHeif
@@ -11,6 +15,9 @@ Mem
 Metadata
 nclx
 nq
+ok
+plugin
+plugins
 Premultiplied
 ptr
 struktur

@@ -22,6 +22,7 @@
 
 namespace LibHeifSharp.Interop
 {
+#pragma warning disable VSSpell001
     internal enum heif_suberror_code
     {
         // no further information available
@@ -187,4 +188,5 @@ namespace LibHeifSharp.Interop
         Plugin_is_not_loaded = 6001,         // trying to remove a plugin that is not loaded
         Cannot_read_plugin_directory = 6002, // error while scanning the directory for plugins
     }
+#pragma warning restore VSSpell001
 }

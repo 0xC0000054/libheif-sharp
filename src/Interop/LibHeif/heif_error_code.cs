@@ -22,6 +22,7 @@
 
 namespace LibHeifSharp.Interop
 {
+#pragma warning disable VSSpell001
     internal enum heif_error_code
     {
         // Everything ok, no error occurred.
@@ -60,4 +61,5 @@ namespace LibHeifSharp.Interop
         // Error loading a dynamic plugin
         Plugin_loading_error = 11,
     }
+#pragma warning restore VSSpell001
 }
