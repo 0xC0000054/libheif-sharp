@@ -111,6 +111,9 @@ namespace LibHeifSharp.Interop
 
         Unknown_NCLX_matrix_coefficients = 135,
 
+        // Invalid specification of region item
+        Invalid_region_data = 136,
+
         // --- Memory_allocation_error ---
 
         // A security limit preventing unreasonable memory allocations was exceeded by the input file.
@@ -141,6 +144,12 @@ namespace LibHeifSharp.Interop
         // The value for the given parameter is not in the valid range.
         Invalid_parameter_value = 2006,
 
+        // Error in property specification
+        Invalid_property = 2007,
+
+        // Image reference cycle found in iref
+        Item_reference_cycle = 2008,
+
         // --- Unsupported_feature ---
 
         // Image was coded with an unsupported compression method.
@@ -156,6 +165,9 @@ namespace LibHeifSharp.Interop
 
         Unsupported_item_construction_method = 3004,
 
+        Unsupported_header_compression_method = 3005,
+
+
         // --- Encoder_plugin_error ---
 
         Unsupported_bit_depth = 4000,
@@ -163,6 +175,11 @@ namespace LibHeifSharp.Interop
         // --- Encoding_error ---
 
         Cannot_write_output_data = 5000,
+        Encoder_initialization = 5001,
+        Encoder_encoding = 5002,
+        Encoder_cleanup = 5003,
+
+        Too_many_regions = 5004,
 
         // --- Plugin loading error ---
 
