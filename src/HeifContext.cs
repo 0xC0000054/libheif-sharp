@@ -1042,11 +1042,11 @@ namespace LibHeifSharp
         }
 
         /// <summary>
-        /// Gets the user description properties that are associated with the specified item.
+        /// Gets the user description properties that are associated with the specified image.
         /// </summary>
         /// <param name="imageHandle">The image handle.</param>
         /// <returns>
-        /// A list of the user description properties that are associated with the specified item.
+        /// A list of the user description properties that are associated with the specified image.
         /// </returns>
         /// <exception cref="ArgumentNullException">
         /// <paramref name="imageHandle"/> is <see langword="null"/>.
@@ -1065,11 +1065,11 @@ namespace LibHeifSharp
         }
 
         /// <summary>
-        /// Gets the user description properties that are associated with the specified item.
+        /// Gets the user description properties that are associated with the specified region item.
         /// </summary>
         /// <param name="regionItem">The region item.</param>
         /// <returns>
-        /// A list of the user description properties that are associated with the specified item.
+        /// A list of the user description properties that are associated with the specified region item.
         /// </returns>
         /// <exception cref="ArgumentNullException">
         /// <paramref name="regionItem"/> is <see langword="null"/>.
