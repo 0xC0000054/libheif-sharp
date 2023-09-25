@@ -28,7 +28,9 @@ The [libheif-sharp-samples](https://github.com/0xC0000054/libheif-sharp-samples)
 
 ### Requirements
 
-The libheif shared library must be named `libheif` in order for it to be found by P/Invoke.
+The libheif shared library must be named `libheif` in order for it to be found by P/Invoke.   
+On some platforms a [DllImportResolver](https://learn.microsoft.com/en-us/dotnet/api/system.runtime.interopservices.nativelibrary.setdllimportresolver) can be used to customize the loading of the `libheif` native library.    
+See [LibHeifSharpDllImportResolver.cs](https://github.com/0xC0000054/libheif-sharp-samples/blob/main/src/common/LibHeifSharpDllImportResolver.cs) in the LibHeifSharp-Samples repository for an example of this.
 
 The minimum supported libheif version is 1.9.0.
 
