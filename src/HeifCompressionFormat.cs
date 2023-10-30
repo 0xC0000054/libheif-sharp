@@ -74,5 +74,10 @@ namespace LibHeifSharp
         /// The compression format is uncompressed.
         /// </summary>
         Uncompressed = 8,
+
+        /// <summary>
+        /// The compression format is mask.
+        /// </summary>
+        Mask = 9,
     }
 }
