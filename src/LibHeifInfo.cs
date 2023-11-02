@@ -179,7 +179,6 @@ namespace LibHeifSharp
         /// </returns>
         public static bool HaveVersion(byte major, byte minor, byte maintenance)
         {
-            // The LibHeif version number is encoded using binary-coded decimal.
             uint encodedVersion = ((uint)major << 24) | ((uint)minor << 16) | ((uint)maintenance << 8);
 
             return libheifVersionNumber.Value >= encodedVersion;
