@@ -153,6 +153,9 @@
   <data name="CannotGetAllTransformationPropertyIds" xml:space="preserve">
     <value>Could not get all of the transformation property ids.</value>
   </data>
+  <data name="CannotGetInlineMaskDataSize" xml:space="preserve">
+    <value>Could not get the inline mask data size.</value>
+  </data>
   <data name="CoerceStringValueToBooleanFailedFormat" xml:space="preserve">
     <value>Unable to convert the {0} parameter to a Boolean.</value>
     <comment>{0} is the parameter name.</comment>
@@ -200,6 +203,15 @@
   <data name="ImageUndefinedIspeWidth" xml:space="preserve">
     <value>The image has an undefined width.</value>
   </data>
+  <data name="InlineMaskDataLargerThan2GB" xml:space="preserve">
+    <value>The inline mask data is larger than 2GB.</value>
+  </data>
+  <data name="InlineMaskImageMustBeEightBitsPerChannel" xml:space="preserve">
+    <value>The inline mask image Y channel must be 8-bit.</value>
+  </data>
+  <data name="InlineMaskImageMustHaveYChannel" xml:space="preserve">
+    <value>The inline mask image must have a Y channel.</value>
+  </data>
   <data name="LibHeifVersionNotSupportedFormat" xml:space="preserve">
     <value>LibHeif must be version {0}.{1}.{2} or later.</value>
     <comment>{0} is the major version. {1} is the minor version. {2} is the maintenance version.</comment>
@@ -215,6 +227,10 @@
   </data>
   <data name="ParameterIsEmptyArrayFormat" xml:space="preserve">
     <value>'{0}' is an empty array.</value>
+    <comment>{0} is the parameter name.</comment>
+  </data>
+  <data name="ParameterMustBeGreaterThanOrEqualFormat" xml:space="preserve">
+    <value>'{0}' must be greater than or equal to {1}.</value>
     <comment>{0} is the parameter name.</comment>
   </data>
   <data name="ParameterMustBePositive" xml:space="preserve">
@@ -243,6 +259,12 @@
   </data>
   <data name="RegionAPINotSupported" xml:space="preserve">
     <value>This method requires LibHeif version 1.16.0 or later.</value>
+  </data>
+  <data name="RegionMaskAPINotSupported" xml:space="preserve">
+    <value>Region mask support requires LibHeif 1.17.0 or later.</value>
+  </data>
+  <data name="RegionMaskBitmapTooLargeFormat" xml:space="preserve">
+    <value>The region mask bitmap dimensions are too large, width={0}, height={1}.</value>
   </data>
   <data name="StreamCannotReadAndSeek" xml:space="preserve">
     <value>The stream must support reading and seeking.</value>

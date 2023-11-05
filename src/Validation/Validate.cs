@@ -30,6 +30,24 @@ namespace LibHeifSharp
     internal static class Validate
     {
         /// <summary>
+        /// Determines whether the specified parameter is greater than or equal to the minimum value.
+        /// </summary>
+        /// <param name="param">The parameter.</param>
+        /// <param name="min">The inclusive minimum value.</param>
+        /// <param name="paramName">Name of the parameter.</param>
+        /// <exception cref="ArgumentOutOfRangeException">The parameter is outside of the required range.</exception>
+        public static void IsGreaterThanOrEqualTo(int param, int min, string paramName)
+        {
+            if (param < min)
+            {
+                ExceptionUtil.ThrowArgumentOutOfRangeException(paramName, string.Format(CultureInfo.CurrentCulture,
+                                                                                        Resources.ParameterMustBeGreaterThanOrEqualFormat,
+                                                                                        paramName,
+                                                                                        min));
+            }
+        }
+
+        /// <summary>
         /// Determines whether the specified parameter is within the required range.
         /// </summary>
         /// <param name="param">The parameter.</param>

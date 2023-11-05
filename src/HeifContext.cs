@@ -35,7 +35,7 @@ namespace LibHeifSharp
     /// </summary>
     /// <seealso cref="Disposable" />
     /// <threadsafety static="true" instance="false"/>
-    public sealed class HeifContext : Disposable
+    public sealed class HeifContext : Disposable, IHeifContext
     {
         private LibHeifInitializationContext initializationContext;
         private SafeHeifContext context;
@@ -845,7 +845,7 @@ namespace LibHeifSharp
                                                                        out var regionItem);
                 error.ThrowIfError();
 
-                return new HeifRegionItem(regionItem, id);
+                return new HeifRegionItem(regionItem, id, this);
             }
             else
             {

@@ -169,6 +169,15 @@ namespace LibHeifSharp.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Could not get the inline mask data size..
+        /// </summary>
+        internal static string CannotGetInlineMaskDataSize {
+            get {
+                return ResourceManager.GetString("CannotGetInlineMaskDataSize", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Unable to convert the {0} parameter to a Boolean..
         /// </summary>
         internal static string CoerceStringValueToBooleanFailedFormat {
@@ -304,6 +313,33 @@ namespace LibHeifSharp.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The inline mask data is larger than 2GB..
+        /// </summary>
+        internal static string InlineMaskDataLargerThan2GB {
+            get {
+                return ResourceManager.GetString("InlineMaskDataLargerThan2GB", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The inline mask image Y channel must be 8-bit..
+        /// </summary>
+        internal static string InlineMaskImageMustBeEightBitsPerChannel {
+            get {
+                return ResourceManager.GetString("InlineMaskImageMustBeEightBitsPerChannel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The inline mask image must have a Y channel..
+        /// </summary>
+        internal static string InlineMaskImageMustHaveYChannel {
+            get {
+                return ResourceManager.GetString("InlineMaskImageMustHaveYChannel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to LibHeif must be version {0}.{1}.{2} or later..
         /// </summary>
         internal static string LibHeifVersionNotSupportedFormat {
@@ -345,6 +381,15 @@ namespace LibHeifSharp.Properties {
         internal static string ParameterIsEmptyArrayFormat {
             get {
                 return ResourceManager.GetString("ParameterIsEmptyArrayFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &apos;{0}&apos; must be greater than or equal to {1}..
+        /// </summary>
+        internal static string ParameterMustBeGreaterThanOrEqualFormat {
+            get {
+                return ResourceManager.GetString("ParameterMustBeGreaterThanOrEqualFormat", resourceCulture);
             }
         }
         
@@ -417,6 +462,24 @@ namespace LibHeifSharp.Properties {
         internal static string RegionAPINotSupported {
             get {
                 return ResourceManager.GetString("RegionAPINotSupported", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Region mask support requires LibHeif 1.17.0 or later..
+        /// </summary>
+        internal static string RegionMaskAPINotSupported {
+            get {
+                return ResourceManager.GetString("RegionMaskAPINotSupported", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The region mask bitmap dimensions are too large, width={0}, height={1}..
+        /// </summary>
+        internal static string RegionMaskBitmapTooLargeFormat {
+            get {
+                return ResourceManager.GetString("RegionMaskBitmapTooLargeFormat", resourceCulture);
             }
         }
         

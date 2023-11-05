@@ -118,6 +118,25 @@ namespace LibHeifSharp.Interop
                                                                                              HeifItemId imageId);
 
         [DllImport(DllName, CallingConvention = DllCallingConvention)]
+        internal static extern heif_error heif_region_get_referenced_mask_ID(heif_region region,
+                                                                             out int x,
+                                                                             out int y,
+                                                                             out uint width,
+                                                                             out uint height,
+                                                                             out HeifItemId maskItemId);
+
+        [DllImport(DllName, CallingConvention = DllCallingConvention)]
+        internal static extern UIntPtr heif_region_get_inline_mask_data_len(heif_region region);
+
+        [DllImport(DllName, CallingConvention = DllCallingConvention)]
+        internal static extern unsafe heif_error heif_region_get_inline_mask_data(heif_region region,
+                                                                                  out int x,
+                                                                                  out int y,
+                                                                                  out uint width,
+                                                                                  out uint height,
+                                                                                  byte* maskData);
+
+        [DllImport(DllName, CallingConvention = DllCallingConvention)]
         internal static extern heif_error heif_region_item_add_region_point(SafeHeifRegionItem handle,
                                                                             int x,
                                                                             int y,
@@ -150,5 +169,24 @@ namespace LibHeifSharp.Interop
                                                                                       int* points,
                                                                                       int pointCount,
                                                                                       IntPtr outRegion);
+
+        [DllImport(DllName, CallingConvention = DllCallingConvention)]
+        internal static extern unsafe heif_error heif_region_item_add_region_inline_mask_data(SafeHeifRegionItem handle,
+                                                                                              int x,
+                                                                                              int y,
+                                                                                              uint width,
+                                                                                              uint height,
+                                                                                              byte* maskData,
+                                                                                              UIntPtr maskDataLength,
+                                                                                              IntPtr outRegion);
+
+        [DllImport(DllName, CallingConvention = DllCallingConvention)]
+        internal static extern unsafe heif_error heif_region_item_add_region_referenced_mask(SafeHeifRegionItem handle,
+                                                                                             int x,
+                                                                                             int y,
+                                                                                             uint width,
+                                                                                             uint height,
+                                                                                             HeifItemId maskItemId,
+                                                                                             IntPtr outRegion);
     }
 }

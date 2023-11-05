@@ -23,6 +23,7 @@
 using System;
 using System.Collections.Generic;
 using LibHeifSharp.Interop;
+using LibHeifSharp.Properties;
 using LibHeifSharp.ResourceManagement;
 
 namespace LibHeifSharp
@@ -36,8 +37,9 @@ namespace LibHeifSharp
     {
         private SafeHeifRegionItem regionItem;
         private readonly HeifItemId imageHandleId;
+        private readonly IHeifContext context;
 
-        internal HeifRegionItem(SafeHeifRegionItem regionItem, HeifRegionItemId regionItemId)
+        internal HeifRegionItem(SafeHeifRegionItem regionItem, HeifRegionItemId regionItemId, IHeifContext context)
         {
             this.regionItem = regionItem;
             this.imageHandleId = regionItemId.ImageHandleId;
@@ -48,6 +50,7 @@ namespace LibHeifSharp
                                                               out uint referenceHeight);
             this.ReferenceWidth = referenceWidth;
             this.ReferenceHeight = referenceHeight;
+            this.context = context;
         }
 
         internal HeifRegionItem(SafeHeifRegionItem regionItem,
@@ -153,6 +156,154 @@ namespace LibHeifSharp
         }
 
         /// <summary>
+        /// Adds an inline mask to the region geometry.
+        /// </summary>
+        /// <param name="maskData">The mask data.</param>
+        /// <param name="x">The x coordinate.</param>
+        /// <param name="y">The y coordinate.</param>
+        /// <param name="width">The width.</param>
+        /// <param name="height">The height.</param>
+        /// <exception cref="ArgumentNullException"><paramref name="maskData"/> is <see langword="null"/>.</exception>
+        /// <exception cref="ArgumentException"><paramref name="maskData"/> is an empty array.</exception>
+        /// <exception cref="ArgumentOutOfRangeException">
+        /// <paramref name="x"/> must be greater than or equal to 0.
+        /// -or-
+        /// <paramref name="y"/> must be greater than or equal to 0.
+        /// -or-
+        /// <paramref name="width"/> must be in the range of [0, 4294967295].
+        /// -or-
+        /// <paramref name="height"/> must be in the range of [0, 4294967295].
+        /// </exception>
+        /// <exception cref="HeifException">A LibHeif error occurred.</exception>
+        /// <exception cref="ObjectDisposedException">The object has been disposed.</exception>
+        public void AddInlineMask(byte[] maskData, int x, int y, long width, long height)
+        {
+            Validate.IsNotNullOrEmptyArray(maskData, nameof(maskData));
+            Validate.IsGreaterThanOrEqualTo(x, 0, nameof(x));
+            Validate.IsGreaterThanOrEqualTo(y, 0, nameof(y));
+            Validate.IsInRange(width, nameof(width), uint.MinValue, uint.MaxValue);
+            Validate.IsInRange(height, nameof(height), uint.MinValue, uint.MaxValue);
+
+            VerifyNotDisposed();
+
+            if (!LibHeifVersion.Is1Point17OrLater)
+            {
+                ExceptionUtil.ThrowHeifException(Resources.RegionMaskAPINotSupported);
+            }
+
+            unsafe
+            {
+                fixed (byte* ptr = maskData)
+                { 
+                    var error = LibHeifNative.heif_region_item_add_region_inline_mask_data(this.regionItem,
+                                                                                           x,
+                                                                                           y,
+                                                                                           (uint)width,
+                                                                                           (uint)height,
+                                                                                           ptr,
+                                                                                           new UIntPtr((uint)maskData.Length),
+                                                                                           IntPtr.Zero);
+                    error.ThrowIfError();
+                }
+            } 
+        }
+
+        /// <summary>
+        /// Adds an inline mask to the region geometry.
+        /// </summary>  
+        /// <param name="image">The mask image.</param>
+        /// <param name="x">The x coordinate.</param>
+        /// <param name="y">The y coordinate.</param>
+        /// <param name="width">The width.</param>
+        /// <param name="height">The height.</param>
+        /// <exception cref="ArgumentNullException"><paramref name="image"/> is <see langword="null"/>.</exception>
+        /// <exception cref="ArgumentOutOfRangeException">
+        /// <paramref name="x"/> must be greater than or equal to 0.
+        /// -or-
+        /// <paramref name="y"/> must be greater than or equal to 0.
+        /// -or-
+        /// <paramref name="width"/> must be in the range of [0, 4294967295].
+        /// -or-
+        /// <paramref name="height"/> must be in the range of [0, 4294967295].
+        /// </exception>
+        /// <exception cref="HeifException">A LibHeif error occurred.</exception>
+        /// <exception cref="ObjectDisposedException">The object has been disposed.</exception>
+        /// <exception cref="OutOfMemoryException">
+        /// Insufficient memory to create the inline mask data array.
+        /// </exception>
+        public void AddInlineMask(HeifImage image, int x, int y, long width, long height)
+        {
+            Validate.IsNotNull(image, nameof(image));
+            Validate.IsGreaterThanOrEqualTo(x, 0, nameof(x));
+            Validate.IsGreaterThanOrEqualTo(y, 0, nameof(y));
+            Validate.IsInRange(width, nameof(width), uint.MinValue, uint.MaxValue);
+            Validate.IsInRange(height, nameof(height), uint.MinValue, uint.MaxValue);
+
+            VerifyNotDisposed();
+
+            if (!LibHeifVersion.Is1Point17OrLater)
+            {
+                ExceptionUtil.ThrowHeifException(Resources.RegionMaskAPINotSupported);
+            }
+
+            unsafe
+            {
+                byte[] maskData = RegionInlineMask.MaskDataFromImage(image);
+                fixed (byte* ptr = maskData)
+                {
+                    var error = LibHeifNative.heif_region_item_add_region_inline_mask_data(this.regionItem,
+                                                                                           x,
+                                                                                           y,
+                                                                                           (uint)width,
+                                                                                           (uint)height,
+                                                                                           ptr,
+                                                                                           new UIntPtr((uint)maskData.Length),
+                                                                                           IntPtr.Zero);
+                    error.ThrowIfError();
+                }
+            }
+        }
+
+        /// <summary>
+        /// Adds an inline mask to the region geometry.
+        /// </summary>
+        /// <param name="image">The mask data.</param>
+        /// <exception cref="ArgumentNullException"><paramref name="image"/> is <see langword="null"/>.</exception>
+        /// <exception cref="HeifException">A LibHeif error occurred.</exception>
+        /// <exception cref="ObjectDisposedException">The object has been disposed.</exception>
+        /// <exception cref="OutOfMemoryException">
+        /// Insufficient memory to create the inline mask data array.
+        /// </exception>
+        public void AddInlineMask(HeifImage image)
+        {
+            Validate.IsNotNull(image, nameof(image));
+
+            VerifyNotDisposed();
+
+            if (!LibHeifVersion.Is1Point17OrLater)
+            {
+                ExceptionUtil.ThrowHeifException(Resources.RegionMaskAPINotSupported);
+            }
+
+            unsafe
+            {
+                byte[] maskData = RegionInlineMask.MaskDataFromImage(image);
+                fixed (byte* ptr = maskData)
+                {
+                    var error = LibHeifNative.heif_region_item_add_region_inline_mask_data(this.regionItem,
+                                                                                           0,
+                                                                                           0,
+                                                                                           (uint)image.Width,
+                                                                                           (uint)image.Height,
+                                                                                           ptr,
+                                                                                           new UIntPtr((uint)maskData.Length),
+                                                                                           IntPtr.Zero);
+                    error.ThrowIfError();
+                }
+            }
+        }
+
+        /// <summary>
         /// Adds a polygon to the region geometry.
         /// </summary>
         /// <param name="points">The points used in the polygon.</param>
@@ -249,6 +400,125 @@ namespace LibHeifSharp
         }
 
         /// <summary>
+        /// Adds a referenced mask to the region geometry.
+        /// </summary> 
+        /// <param name="itemId">The mask image item id.</param>
+        /// <param name="x">The x coordinate.</param>
+        /// <param name="y">The y coordinate.</param>
+        /// <param name="width">The width.</param>
+        /// <param name="height">The height.</param>
+        /// <exception cref="ArgumentOutOfRangeException">
+        /// <paramref name="x"/> must be greater than or equal to 0.
+        /// -or-
+        /// <paramref name="y"/> must be greater than or equal to 0.
+        /// -or-
+        /// <paramref name="width"/> must be in the range of [0, 4294967295].
+        /// -or-
+        /// <paramref name="height"/> must be in the range of [0, 4294967295].
+        /// </exception>
+        /// <exception cref="HeifException">A LibHeif error occurred.</exception>
+        /// <exception cref="ObjectDisposedException">The object has been disposed.</exception>
+        public void AddReferencedMask(HeifItemId itemId, int x, int y, long width, long height)
+        {
+            Validate.IsGreaterThanOrEqualTo(x, 0, nameof(x));
+            Validate.IsGreaterThanOrEqualTo(y, 0, nameof(y));
+            Validate.IsInRange(width, nameof(width), uint.MinValue, uint.MaxValue);
+            Validate.IsInRange(height, nameof(height), uint.MinValue, uint.MaxValue);
+
+            VerifyNotDisposed();
+
+            if (!LibHeifVersion.Is1Point17OrLater)
+            {
+                ExceptionUtil.ThrowHeifException(Resources.RegionMaskAPINotSupported);
+            }
+
+            var error = LibHeifNative.heif_region_item_add_region_referenced_mask(this.regionItem,
+                                                                                  x,
+                                                                                  y,
+                                                                                  (uint)width,
+                                                                                  (uint)height,
+                                                                                  itemId,
+                                                                                  IntPtr.Zero);
+            error.ThrowIfError();
+        }
+
+        /// <summary>
+        /// Adds an referenced mask to the region geometry.
+        /// </summary>
+        /// <param name="image">The mask image.</param>
+        /// <param name="x">The x coordinate.</param>
+        /// <param name="y">The y coordinate.</param>
+        /// <param name="width">The width.</param>
+        /// <param name="height">The height.</param>
+        /// <exception cref="ArgumentNullException"><paramref name="image"/> is <see langword="null"/>.</exception>
+        /// <exception cref="ArgumentOutOfRangeException">
+        /// <paramref name="x"/> must be greater than or equal to 0.
+        /// -or-
+        /// <paramref name="y"/> must be greater than or equal to 0.
+        /// -or-
+        /// <paramref name="width"/> must be in the range of [0, 4294967295].
+        /// -or-
+        /// <paramref name="height"/> must be in the range of [0, 4294967295].
+        /// </exception>
+        /// <exception cref="HeifException">A LibHeif error occurred.</exception>
+        /// <exception cref="ObjectDisposedException">The object has been disposed.</exception>
+        public void AddReferencedMask(HeifImageHandle image, int x, int y, long width, long height)
+        {
+            Validate.IsNotNull(image, nameof(image));
+            Validate.IsGreaterThanOrEqualTo(x, 0, nameof(x));
+            Validate.IsGreaterThanOrEqualTo(y, 0, nameof(y));
+            Validate.IsInRange(width, nameof(width), uint.MinValue, uint.MaxValue);
+            Validate.IsInRange(height, nameof(height), uint.MinValue, uint.MaxValue);
+
+            VerifyNotDisposed();
+
+            if (!LibHeifVersion.Is1Point17OrLater)
+            {
+                ExceptionUtil.ThrowHeifException(Resources.RegionMaskAPINotSupported);
+            }
+
+            var itemId = image.GetItemId();
+
+            var error = LibHeifNative.heif_region_item_add_region_referenced_mask(this.regionItem,
+                                                                                  x,
+                                                                                  y,
+                                                                                  (uint)width,
+                                                                                  (uint)height,
+                                                                                  itemId,
+                                                                                  IntPtr.Zero);
+            error.ThrowIfError();
+        }
+
+        /// <summary>
+        /// Adds a referenced mask to the region geometry.
+        /// </summary>
+        /// <exception cref="ArgumentNullException"><paramref name="image"/> is <see langword="null"/>.</exception>
+        /// <exception cref="HeifException">A LibHeif error occurred.</exception>
+        /// <exception cref="ObjectDisposedException">The object has been disposed.</exception>
+        public void AddReferencedMask(HeifImageHandle image)
+        {
+            Validate.IsNotNull(image, nameof(image));
+
+            VerifyNotDisposed();
+
+            if (!LibHeifVersion.Is1Point17OrLater)
+            {
+                ExceptionUtil.ThrowHeifException(Resources.RegionMaskAPINotSupported);
+            }
+
+            var itemId = image.GetItemId();
+
+            var error = LibHeifNative.heif_region_item_add_region_referenced_mask(this.regionItem,
+                                                                                  0,
+                                                                                  0,
+                                                                                  (uint)image.Width,
+                                                                                  (uint)image.Height,
+                                                                                  itemId,
+                                                                                  IntPtr.Zero);
+            error.ThrowIfError();
+        }
+
+        /// <summary>
         /// Gets the region geometries.
         /// </summary>
         /// <returns>
@@ -299,7 +569,11 @@ namespace LibHeifSharp
                                 items[i] = new RegionPolyline(region);
                                 break;
                             case RegionGeometryType.ReferencedMask:
+                                items[i] = new RegionReferencedMask(region, this.context);
+                                break;
                             case RegionGeometryType.InlineMask:
+                                items[i] = new RegionInlineMask(region);
+                                break;
                             default:
                                 throw new HeifException($"Unsupported {nameof(RegionGeometryType)}: {geometryType}.");
                         }
@@ -330,13 +604,12 @@ namespace LibHeifSharp
         {
             VerifyNotDisposed();
 
-            var items = Array.Empty<TransformedRegionGeometry>();
+            var items = new List<TransformedRegionGeometry>();
 
             int count = LibHeifNative.heif_region_item_get_number_of_regions(this.regionItem);
 
             if (count > 0)
             {
-                items = new TransformedRegionGeometry[count];
                 var regions = GetRegionData(count);
 
                 try
@@ -350,22 +623,23 @@ namespace LibHeifSharp
                         switch (geometryType)
                         {
                             case RegionGeometryType.Point:
-                                items[i] = new TransformedRegionPoint(region, this.imageHandleId);
+                                items.Add(new TransformedRegionPoint(region, this.imageHandleId));
                                 break;
                             case RegionGeometryType.Rectangle:
-                                items[i] = new TransformedRegionRectangle(region, this.imageHandleId);
+                                items.Add(new TransformedRegionRectangle(region, this.imageHandleId));
                                 break;
                             case RegionGeometryType.Ellipse:
-                                items[i] = new TransformedRegionEllipse(region, this.imageHandleId);
+                                items.Add(new TransformedRegionEllipse(region, this.imageHandleId));
                                 break;
                             case RegionGeometryType.Polygon:
-                                items[i] = new TransformedRegionPolygon(region, this.imageHandleId);
+                                items.Add(new TransformedRegionPolygon(region, this.imageHandleId));
                                 break;
                             case RegionGeometryType.Polyline:
-                                items[i] = new TransformedRegionPolyline(region, this.imageHandleId);
+                                items.Add(new TransformedRegionPolyline(region, this.imageHandleId));
                                 break;
                             case RegionGeometryType.ReferencedMask:
                             case RegionGeometryType.InlineMask:
+                                break;
                             default:
                                 throw new HeifException($"Unsupported {nameof(RegionGeometryType)}: {geometryType}.");
                         }
@@ -400,7 +674,7 @@ namespace LibHeifSharp
                                                                                  count);
             if (filledCount != count)
             {
-                ExceptionUtil.ThrowHeifException(Properties.Resources.CannotGetAllRegionItems);
+                ExceptionUtil.ThrowHeifException(Resources.CannotGetAllRegionItems);
             }
 
             return regions;

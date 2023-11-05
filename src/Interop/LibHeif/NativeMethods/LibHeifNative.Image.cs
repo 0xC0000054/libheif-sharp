@@ -137,5 +137,8 @@ namespace LibHeifSharp.Interop
 
         [DllImport(DllName, CallingConvention = DllCallingConvention)]
         internal static extern void heif_image_set_pixel_aspect_ratio(SafeHeifImage image, uint aspectH, uint aspectV);
+
+        [DllImport(DllName, CallingConvention = DllCallingConvention)]
+        internal static extern int heif_image_get_bits_per_pixel_range(SafeHeifImage image, HeifChannel channel);
     }
 }
