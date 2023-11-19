@@ -144,17 +144,13 @@ namespace LibHeifSharp
                 // The error value is ignored because some encoders return an error
                 // when getting the value of a valid command.
                 _ = LibHeifNative.heif_encoder_get_parameter_string(encoder, name, bytes, ByteArrayLength);
-
-                int count = ByteArrayLength;
-
+                
                 // Look for the NUL terminator at the end of the string.
-                for (int i = 0; i < ByteArrayLength; i++)
+                int count = new ReadOnlySpan<byte>(bytes, ByteArrayLength).IndexOf((byte)0);
+
+                if (count == -1)
                 {
-                    if (bytes[i] == 0)
-                    {
-                        count = i;
-                        break;
-                    }
+                    count = ByteArrayLength;
                 }
 
                 defaultValue = System.Text.Encoding.ASCII.GetString(bytes, count);
