@@ -88,6 +88,38 @@ namespace LibHeifSharp
         }
 
         /// <summary>
+        /// Determines whether the specified array is empty.
+        /// </summary>
+        /// <param name="param">The parameter.</param>
+        /// <param name="paramName">The name of the parameter.</param>
+        /// <exception cref="ArgumentException">The parameter is a empty.</exception>
+        public static void IsNotEmpty<T>(ReadOnlyMemory<T> param, string paramName)
+        {
+            if (param.IsEmpty)
+            {
+                ExceptionUtil.ThrowArgumentException(string.Format(CultureInfo.CurrentCulture,
+                                                                   Resources.ParameterIsEmptyFormat,
+                                                                   paramName));
+            }
+        }
+
+        /// <summary>
+        /// Determines whether the specified array is empty.
+        /// </summary>
+        /// <param name="param">The parameter.</param>
+        /// <param name="paramName">The name of the parameter.</param>
+        /// <exception cref="ArgumentException">The parameter is empty.</exception>
+        public static void IsNotEmpty<T>(ReadOnlySpan<T> param, string paramName)
+        {
+            if (param.IsEmpty)
+            {
+                ExceptionUtil.ThrowArgumentException(string.Format(CultureInfo.CurrentCulture,
+                                                                   Resources.ParameterIsEmptyFormat,
+                                                                   paramName));
+            }
+        }
+
+        /// <summary>
         /// Determines whether the specified parameter is empty or contains only whitespace characters, the parameter can be null.
         /// </summary>
         /// <param name="param">The parameter.</param>
@@ -134,7 +166,7 @@ namespace LibHeifSharp
             else if (param.Length == 0)
             {
                 ExceptionUtil.ThrowArgumentException(string.Format(CultureInfo.CurrentCulture,
-                                                                   Resources.ParameterIsEmptyArrayFormat,
+                                                                   Resources.ParameterIsEmptyFormat,
                                                                    paramName));
             }
         }

@@ -11,6 +11,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 * Support for reading and writing the inline and reference mask region items.
   * Requires LibHeif 1.17.0 or later.
+* `ReadOnlyMemory<byte>` and `ReadOnlySpan<byte>` overloads for various APIs.
+  * This adds a `System.Memory` dependency to the .NET Standard 2.0 target.
+* An `AsSpan` method to the `HeifIccColorProfile` class.
+* A .NET Standard 2.1 target.
 
 ## v3.1.0 - 2023-05-16
 

@@ -88,6 +88,16 @@ namespace LibHeifSharp
         }
 
         /// <summary>
+        /// Creates a <see cref="HeifReader"/> instance from the specified <see cref="ReadOnlyMemory{T}"/>.
+        /// </summary>
+        /// <param name="bytes">The bytes.</param>
+        /// <returns>The created <see cref="HeifReader"/> instance.</returns>
+        public static HeifReader CreateFromMemory(ReadOnlyMemory<byte> bytes)
+        {
+            return new HeifByteArrayReader(bytes);
+        }
+
+        /// <summary>
         /// Creates a <see cref="HeifReader"/> instance from the specified stream, and optionally takes ownership of the stream.
         /// </summary>
         /// <param name="stream">The stream.</param>

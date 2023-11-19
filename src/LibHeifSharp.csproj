@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>netstandard2.0</TargetFrameworks>
+    <TargetFrameworks>netstandard2.0;netstandard2.1</TargetFrameworks>
     <RootNamespace>LibHeifSharp</RootNamespace>
     <AssemblyName>LibHeifSharp</AssemblyName>
     <AssemblyVersion>3.1.0.0</AssemblyVersion>
@@ -91,6 +91,7 @@ The minimum supported libheif version is 1.9.0.</Description>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All" />
+    <PackageReference Condition="'$(TargetFramework)' == 'netstandard2.0'" Include="System.Memory" Version="4.5.5" />
   </ItemGroup>
 
   <ItemGroup>

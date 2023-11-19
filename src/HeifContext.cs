@@ -119,7 +119,7 @@ namespace LibHeifSharp
         /// </summary>
         /// <param name="bytes">A byte array that contains the HEIF image.</param>
         /// <exception cref="ArgumentNullException"><paramref name="bytes"/> is null.</exception>
-        /// <exception cref="ArgumentException"><paramref name="bytes"/> is an empty array.</exception>
+        /// <exception cref="ArgumentException"><paramref name="bytes"/> is empty.</exception>
         /// <exception cref="HeifException">
         /// Unable to create the native HeifContext.
         ///
@@ -134,6 +134,43 @@ namespace LibHeifSharp
         public HeifContext(byte[] bytes)
         {
             Validate.IsNotNullOrEmptyArray(bytes, nameof(bytes));
+            LibHeifVersion.ThrowIfNotSupported();
+
+            this.initializationContext = new LibHeifInitializationContext();
+            try
+            {
+                this.context = CreateNativeContext();
+                this.reader = HeifReaderFactory.CreateFromMemory(bytes);
+                InitializeContextFromReader();
+            }
+            catch
+            {
+                this.initializationContext.Dispose();
+                this.context?.Dispose();
+                this.reader?.Dispose();
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="HeifContext"/> class, with the specified memory to read from.
+        /// </summary>
+        /// <param name="bytes">A sequence of bytes that contains the HEIF image.</param>
+        /// <exception cref="ArgumentException"><paramref name="bytes"/> is empty.</exception>
+        /// <exception cref="HeifException">
+        /// Unable to create the native HeifContext.
+        ///
+        /// -or-
+        ///
+        /// The LibHeif version is not supported.
+        ///
+        /// -or-
+        ///
+        /// A LibHeif error occurred.
+        /// </exception>
+        public HeifContext(ReadOnlyMemory<byte> bytes)
+        {
+            Validate.IsNotEmpty(bytes, nameof(bytes));
             LibHeifVersion.ThrowIfNotSupported();
 
             this.initializationContext = new LibHeifInitializationContext();
@@ -224,13 +261,31 @@ namespace LibHeifSharp
         ///
         /// <paramref name="exif"/> is null.
         /// </exception>
-        /// <exception cref="ArgumentException"><paramref name="exif"/> is an empty array.</exception>
+        /// <exception cref="ArgumentException"><paramref name="exif"/> is empty.</exception>
         /// <exception cref="HeifException">A LibHeif error occurred.</exception>
         /// <exception cref="ObjectDisposedException">The object has been disposed.</exception>
         public void AddExifMetadata(HeifImageHandle imageHandle, byte[] exif)
         {
+            Validate.IsNotNull(exif, nameof(exif));
+
+            AddExifMetadata(imageHandle, new ReadOnlySpan<byte>(exif));
+        }
+
+        /// <summary>
+        /// Adds EXIF meta-data to the image.
+        /// </summary>
+        /// <param name="imageHandle">The image handle.</param>
+        /// <param name="exif">The EXIF data.</param>
+        /// <exception cref="ArgumentNullException">
+        /// <paramref name="imageHandle"/> is null.
+        /// </exception>
+        /// <exception cref="ArgumentException"><paramref name="exif"/> is empty.</exception>
+        /// <exception cref="HeifException">A LibHeif error occurred.</exception>
+        /// <exception cref="ObjectDisposedException">The object has been disposed.</exception>
+        public void AddExifMetadata(HeifImageHandle imageHandle, ReadOnlySpan<byte> exif)
+        {
             Validate.IsNotNull(imageHandle, nameof(imageHandle));
-            Validate.IsNotNullOrEmptyArray(exif, nameof(exif));
+            Validate.IsNotEmpty(exif, nameof(exif));
             VerifyNotDisposed();
 
             unsafe
@@ -268,11 +323,38 @@ namespace LibHeifSharp
         ///
         /// -or-
         ///
-        /// <paramref name="data"/> is an empty array.
+        /// <paramref name="data"/> is empty.
         /// </exception>
         /// <exception cref="HeifException">A LibHeif error occurred.</exception>
         /// <exception cref="ObjectDisposedException">The object has been disposed.</exception>
         public void AddGenericMetadata(HeifImageHandle imageHandle, string type, byte[] data)
+        {
+            AddGenericMetadata(imageHandle, type, null, data);
+        }
+
+        /// <summary>
+        /// Adds generic meta-data to the image.
+        /// </summary>
+        /// <param name="imageHandle">The image handle.</param>
+        /// <param name="type">The meta-data type.</param>
+        /// <param name="data">The generic meta-data.</param>
+        /// <exception cref="ArgumentNullException">
+        /// <paramref name="imageHandle"/> is null.
+        ///
+        /// -or-
+        ///
+        /// <paramref name="type"/> is null.
+        /// </exception>
+        /// <exception cref="ArgumentException">
+        /// <paramref name="type"/> is empty or contains only whitespace characters.
+        ///
+        /// -or-
+        ///
+        /// <paramref name="data"/> is empty.
+        /// </exception>
+        /// <exception cref="HeifException">A LibHeif error occurred.</exception>
+        /// <exception cref="ObjectDisposedException">The object has been disposed.</exception>
+        public void AddGenericMetadata(HeifImageHandle imageHandle, string type, ReadOnlySpan<byte> data)
         {
             AddGenericMetadata(imageHandle, type, null, data);
         }
@@ -303,16 +385,50 @@ namespace LibHeifSharp
         ///
         /// -or-
         ///
-        /// <paramref name="data"/> is an empty array.
+        /// <paramref name="data"/> is empty.
         /// </exception>
         /// <exception cref="HeifException">A LibHeif error occurred.</exception>
         /// <exception cref="ObjectDisposedException">The object has been disposed.</exception>
         public void AddGenericMetadata(HeifImageHandle imageHandle, string type, string contentType, byte[] data)
         {
+            Validate.IsNotNull(data, nameof(data));
+            
+            AddGenericMetadata(imageHandle, type, contentType, new ReadOnlySpan<byte>(data));
+        }
+
+        /// <summary>
+        /// Adds generic meta-data to the image.
+        /// </summary>
+        /// <param name="imageHandle">The image handle.</param>
+        /// <param name="type">The meta-data type.</param>
+        /// <param name="contentType">The meta-data content type.</param>
+        /// <param name="data">The generic meta-data.</param>
+        /// <exception cref="ArgumentNullException">
+        /// <paramref name="imageHandle"/> is null.
+        ///
+        /// -or-
+        ///
+        /// <paramref name="type"/> is null.
+        /// </exception>
+        /// <exception cref="ArgumentException">
+        /// <paramref name="type"/> is empty or contains only whitespace characters.
+        ///
+        /// -or-
+        ///
+        /// <paramref name="contentType"/> is empty or contains only whitespace characters.
+        ///
+        /// -or-
+        ///
+        /// <paramref name="data"/> is empty.
+        /// </exception>
+        /// <exception cref="HeifException">A LibHeif error occurred.</exception>
+        /// <exception cref="ObjectDisposedException">The object has been disposed.</exception>
+        public void AddGenericMetadata(HeifImageHandle imageHandle, string type, string contentType, ReadOnlySpan<byte> data)
+        {
             Validate.IsNotNull(imageHandle, nameof(imageHandle));
             Validate.IsNotNullOrWhiteSpace(type, nameof(type));
             Validate.IsNotEmptyOrWhiteSpace(contentType, nameof(contentType));
-            Validate.IsNotNullOrEmptyArray(data, nameof(data));
+            Validate.IsNotEmpty(data, nameof(data));
             VerifyNotDisposed();
 
             unsafe
@@ -428,13 +544,29 @@ namespace LibHeifSharp
         ///
         /// <paramref name="xmp"/> is null.
         /// </exception>
-        /// <exception cref="ArgumentException"><paramref name="xmp"/> is an empty array.</exception>
+        /// <exception cref="ArgumentException"><paramref name="xmp"/> is empty.</exception>
         /// <exception cref="HeifException">A LibHeif error occurred.</exception>
         /// <exception cref="ObjectDisposedException">The object has been disposed.</exception>
         public void AddXmpMetadata(HeifImageHandle imageHandle, byte[] xmp)
         {
+            Validate.IsNotNull(xmp, nameof(xmp));
+
+            AddXmpMetadata(imageHandle, new ReadOnlySpan<byte>(xmp));
+        }
+
+        /// <summary>
+        /// Adds XMP meta-data to the image.
+        /// </summary>
+        /// <param name="imageHandle">The image handle.</param>
+        /// <param name="xmp">The XMP data.</param>
+        /// <exception cref="ArgumentNullException"><paramref name="imageHandle"/> is null.</exception>
+        /// <exception cref="ArgumentException"><paramref name="xmp"/> is empty.</exception>
+        /// <exception cref="HeifException">A LibHeif error occurred.</exception>
+        /// <exception cref="ObjectDisposedException">The object has been disposed.</exception>
+        public void AddXmpMetadata(HeifImageHandle imageHandle, ReadOnlySpan<byte> xmp)
+        {
             Validate.IsNotNull(imageHandle, nameof(imageHandle));
-            Validate.IsNotNullOrEmptyArray(xmp, nameof(xmp));
+            Validate.IsNotEmpty(xmp, nameof(xmp));
             VerifyNotDisposed();
 
             unsafe
@@ -1125,7 +1257,7 @@ namespace LibHeifSharp
         /// </summary>
         /// <param name="bytes">The byte array.</param>
         /// <exception cref="ArgumentNullException"><paramref name="bytes"/> is null.</exception>
-        /// <exception cref="ArgumentException"><paramref name="bytes"/> is an empty array.</exception>
+        /// <exception cref="ArgumentException"><paramref name="bytes"/> is empty.</exception>
         /// <exception cref="HeifException">A LibHeif error occurred.</exception>
         /// <exception cref="InvalidOperationException">This HeifContext already has an associated reader.</exception>
         /// <exception cref="ObjectDisposedException">The object has been disposed.</exception>

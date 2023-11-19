@@ -225,8 +225,8 @@
   <data name="NoTopLevelImages" xml:space="preserve">
     <value>The file does not have any top-level images.</value>
   </data>
-  <data name="ParameterIsEmptyArrayFormat" xml:space="preserve">
-    <value>'{0}' is an empty array.</value>
+  <data name="ParameterIsEmptyFormat" xml:space="preserve">
+    <value>'{0}' is empty.</value>
     <comment>{0} is the parameter name.</comment>
   </data>
   <data name="ParameterMustBeGreaterThanOrEqualFormat" xml:space="preserve">

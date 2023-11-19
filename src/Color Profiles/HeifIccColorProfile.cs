@@ -34,16 +34,28 @@ namespace LibHeifSharp
     /// <seealso cref="HeifColorProfile" />
     public sealed class HeifIccColorProfile : HeifColorProfile
     {
-        private readonly byte[] iccProfileBytes;
+        private readonly ReadOnlyMemory<byte> iccProfileBytes;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="HeifIccColorProfile"/> class.
         /// </summary>
         /// <param name="iccProfile">The ICC profile.</param>
         /// <exception cref="ArgumentNullException"><paramref name="iccProfile"/> is null.</exception>
-        /// <exception cref="ArgumentException"><paramref name="iccProfile"/> is an empty array.</exception>
+        /// <exception cref="ArgumentException"><paramref name="iccProfile"/> is empty.</exception>
         public HeifIccColorProfile(byte[] iccProfile) : this(iccProfile, copyToNewArray: true)
         {
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="HeifIccColorProfile"/> class.
+        /// </summary>
+        /// <param name="iccProfile">The ICC profile.</param>
+        /// <exception cref="ArgumentException"><paramref name="iccProfile"/> is empty.</exception>
+        public HeifIccColorProfile(ReadOnlyMemory<byte> iccProfile) : base(ColorProfileType.Icc)
+        {
+            Validate.IsNotEmpty(iccProfile, nameof(iccProfile));
+
+            this.iccProfileBytes = iccProfile;
         }
 
         /// <summary>
@@ -54,15 +66,17 @@ namespace LibHeifSharp
         /// <see langword="true"/> if the parameter should be copied to a new array; otherwise, <see langword="false"/>
         /// </param>
         /// <exception cref="ArgumentNullException"><paramref name="iccProfile"/> is null.</exception>
-        /// <exception cref="ArgumentException"><paramref name="iccProfile"/> is an empty array.</exception>
+        /// <exception cref="ArgumentException"><paramref name="iccProfile"/> is empty.</exception>
         private HeifIccColorProfile(byte[] iccProfile, bool copyToNewArray) : base(ColorProfileType.Icc)
         {
             Validate.IsNotNullOrEmptyArray(iccProfile, nameof(iccProfile));
 
             if (copyToNewArray)
             {
-                this.iccProfileBytes = new byte[iccProfile.Length];
-                iccProfile.CopyTo(this.iccProfileBytes, 0);
+                byte[] bytes = new byte[iccProfile.Length];
+                iccProfile.CopyTo(bytes, 0);
+
+                this.iccProfileBytes = bytes;
             }
             else
             {
@@ -71,16 +85,16 @@ namespace LibHeifSharp
         }
 
         /// <summary>
-        /// Gets the ICC profile bytes.
+        /// Creates a new read-only span over the ICC profile data.
         /// </summary>
-        /// <returns>A clone of the ICC color profile.</returns>
-        public byte[] GetIccProfileBytes()
-        {
-            byte[] clone = new byte[this.iccProfileBytes.Length];
-            this.iccProfileBytes.CopyTo(clone, 0);
+        /// <returns>The read-only span representation of the ICC profile data.</returns>
+        public ReadOnlySpan<byte> AsSpan() => this.iccProfileBytes.Span;
 
-            return clone;
-        }
+        /// <summary>
+        /// Gets a copy of the ICC profile data.
+        /// </summary>
+        /// <returns>A copy of the ICC profile data.</returns>
+        public byte[] GetIccProfileBytes() => this.iccProfileBytes.ToArray();
 
         /// <summary>
         /// Create a <see cref="HeifIccColorProfile"/> from the specified image handle.
@@ -167,7 +181,7 @@ namespace LibHeifSharp
         /// <exception cref="HeifException">A LibHeif error occurred.</exception>
         internal override unsafe void SetImageColorProfile(SafeHeifImage image)
         {
-            fixed (byte* ptr = this.iccProfileBytes)
+            fixed (byte* ptr = this.iccProfileBytes.Span)
             {
                 var profileSize = new UIntPtr((uint)this.iccProfileBytes.Length);
                 var error = LibHeifNative.heif_image_set_raw_color_profile(image, "prof", ptr, profileSize);

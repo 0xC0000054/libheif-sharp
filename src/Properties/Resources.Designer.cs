@@ -376,11 +376,11 @@ namespace LibHeifSharp.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &apos;{0}&apos; is an empty array..
+        ///   Looks up a localized string similar to &apos;{0}&apos; is empty..
         /// </summary>
-        internal static string ParameterIsEmptyArrayFormat {
+        internal static string ParameterIsEmptyFormat {
             get {
-                return ResourceManager.GetString("ParameterIsEmptyArrayFormat", resourceCulture);
+                return ResourceManager.GetString("ParameterIsEmptyFormat", resourceCulture);
             }
         }
         

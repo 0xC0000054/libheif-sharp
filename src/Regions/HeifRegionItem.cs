@@ -164,7 +164,7 @@ namespace LibHeifSharp
         /// <param name="width">The width.</param>
         /// <param name="height">The height.</param>
         /// <exception cref="ArgumentNullException"><paramref name="maskData"/> is <see langword="null"/>.</exception>
-        /// <exception cref="ArgumentException"><paramref name="maskData"/> is an empty array.</exception>
+        /// <exception cref="ArgumentException"><paramref name="maskData"/> is empty.</exception>
         /// <exception cref="ArgumentOutOfRangeException">
         /// <paramref name="x"/> must be greater than or equal to 0.
         /// -or-
@@ -178,7 +178,34 @@ namespace LibHeifSharp
         /// <exception cref="ObjectDisposedException">The object has been disposed.</exception>
         public void AddInlineMask(byte[] maskData, int x, int y, long width, long height)
         {
-            Validate.IsNotNullOrEmptyArray(maskData, nameof(maskData));
+            Validate.IsNotNull(maskData, nameof(maskData));
+            
+            AddInlineMask(new ReadOnlySpan<byte>(maskData), x, y, width, height);
+        }
+
+        /// <summary>
+        /// Adds an inline mask to the region geometry.
+        /// </summary>
+        /// <param name="maskData">The mask data.</param>
+        /// <param name="x">The x coordinate.</param>
+        /// <param name="y">The y coordinate.</param>
+        /// <param name="width">The width.</param>
+        /// <param name="height">The height.</param>
+        /// <exception cref="ArgumentException"><paramref name="maskData"/> is empty.</exception>
+        /// <exception cref="ArgumentOutOfRangeException">
+        /// <paramref name="x"/> must be greater than or equal to 0.
+        /// -or-
+        /// <paramref name="y"/> must be greater than or equal to 0.
+        /// -or-
+        /// <paramref name="width"/> must be in the range of [0, 4294967295].
+        /// -or-
+        /// <paramref name="height"/> must be in the range of [0, 4294967295].
+        /// </exception>
+        /// <exception cref="HeifException">A LibHeif error occurred.</exception>
+        /// <exception cref="ObjectDisposedException">The object has been disposed.</exception>
+        public void AddInlineMask(ReadOnlySpan<byte> maskData, int x, int y, long width, long height)
+        {
+            Validate.IsNotEmpty(maskData, nameof(maskData));
             Validate.IsGreaterThanOrEqualTo(x, 0, nameof(x));
             Validate.IsGreaterThanOrEqualTo(y, 0, nameof(y));
             Validate.IsInRange(width, nameof(width), uint.MinValue, uint.MaxValue);
@@ -194,7 +221,7 @@ namespace LibHeifSharp
             unsafe
             {
                 fixed (byte* ptr = maskData)
-                { 
+                {
                     var error = LibHeifNative.heif_region_item_add_region_inline_mask_data(this.regionItem,
                                                                                            x,
                                                                                            y,
@@ -205,7 +232,7 @@ namespace LibHeifSharp
                                                                                            IntPtr.Zero);
                     error.ThrowIfError();
                 }
-            } 
+            }
         }
 
         /// <summary>
@@ -492,6 +519,7 @@ namespace LibHeifSharp
         /// <summary>
         /// Adds a referenced mask to the region geometry.
         /// </summary>
+        /// <param name="image">The mask image.</param>
         /// <exception cref="ArgumentNullException"><paramref name="image"/> is <see langword="null"/>.</exception>
         /// <exception cref="HeifException">A LibHeif error occurred.</exception>
         /// <exception cref="ObjectDisposedException">The object has been disposed.</exception>

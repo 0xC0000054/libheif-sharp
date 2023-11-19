@@ -29,8 +29,7 @@ namespace LibHeifSharp
     {
         private long position;
 
-        private readonly byte[] buffer;
-        private readonly long origin;
+        private readonly ReadOnlyMemory<byte> buffer;
         private readonly long length;
 
         /// <summary>
@@ -43,7 +42,7 @@ namespace LibHeifSharp
             Validate.IsNotNull(buffer, nameof(buffer));
 
             this.buffer = buffer;
-            this.origin = this.position = 0;
+            this.position = 0;
             this.length = buffer.Length;
         }
 
@@ -52,15 +51,24 @@ namespace LibHeifSharp
         /// </summary>
         /// <param name="buffer">The buffer.</param>
         public HeifByteArrayReader(ArraySegment<byte> buffer)
+            : this(new ReadOnlyMemory<byte>(buffer.Array, buffer.Offset, buffer.Count))
         {
-            this.buffer = buffer.Array;
-            this.origin = this.position = buffer.Offset;
-            this.length = buffer.Count;
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="HeifByteArrayReader"/> class.
+        /// </summary>
+        /// <param name="buffer">The buffer.</param>
+        public HeifByteArrayReader(ReadOnlyMemory<byte> buffer)
+        {
+            this.buffer = buffer;
+            this.position = 0;
+            this.length = this.buffer.Length;
         }
 
         protected override long GetPositionCore()
         {
-            return this.position - this.origin;
+            return this.position;
         }
 
         protected override bool ReadCore(IntPtr data, long count)
@@ -72,7 +80,7 @@ namespace LibHeifSharp
 
             unsafe
             {
-                fixed (byte* source = this.buffer)
+                fixed (byte* source = this.buffer.Span)
                 {
                     Buffer.MemoryCopy(source + this.position, data.ToPointer(), count, count);
                 }
@@ -84,7 +92,7 @@ namespace LibHeifSharp
 
         protected override bool SeekCore(long position)
         {
-            if (position < this.origin || position > this.length)
+            if ((ulong)position > (ulong)this.length)
             {
                 return false;
             }
