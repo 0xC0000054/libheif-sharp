@@ -4,9 +4,9 @@
     <TargetFrameworks>netstandard2.0;netstandard2.1</TargetFrameworks>
     <RootNamespace>LibHeifSharp</RootNamespace>
     <AssemblyName>LibHeifSharp</AssemblyName>
-    <AssemblyVersion>3.1.0.0</AssemblyVersion>
-    <FileVersion>3.1.0.0</FileVersion>
-    <Version>3.1.0</Version>
+    <AssemblyVersion>3.2.0.0</AssemblyVersion>
+    <FileVersion>3.2.0.0</FileVersion>
+    <Version>3.2.0</Version>
     <PackageLicenseExpression>LGPL-3.0-or-later</PackageLicenseExpression>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
@@ -15,26 +15,16 @@
     <Copyright>Copyright © 2023 Nicholas Hayes and contributors</Copyright>
     <PackageTags>libheif heif heic avif</PackageTags>
     <PackageReadmeFile>README.md</PackageReadmeFile>
-    <PackageReleaseNotes>v3.1.0 - 2023-05-15
+    <PackageReleaseNotes>v3.2.0 - 2023-11-19
 ## Added
 
-* A `ColorConversionOptions` property to the `HeifDecodingOptions` class.
-  - Requires LibHeif 1.16.0 or later, it will be ignored on older versions.
-* A `ColorConversionOptions` property to the `HeifEncodingOptions` class.
-  - Requires LibHeif 1.16.0 or later, it will be ignored on older versions.
-* Support for the LibHeif region APIs.
-  - A `GetRegionItem` method to the `HeifContext` class.
-  - `AddRegion` and `GetRegionItemIds` methods to the `HeifImageHandle` class.
-  - These methods require LibHeif 1.16.0 or later.
-* Support for the LibHeif item property APIs.
-  - `AddUserDescriptionProperty`, `GetTransformationProperties` and `GetUserDescriptionProperties` methods to the `HeifContext` class.
-  - These methods require LibHeif 1.16.0 or later.
-
-## Fixed
-
-* The `PixelAspectRatio` property will ignore a default initialized structure.
-  - ISO/IEC 14496-12:2015 requires the horizontal and vertical spacing to be positive numbers.</PackageReleaseNotes>
-    <Description>Provides .NET bindings for libheif.
+* Support for reading and writing the inline and reference mask region items.
+  - Requires LibHeif 1.17.0 or later.
+* `ReadOnlyMemory&lt;byte&gt;` and `ReadOnlySpan&lt;byte&gt;` overloads for various APIs.
+  - This adds a `System.Memory` dependency to the .NET Standard 2.0 target.
+* An `AsSpan` method to the `HeifIccColorProfile` class.
+* A .NET Standard 2.1 target.</PackageReleaseNotes>
+<Description>Provides .NET bindings for libheif.
 
 Features:
 
@@ -51,6 +41,8 @@ Features:
 Requirements:
 
 The libheif shared library must be named `libheif` in order for it to be found by P/Invoke.
+On some platforms a DllImportResolver can be used to customize the loading of the `libheif` native library.    
+See `LibHeifSharpDllImportResolver.cs` in the libheif-sharp-samples repository for an example of this.
 
 The minimum supported libheif version is 1.9.0.</Description>
     <PackageProjectUrl>https://0xc0000054.github.io/libheif-sharp/</PackageProjectUrl>
